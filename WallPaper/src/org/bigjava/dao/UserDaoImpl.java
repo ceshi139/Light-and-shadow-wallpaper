@@ -20,6 +20,7 @@ private SessionFactory sessionFactory;
 	//ÓÃ»§µÇÂ½
 		public User login(String username, String password) {
 			System.out.println("username:"+username+",password:"+password);
+			System.out.println("username:"+username+",password:"+password);
 			User user = null;
 			Query qy = getSession().createQuery("from Student where username=:username and password= :password");
 			qy.setParameter("username", username);
