@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
-public class AdminDaoImpl implements AdminDao{
+public class AdminDaoImpl implements AdminDao {
 
 	 private SessionFactory sessionFactory;
 		
@@ -13,28 +13,34 @@ public class AdminDaoImpl implements AdminDao{
 		public void setSessionFactory(SessionFactory sessionFactory) {
 			this.sessionFactory = sessionFactory;
 		}
+	
+    //µÇÂ¼
+	@Override
+	public boolean login(String adminName, String password) {
 		
-		  //µÇÂ¼
-			public boolean login(String adminName , String password) {
-				
-				System.out.println("login");
-				
-				Query query = sessionFactory.getCurrentSession().createQuery("from User where adminName=? and password=?");
-				
-				query.setString(0,adminName);
-				
-				query.setString(1,password);
-				
-				List u=query.list();
-				
-		    	Boolean flag = false;
-		    	
-		    	if(u.size()>0){
-		    		
-		    		flag = true;
-		    	}
-		    	
-		    	    return flag;
-		    
-			}
+	      Query query = sessionFactory.getCurrentSession().createQuery("from admin where adminName=? and password=?");
+	      
+	      query.setString(0, adminName);
+	      
+	      query.setString(1, password);
+	      
+	      List list = query.list();
+	      
+	      Boolean flag = false;
+	    	
+	    	if(list.size()>0){
+	    		
+	    		flag = true;
+	    	}
+	    	
+	    	    return flag;
+	      
+	}
+
+	/*@Override
+	public List chaAllUser() {
+		
+		return null;
+	}*/
+
 }
