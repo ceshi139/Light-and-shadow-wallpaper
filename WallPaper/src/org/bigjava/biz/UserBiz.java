@@ -1,8 +1,8 @@
-package org.bigjava.dao;
+package org.bigjava.biz;
 
 import org.bigjava.entity.User;
 
-public interface UserDao {
+public interface UserBiz {
 	//ÓÃ»§µÇÂ¼
 	public User login(String username, String password);
 	
