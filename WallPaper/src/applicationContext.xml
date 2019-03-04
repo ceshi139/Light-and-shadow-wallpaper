@@ -34,7 +34,7 @@
 		</property>	
 		<property name="mappingResources">
 			<list>
-				<value></value>
+				<value>org/bigjava/entity/User.hbm.xml</value>
 				</list>
 		</property>
 	</bean>
@@ -55,14 +55,14 @@
 	       <tx:method name="*"/>
 	   </tx:attributes>
 	</tx:advice>
-	<bean id="daoImpl" class="org.bigjava.dao.UserDaoImpl">
+	<bean id="userdao" class="org.bigjava.dao.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="bizImpl" class="org.bigjava.biz.UserBizImpl">
-		<property name="dao" ref="daoImpl"></property>
+	<bean id="userbiz" class="org.bigjava.biz.UserBizImpl">
+		<property name="userdao" ref="userdao"></property>
 	</bean>
-	<bean id="studentAction" class="org.bigjava.action.UserAction">
-		<property name="bizImpl" ref="bizImpl"></property>
+	<bean id="userAction" class="org.bigjava.action.UserAction">
+		<property name="userbiz" ref="userbiz"></property>
 	</bean>
 	
 	</beans>

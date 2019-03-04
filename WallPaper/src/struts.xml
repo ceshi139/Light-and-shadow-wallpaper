@@ -5,7 +5,7 @@
 	<constant name="struts.devMode" value="true"></constant>
 	<package name="default" extends="struts-default,json-default" namespace="/">
 		<action name="*_*" class="org.bigjava.action.{1}Action" method="{2}">
-			<result name="add">/login.jsp</result>
+			<result name="login">/index.jsp</result>
 		</action>
 	</package>
 </struts>   
