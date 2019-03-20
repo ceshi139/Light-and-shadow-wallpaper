@@ -3,8 +3,10 @@ package org.bigjava.entity;
 public class User {
 	private Integer id;		//用户
 	private String username; 	//用户姓名
-	private String password;	//用户
+	private String email;
+	private String password;	//用户密码
 	private Integer age;	//用户年龄
+	private char sex;
 	private Integer phone;	//用户联系方式
 	private int vip;	//是否为vip，“1”属于VIP，“0”不属于
 	private int state;	//是否封禁，“0”为正常， “1”为封禁  
@@ -14,13 +16,15 @@ public class User {
 	public User(){
 		
 	}
-	public User(Integer id, String username, String password, Integer age, Integer phone, int vip, int state,
+	public User(Integer id, String username, String email, String password, Integer age, char sex,Integer phone, int vip, int state,
 			Integer follow, Integer fans) {
 		super();
 		this.id = id;
 		this.username = username;
+		this.email = email;
 		this.password = password;
 		this.age = age;
+		this.sex = sex;
 		this.phone = phone;
 		this.vip = vip;
 		this.state = state;
@@ -39,6 +43,13 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getPassword() {
 		return password;
 	}
@@ -50,6 +61,13 @@ public class User {
 	}
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+	
+	public char getSex() {
+		return sex;
+	}
+	public void setSex(char sex) {
+		this.sex = sex;
 	}
 	public Integer getPhone() {
 		return phone;
@@ -81,10 +99,13 @@ public class User {
 	public void setFans(Integer fans) {
 		this.fans = fans;
 	}
-	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", age=" + age + ", phone="
-				+ phone + ", vip=" + vip + ", state=" + state + ", follow=" + follow + ", fans=" + fans + "]";
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", age="
+				+ age + ", sex=" + sex + ", phone=" + phone + ", vip=" + vip + ", state=" + state + ", follow=" + follow
+				+ ", fans=" + fans + "]";
 	}
+	
+	
+	
 }

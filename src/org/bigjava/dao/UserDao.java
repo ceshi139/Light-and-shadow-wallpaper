@@ -16,6 +16,6 @@ public interface UserDao {
 	public void update(User user);
 	
 	//校验用户是否存在
-	public boolean checkusername(String username);
+	public boolean checkemail(String email);
 	
 }

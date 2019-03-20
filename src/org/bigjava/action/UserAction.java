@@ -3,11 +3,11 @@ package org.bigjava.action;
 import java.io.*;
 import java.util.List;
 
-import org.apache.struts2.ServletActionContext;
-
+import org.apache.commons.mail.EmailException;
 import org.bigjava.biz.UserBiz;
 import org.bigjava.entity.Picture;
 import org.bigjava.entity.User;
+import org.bigjava.util.Mail;
 import org.bigjava.util.Page;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -16,6 +16,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 
 public class UserAction extends ActionSupport{
+	Mail ml = new Mail();
 	private UserBiz userbiz;
 	private User user;
 	private String result;
@@ -23,7 +24,52 @@ public class UserAction extends ActionSupport{
 	private int pageNow=1;		//当前页
 	private int pageSize = 5;	//每页显示多少条
 	private int type_id;	//类型id
+	private String username;
+	private String password;
+	private String email;
+	private String code;
 	
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public int getType_id() {
+		return type_id;
+	}
+
+	public void setType_id(int type_id) {
+		this.type_id = type_id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public List<Picture> getPic() {
 		return pic;
 	}
@@ -70,7 +116,6 @@ public class UserAction extends ActionSupport{
 	
 	//判断用户名或密码是否为空
 	public boolean isEmty(String isemty){
-		
 		if(isemty.trim().equals("") || isemty == null){
 			return true;
 		}
@@ -79,8 +124,10 @@ public class UserAction extends ActionSupport{
 	
 	//用户登陆
 	public String login() {
-		User ur = userbiz.login(user.getUsername(),user.getPassword());
-		if(isEmty(user.getUsername())|| isEmty(user.getPassword())){
+		System.out.println("12"+user.getEmail());
+		User ur = userbiz.login(user.getEmail(),user.getPassword());
+		ActionContext.getContext().getSession().put("user",ur);
+		if(isEmty(user.getEmail())|| isEmty(user.getPassword())){
 			result = "账号或密码不能为空！";
 			ActionContext.getContext().getSession().put("rt",result);
 			return "login";
@@ -99,21 +146,40 @@ public class UserAction extends ActionSupport{
 		}
 	}
 	
+	//获取注册码
+	public String code() throws EmailException{
+		String code_a = ml.getcode();
+		ActionContext.getContext().getSession().put("code",code_a);
+		ml.sendEmail(email,code_a);
+		result = "已发送！";
+		return "add";
+	}
 	//用户注册
 	public String add() {
-		System.out.println("user"+user);
-		
-		if(isEmty(user.getUsername())|| isEmty(user.getPassword())){
-			result = "账号或密码不能为空！";
+		String code_a = (String) ActionContext.getContext().getSession().get("code");
+		System.out.println("user"+username+"2"+email+"3"+password);
+		if(isEmty(username)|| isEmty(password) || isEmty(email)){
+			result = "账号或密码或邮箱不能为空！";
 			return "add";
 		}else {
-			boolean ck = userbiz.checkusername(user.getUsername());	//校验用户
+			boolean ck = userbiz.checkemail(email);	//校验用户
 			if(ck == true) {
+				System.out.println("yyyyy");
 				result = "该用户已存在";
 				return "add";
 			}
-			userbiz.save(user);
-			return "login";
+			if(code.equals(code_a)) {
+				User user = new User();
+				user.setUsername(username);
+				user.setEmail(email);
+				user.setPassword(password);
+				userbiz.save(user);
+				result = "注册成功！";
+				return "add";
+			}else {
+				result = "验证码错误！！";
+				return "add";
+			}
 		}
 	}
 	

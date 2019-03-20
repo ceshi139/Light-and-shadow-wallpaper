@@ -44,8 +44,8 @@ public class UserBizImpl implements UserBiz {
 	}
 
 	//校验用户是否存在
-	public boolean checkusername(String username) {
-		return userdao.checkusername(username);
+	public boolean checkemail(String email) {
+		return userdao.checkemail(email);
 	}
 	
 	//上传用户图片

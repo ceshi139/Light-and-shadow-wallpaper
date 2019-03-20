@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao{
 	public User login(String username, String password) {
 		System.out.println("username:"+username+",password:"+password);
 		User user = null;
-		Query qy = getSession().createQuery("from User where username=:username and password= :password");
+		Query qy = getSession().createQuery("from User where email=:username and password= :password");
 		qy.setParameter("username", username);
 		qy.setParameter("password", password);
 		if(qy.uniqueResult() != null){
@@ -54,9 +54,9 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	//校验用户是否存在
-	public boolean checkusername(String username) {
-		Query qy = getSession().createQuery("from User where username=:username");
-		qy.setParameter("username", username);
+	public boolean checkemail(String email) {
+		Query qy = getSession().createQuery("from User where email=:email");
+		qy.setParameter("email", email);
 		if(qy.uniqueResult() == null) {
 			return false;
 		}

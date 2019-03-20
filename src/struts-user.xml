@@ -6,11 +6,8 @@
 	<package name="default" extends="struts-default,json-default" namespace="/">
 		<action name="*_*" class="org.bigjava.action.{1}Action" method="{2}">
 			<result name="index">/index.jsp</result>
-			<result name="login">/login.jsp</result>
-			<result name="add" type="json">/add.jsp</result>
-			
-             <param name="filePath">\\images</param>
-             <result name="success">showUpload.jsp</result>   
+			<result name="login">/login_regiest.jsp</result>
+			<result name="add" type="json">/login_regiest.jsp</result>
 		</action>
 	</package>
 </struts>   

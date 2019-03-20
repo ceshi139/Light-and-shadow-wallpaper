@@ -44,7 +44,7 @@
                 <div class="header_menu">
                     <ul id="menu">
                         <li> <input type="text" style="border: 0px solid yellow;border-radius:4px;width: 600px;height:40px;padding-left: 12px;"/></li>
-                        <li><button class="button button-glow button-border button-rounded button-primary" style="height: 44px;width: 60px;border: opx solid aquamarine;border-radius: 4px;border-left: 1px solid #fff;">Go</button></li>
+                        <li><button class="button button-glow button-border button-rounded button-primary" style="height: 44px;width: 60px;border: opx solid aquamarine;border-radius: 4px;">Go</button></li>
                         <li><a href="login_regiest.jsp">登录/注册</a></li>
                         <li><img class="Avatar" src="images/22.jpg" /> </li>
                         <div class="info">
@@ -129,6 +129,7 @@
                                     <button>图片信息</button>
                                 </div>
                             </div>
+                            
                             <div class="a"><img src="images/4.jpg" style="width:100%;"/></div>
                             <div class="a"><img src="images/5.jpg" style="width:100%;"/></div>
                             <div class="a"><img src="images/6.jpg" style="width:100%;"/></div>
@@ -298,4 +299,4 @@
 document.onselectstart = new Function('event.returnValue=false;');</SCRIPT>
 
 </body>
-</html
+</html>
