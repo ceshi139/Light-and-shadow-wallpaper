@@ -22,12 +22,7 @@ img {
 	vertical-align: middle;
 	max-width: 100%;
 }
-a {
-	text-decoration: none;
-	color: #333;
-	-webkit-transition: all .3s ease-in-out;
-	transition: all .3s ease-in-out;
-}
+
 input, textarea, select, button {
 	outline: none;
 	vertical-align: middle;

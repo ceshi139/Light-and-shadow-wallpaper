@@ -1,6 +1,7 @@
 body{
     padding: 0px;
     margin: 0px;
+
 }
 .bigbig{
     border:0px solid red;
@@ -71,4 +72,10 @@ body{
     border-style: solid;
     border-color: red;
     border-image: initial;
+}
+a{
+    text-decoration: none;
+    color: #333;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
 }

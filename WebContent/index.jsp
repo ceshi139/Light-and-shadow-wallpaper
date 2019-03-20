@@ -44,12 +44,12 @@
                 <div class="header_menu">
                     <ul id="menu">
                         <li> <input type="text" style="border: 0px solid yellow;border-radius:4px;width: 600px;height:40px;padding-left: 12px;"/></li>
-                        <li><button class="button button-glow button-border button-rounded button-primary" style="height: 44px;width: 60px;border: opx solid aquamarine;border-radius: 4px;border-left: 1px solid #fff;">Go</button></li>
+                        <li><button class="button button-glow button-border button-rounded button-primary" style="height: 42px;width: 80px;border-radius: 4px;padding: 0px;">搜索</button></li>
                         <li><a href="login_regiest.jsp">登录/注册</a></li>
                         <li><img class="Avatar" src="images/22.jpg" /> </li>
                         <div class="info">
                             <div>
-                                <i class="fa fa-address-card-o" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="#">个人信息</a>
+                                <i class="fa fa-address-card-o" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="navigation.jsp" target="_self ">个人信息</a>
                             </div>
                             <hr>
                             <div>
