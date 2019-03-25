@@ -35,6 +35,8 @@
 		<property name="mappingResources">
 			<list>
 				<value>org/bigjava/entity/User.hbm.xml</value>
+				<value>org/bigjava/entity/Type.hbm.xml</value>
+				<value>org/bigjava/entity/Picture.hbm.xml</value>
 				</list>
 		</property>
 	</bean>

@@ -20,7 +20,7 @@
         <property name="password"></property>
         <property name="email"></property>
         <property name="sex"></property>
-		<property name="phone"></property>
+		<property name="gexing"></property>
 		<property name="vip"></property>
 		<property name="state"></property>
 		<property name="follow"></property>

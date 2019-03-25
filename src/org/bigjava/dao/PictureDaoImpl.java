@@ -31,16 +31,6 @@ public class PictureDaoImpl implements PictureDao {
 		getSession().delete(id);
 	}
 	
-	//上传默认图片
-	public void adminupload(Picture picture) {
-		getSession().save(picture);
-	}
-	
-	//删除默认图片
-	public void admindelete(Picture picture) {
-		getSession().delete(picture);
-	}
-	
 	//用户收藏图片
 	public void collect(int id) {
 		String hql = "insert into collect select * from picture where id=:id";
@@ -100,7 +90,10 @@ public class PictureDaoImpl implements PictureDao {
 		return qy.list();
 	}
 	
-	
-	//查询用户上传图片
-	
+	//查询图片类型
+	public List ck_type() {;
+		Query qy = getSession().createQuery("from Type");
+		List list = qy.list();
+		return list;
+	}
 }

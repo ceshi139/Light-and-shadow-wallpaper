@@ -7,7 +7,7 @@ public class User {
 	private String password;	//用户密码
 	private Integer age;	//用户年龄
 	private char sex;
-	private Integer phone;	//用户联系方式
+	private String gexing;
 	private int vip;	//是否为vip，“1”属于VIP，“0”不属于
 	private int state;	//是否封禁，“0”为正常， “1”为封禁  
 	private Integer follow;	//用户关注数
@@ -16,7 +16,7 @@ public class User {
 	public User(){
 		
 	}
-	public User(Integer id, String username, String email, String password, Integer age, char sex,Integer phone, int vip, int state,
+	public User(Integer id, String username, String email, String password, Integer age, char sex,String gexing, int vip, int state,
 			Integer follow, Integer fans) {
 		super();
 		this.id = id;
@@ -25,7 +25,7 @@ public class User {
 		this.password = password;
 		this.age = age;
 		this.sex = sex;
-		this.phone = phone;
+		this.gexing = gexing;
 		this.vip = vip;
 		this.state = state;
 		this.follow = follow;
@@ -69,11 +69,11 @@ public class User {
 	public void setSex(char sex) {
 		this.sex = sex;
 	}
-	public Integer getPhone() {
-		return phone;
+	public String getGexing() {
+		return gexing;
 	}
-	public void setPhone(Integer phone) {
-		this.phone = phone;
+	public void setGexing(String gexing) {
+		this.gexing = gexing;
 	}
 	public int getVip() {
 		return vip;
@@ -102,10 +102,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", age="
-				+ age + ", sex=" + sex + ", phone=" + phone + ", vip=" + vip + ", state=" + state + ", follow=" + follow
-				+ ", fans=" + fans + "]";
+				+ age + ", sex=" + sex + ", gexing=" + gexing + ", vip=" + vip + ", state=" + state
+				+ ", follow=" + follow + ", fans=" + fans + "]";
 	}
-	
-	
-	
+
 }

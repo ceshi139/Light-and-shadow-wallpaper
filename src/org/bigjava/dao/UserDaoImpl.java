@@ -53,10 +53,20 @@ public class UserDaoImpl implements UserDao{
 		getSession().update(user);
 	}
 	
-	//校验用户是否存在
+	//校验邮箱是否存在
 	public boolean checkemail(String email) {
 		Query qy = getSession().createQuery("from User where email=:email");
 		qy.setParameter("email", email);
+		if(qy.uniqueResult() == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	//校验用户名是否存在
+	public boolean checkusername(String username) {
+		Query qy = getSession().createQuery("from User where username=:username");
+		qy.setParameter("username", username);
 		if(qy.uniqueResult() == null) {
 			return false;
 		}

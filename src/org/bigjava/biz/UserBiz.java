@@ -3,8 +3,10 @@ package org.bigjava.biz;
 import java.util.List;
 
 import org.bigjava.entity.Picture;
+import org.bigjava.entity.Type;
 import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
+import org.hibernate.Query;
 
 public interface UserBiz {
 	//用户登录
@@ -19,8 +21,11 @@ public interface UserBiz {
 	//修改个人信息
 	public void update(User user);	
 	
-	//校验用户是否存在
+	//校验邮箱是否存在
 	public boolean checkemail(String email);
+	
+	//校验用户名是否存在
+	public boolean checkusername(String username);
 	
 	//用户上传图片
 	public void userupload(UploadPicture uploadpicture);
@@ -42,4 +47,7 @@ public interface UserBiz {
 	
 	//查询总条数
 	public int tiaoshu(int type_id);
+	
+	//查询图片类型
+	public List ck_type();
 }

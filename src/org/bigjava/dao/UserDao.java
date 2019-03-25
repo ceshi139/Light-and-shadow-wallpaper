@@ -15,7 +15,10 @@ public interface UserDao {
 	//修改个人信息
 	public void update(User user);
 	
-	//校验用户是否存在
+	//校验邮箱是否存在
 	public boolean checkemail(String email);
+	
+	//校验用户名是否存在
+	public boolean checkusername(String username);
 	
 }

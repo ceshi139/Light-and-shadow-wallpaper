@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.bigjava.dao.PictureDao;
 import org.bigjava.entity.Picture;
+import org.bigjava.entity.Type;
 import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
+import org.hibernate.Query;
 
 public class UserBizImpl implements UserBiz {
 	
@@ -43,9 +45,14 @@ public class UserBizImpl implements UserBiz {
 		userdao.update(user);
 	}
 
-	//校验用户是否存在
+	//校验邮箱是否存在
 	public boolean checkemail(String email) {
 		return userdao.checkemail(email);
+	}
+	
+	//校验用户是否存在
+	public boolean checkusername(String username) {
+		return userdao.checkusername(username);
 	}
 	
 	//上传用户图片
@@ -81,6 +88,11 @@ public class UserBizImpl implements UserBiz {
 	//查询总条数
 	public int tiaoshu(int type_id) {
 		return picturedao.tiaoshu(type_id);
+	}
+	
+	//查询图片类型
+	public List ck_type() {
+		return picturedao.ck_type();
 	}
 	
 }
