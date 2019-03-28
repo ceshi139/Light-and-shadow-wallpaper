@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<constant name="struts.devMode" value="true"></constant>
+	<package name="default" extends="struts-default,json-default" namespace="/">
+		<action name="*_*" class="org.bigjava.action.{1}Action" method="{2}">
+			<result name="index">/index.jsp</result>
+			<result name="login">/login_regiest.jsp</result>
+			<result name="update">/Personal_center.jsp</result>
+			<result name="add" type="json">/login_regiest.jsp</result>
+
+			<result name="remove_success">/index.jsp</result>
+
+		</action>
+	</package>
+</struts>   
