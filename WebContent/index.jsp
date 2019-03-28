@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,7 +9,6 @@
     <meta http-equiv="Cache-Control" content="no-transform"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <title>光影壁纸</title>
-
     <meta name="renderer" content="webkit">
     <!--ico-->
     <link rel="stylesheet" type="text/css" href="css/base.css"/>
@@ -25,12 +25,25 @@
     <script src="js/wow.min_1.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/page.js"></script>
-    <style type="text/css">
-
-    </style>
     <base target="_blank">
+
+
+    <script >
+
+        function type2(id) {
+            window.location.href = "User_findPicture?type_id="+id;
+        }
+
+    </script >
+
+
+    <%--//点击爱心--%>
+    <script language="JavaScript">
+
+    </script>
 </head>
 <body>
+<s:action name="User_index" namespace="/"></s:action>
 <div class="header">
     <div class="container">
         <div class="rowFluid">
@@ -45,8 +58,14 @@
                     <ul id="menu">
                         <li> <input type="text" style="border: 0px solid yellow;border-radius:4px;width: 600px;height:40px;padding-left: 12px;"/></li>
                         <li><button class="button button-glow button-border button-rounded button-primary" style="height: 42px;width: 80px;border-radius: 4px;padding: 0px;">搜索</button></li>
-                        <li><a href="login_regiest.jsp">登录/注册</a></li>
-                        <li><img class="Avatar" src="images/22.jpg" /> </li>
+
+                        <s:if test="#session.user.username!='www'">
+                            <li><img title="<s:property value="#session.user.username"/>" class="Avatar" src="http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=<s:property value="#session.user.email" />&src_uin=qq.zy7.com&fid=blog&spec=640" /> </li>
+                        </s:if>
+                        <s:else>
+                            <li><a href="login_regiest.jsp">登录/注册</a></li>
+                        </s:else>
+
                         <div class="info">
                             <div>
                                 <i class="fa fa-address-card-o" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="navigation.jsp" target="_self ">个人信息</a>
@@ -67,8 +86,12 @@
                             <div>
                                 <i class="fa fa-dollar" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="#">我的余额</a>
                             </div>
+                            <hr>
+                            <div>
+                                <i class="fa fa-sign-out" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a target="_self" href="User_removeSession">退出登录</a>
+                            </div>
                         </div>
-                   </ul>
+                    </ul>
                 </div>
             </div>
             <div class="span2"></div>
@@ -87,15 +110,19 @@
                     <div class="rowFluid">
                         <div class="span12">
                             <div class="owl-demo  wow fadeInUp">
-                                <div class="item">
-                                    <h3 class="banner_title">光影壁纸</h3>
+                                <!--   <div class="item">
+                                      <h3 class="banner_title">光影壁纸</h3>
 
-                                    <div class="banner_jianjie">
-                                       <input type="text" />
-                                    </div>
-                                </div>
+                                      <div class="banner_jianjie">
+                                         <input type="text" />
+                                      </div>
+                                  </div> -->
                             </div>
+
+
                             <ul class="platform_advantage_bg">
+                                <%--方块特效--%>
+                                <%--<li></li>
                                 <li></li>
                                 <li></li>
                                 <li></li>
@@ -104,8 +131,7 @@
                                 <li></li>
                                 <li></li>
                                 <li></li>
-                                <li></li>
-                                <li></li>
+                                <li></li>--%>
                             </ul>
                         </div>
                     </div>
@@ -115,97 +141,62 @@
                 </div>
 
                 <div class="kzf-mod-product">
-                    标签部分
+                    <s:iterator value="#session.types">
+                        <input type="button" value="<s:property value="picturetype"/>" onclick="type2(<s:property value="id"/>)" />
+                    </s:iterator>
                 </div>
 
                 <hr style="width: 80%;margin: 0 auto;">
                 <div class="platform_advantage">
                     <div class="bigbig">
                         <div class="big" style="margin-left:4%;">
-                            <div class="a">
-                                <img src="images/3.jpg" style="width:100%;"/>
-                                <div class="b">
-                                   <button>添加收藏</button>
-                                    <button>图片信息</button>
+                            <s:iterator value="#session.pc1">
+                                <div class="a"><img src='<s:property value="url"/>' style="width:100%;"/>
+                                    <div class="b">
+                                        <div class="my_like_div" title="点击爱心收藏">
+                                            <img class="my_like_img" title="添加收藏"  src="img/nolike.png" id="my_like" />
+                                            <span class="my_like_div_nobr"><s:property value="CollectionNumber"/></span>
+                                        </div>
+                                        <div class="my_like_div2"  title="下载此图片">
+                                            <img class="my_like_img2"  src="img/downloadimg.png" />
+                                            <span>下载图片</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="a"><img src="images/4.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/5.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/6.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/7.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/8.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/1.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/2.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/9.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/10.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/11.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/12.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/13.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/14.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/15.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/16.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/17.gif" style="width:100%;"/></div>
-                            <div class="a"><img src="images/18.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/19.png" style="width:100%;"/></div>
-                            <div class="a"><img src="images/20.png" style="width:100%;"/></div>
-                            <div class="a"><img src="images/21.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/22.jpg" style="width:100%;"/></div>
+                            </s:iterator>
                         </div>
                         <div class="big">
-                            <div class="a"><img src="images/2.jpg" style="width:100%;"/><div class="b">
-                                <button>添加收藏</button>
-                                <button>图片信息</button>
-                            </div></div>
-                            <div class="a"><img src="images/16.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/1.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/5.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/13.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/14.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/8.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/22.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/9.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/20.png" style="width:100%;"/></div>
-                            <div class="a"><img src="images/10.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/19.png" style="width:100%;"/></div>
-                            <div class="a"><img src="images/7.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/3.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/4.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/12.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/17.gif" style="width:100%;"/></div>
-                            <div class="a"><img src="images/21.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/18.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/11.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/15.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/6.jpg" style="width:100%;"/></div>
-
+                            <s:iterator value="#session.pc2">
+                                <div class="a">
+                                    <img src='<s:property value="url"/>' style="width:100%;"/>
+                                    <div class="b">
+                                        <div class="my_like_div" title="点击爱心收藏">
+                                            <img class="my_like_img" title="添加收藏"  src="img/nolike.png" id="my_like" />
+                                            <span><s:property value="CollectionNumber" /></span>
+                                        </div>
+                                        <div class="my_like_div2"  title="下载此图片">
+                                            <img class="my_like_img2"  src="img/downloadimg.png" />
+                                            <span>下载图片</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </s:iterator>
                         </div>
                         <div class="big">
-
-                            <div class="a"><img src="images/7.jpg" style="width:100%;"/><div class="b">
-                                <button>添加收藏</button>
-                                <button>图片信息</button>
-                            </div></div>
-                            <div class="a"><img src="images/8.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/9.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/3.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/4.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/22.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/5.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/1.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/14.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/15.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/2.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/21.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/17.gif" style="width:100%;"/></div>
-                            <div class="a"><img src="images/18.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/19.png" style="width:100%;"/></div>
-                            <div class="a"><img src="images/13.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/10.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/20.png" style="width:100%;"/></div>
-                            <div class="a"><img src="images/6.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/16.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/11.jpg" style="width:100%;"/></div>
-                            <div class="a"><img src="images/12.jpg" style="width:100%;"/></div>
+                            <s:iterator value="#session.pc3">
+                                <div class="a"><img src='<s:property value="url"/>' style="width:100%;"/>
+                                    <div class="b">
+                                        <div class="my_like_div" title="点击爱心收藏">
+                                            <img class="my_like_img" title="添加收藏"  src="img/nolike.png" id="my_like" />
+                                            <span><s:property value="CollectionNumber" /> </span>
+                                        </div>
+                                        <div class="my_like_div2"  title="下载此图片">
+                                            <img class="my_like_img2"  src="img/downloadimg.png" />
+                                            <span>下载图片</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </s:iterator>
                         </div>
                     </div>
                 </div>
@@ -269,19 +260,19 @@
                             <div class="copyright">某某财务版权所有 抄袭必究</div>
                             <div class="jiqiren">
                                 <div class="copyright">友情链接：
-                  <span class="STYLE3">
+                                    <span class="STYLE3">
                      <a href='index.jsp#'>合肥网站建设</a>
                   </span>
-                  <span class="STYLE3">
+                                    <span class="STYLE3">
                      <a href='index.jsp#'>网站建设</a>
                   </span>
-                  <span class="STYLE3">
+                                    <span class="STYLE3">
                      <a href='index.jsp#'>欧乐美网站建设</a>
                   </span>
-                  <span class="STYLE3">
+                                    <span class="STYLE3">
                      <a href='index.jsp#'>某某注册公司</a>
                   </span>
-                  <span class="STYLE3">
+                                    <span class="STYLE3">
                      <a href='index.jsp#'>公司注册</a>
                   </span>
                                 </div>
@@ -296,6 +287,5 @@
 
 <SCRIPT langauge="javasript">document.oncontextmenu = new Function('event.returnValue=false;');
 document.onselectstart = new Function('event.returnValue=false;');</SCRIPT>
-
 </body>
-</html
+</html>
