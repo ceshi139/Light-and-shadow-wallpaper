@@ -2,6 +2,7 @@ package org.bigjava.util;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
+
 import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -9,13 +10,15 @@ import com.opensymphony.xwork2.ActionContext;
 import java.util.Random;
 import java.util.Scanner;
 
+
 public class Mail{
 	
 	
-	private String HostName = "smtp.163.com";
+	private String HostName="SMTP.qq.com";
 	private  String fromName = "光影壁纸";
-	private String fromMail ="light_shadow_paper@163.com";
-	private String shouquan = "abc987654321";
+	private String fromMail ="1376134288@qq.com";
+	private String shouquan = "yrdmmuaxbzgefhha";
+
     
     //得到随机码
     public static String getcode() {
@@ -33,10 +36,11 @@ public class Mail{
         //email.setSmtpPort(587);
         email.setCharset("UTF-8");
         //设置收件人
-        System.out.println(toMail);
+
+        System.out.println("收件人:"+toMail);
         email.addTo(toMail);
         //和发送人的邮箱和用户名
-        System.out.println("sad");
+
         email.setFrom(fromMail,fromName);
       
         //设置邮箱地址和授权码
@@ -48,7 +52,8 @@ public class Mail{
         String content = "<html><head></head><body><h1>这是一封注册邮件,注册码为:</h1><h3><span style=\"color:red\">"+code+"</span></h3><br/>(如非本人操作,请忽略此操作!)</body></html>";
         email.setContent(content,"text/html;charset=UTF-8");
         email.setMsg("1111");
-        System.out.println(code+"222");
+
+        System.out.println("验证码是:"+code);
         email.send();
     }
 

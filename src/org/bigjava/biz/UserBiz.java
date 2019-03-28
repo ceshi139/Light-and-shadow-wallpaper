@@ -1,53 +1,56 @@
 package org.bigjava.biz;
 
-import java.util.List;
-
 import org.bigjava.entity.Picture;
 import org.bigjava.entity.Type;
 import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
 import org.hibernate.Query;
 
+import java.util.List;
+
 public interface UserBiz {
-	//ÓÃ»§µÇÂ¼
+	//é¢ã„¦åŸ›é§è¯²ç¶
 	public User login(String username, String password);
-	
-	//ÓÃ»§×¢²á
+
+	//é¢ã„¦åŸ›å¨‰ã„¥å”½
 	public void save(User user);
-	
-	//ÓÃ»§¸öÈËĞÅÏ¢
+
+	//é¢ã„¦åŸ›æ¶“îƒæ±‰æ·‡â„ƒä¼…
 	public User find(int id);
-	
-	//ĞŞ¸Ä¸öÈËĞÅÏ¢
+
+	//ä¿®æ”¹ä¸ªäººä¿¡æ¯
 	public void update(User user);	
 	
-	//Ğ£ÑéÓÊÏäÊÇ·ñ´æÔÚ
+	//æ ¡éªŒé‚®ç®±æ˜¯å¦å­˜åœ¨
 	public boolean checkemail(String email);
 	
-	//Ğ£ÑéÓÃ»§ÃûÊÇ·ñ´æÔÚ
+	//æ ¡éªŒç”¨æˆ·åæ˜¯å¦å­˜åœ¨
+
 	public boolean checkusername(String username);
-	
-	//ÓÃ»§ÉÏ´«Í¼Æ¬
+
+	//é¢ã„¦åŸ›æ¶“å©ç´¶é¥å‰§å¢–
 	public void userupload(UploadPicture uploadpicture);
-	
-	//ÓÃ»§É¾³ıÉÏ´«Í¼Æ¬
+
+	//é¢ã„¦åŸ›é’çŠ»æ«æ¶“å©ç´¶é¥å‰§å¢–
 	public void userdelete(int id);
 
-	//ÓÃ»§ÊÕ²ØÍ¼Æ¬
+	//é¢ã„¦åŸ›é€æƒ°æ£Œé¥å‰§å¢–
 	public void collect(int id);
-	
-	//ÓÃ»§È¡ÏûÊÕ²ØÍ¼Æ¬
+
+	//é¢ã„¦åŸ›é™æ ¨ç§·é€æƒ°æ£Œé¥å‰§å¢–
 	public void decollect(int userid,int pictureid);
-	
-	//²éÑ¯Í¼Æ¬ÊÇ·ñÒÑÊÕ²Ø
+
+	//éŒãƒ¨î‡—é¥å‰§å¢–é„îˆšæƒå®¸å‰æ•¹é’˜ï¿½
 	public boolean ckcollect(int userid,int pictureid);
-	
-	//²éÑ¯Ä¬ÈÏÍ¼Æ¬
+
+	//éŒãƒ¨î‡—æ¦›æ¨¿î…»é¥å‰§å¢–
 	public List<Picture> findall_picture(int pageNow,int pageSize,int type_id);
-	
-	//²éÑ¯×ÜÌõÊı
+
+	//éŒãƒ¨î‡—é¬ç»˜æ½¯éï¿½
 	public int tiaoshu(int type_id);
+
 	
-	//²éÑ¯Í¼Æ¬ÀàĞÍ
+	//æŸ¥è¯¢å›¾ç‰‡ç±»å‹
+
 	public List ck_type();
 }

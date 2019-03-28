@@ -3,22 +3,22 @@ package org.bigjava.dao;
 import org.bigjava.entity.User;
 
 public interface UserDao {
-	//ÓÃ»§µÇÂ¼
+	//é¢ã„¦åŸ›é§è¯²ç¶
 	public User login(String username, String password);
 	
-	//ÓÃ»§×¢²á
+	//é¢ã„¦åŸ›å¨‰ã„¥å”½
 	public void save(User user);
 	
-	//ÓÃ»§¸öÈËĞÅÏ¢
+	//é¢ã„¦åŸ›æ¶“îƒæ±‰æ·‡â„ƒä¼…
 	public User find(int id);
 	
-	//ĞŞ¸Ä¸öÈËĞÅÏ¢
+	//æ·‡î†½æ•¼æ¶“îƒæ±‰æ·‡â„ƒä¼…
 	public void update(User user);
 	
-	//Ğ£ÑéÓÊÏäÊÇ·ñ´æÔÚ
+	//æ ¡éªŒé‚®ç®±æ˜¯å¦å­˜åœ¨
 	public boolean checkemail(String email);
 	
-	//Ğ£ÑéÓÃ»§ÃûÊÇ·ñ´æÔÚ
+	//æ ¡éªŒç”¨æˆ·åæ˜¯å¦å­˜åœ¨
 	public boolean checkusername(String username);
 	
 }

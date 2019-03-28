@@ -13,6 +13,8 @@
         <property name="url"></property>
 		<property name="size"></property>
 		<property name="state"></property>
+        <property name="collectionNumber"></property>
+
 		<many-to-one name="type"  column="type" class="Type" not-null="true"></many-to-one>
 		
     </class>

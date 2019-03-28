@@ -1,17 +1,18 @@
 package org.bigjava.entity;
 
 public class User {
-	private Integer id;		//ÓÃ»§
-	private String username; 	//ÓÃ»§ĞÕÃû
+
+	private Integer id;		//ç”¨æˆ·
+	private String username; 	//ç”¨æˆ·å§“å
 	private String email;
-	private String password;	//ÓÃ»§ÃÜÂë
-	private Integer age;	//ÓÃ»§ÄêÁä
+	private String password;	//ç”¨æˆ·å¯†ç 
+	private Integer age;	//ç”¨æˆ·å¹´é¾„
 	private char sex;
 	private String gexing;
-	private int vip;	//ÊÇ·ñÎªvip£¬¡°1¡±ÊôÓÚVIP£¬¡°0¡±²»ÊôÓÚ
-	private int state;	//ÊÇ·ñ·â½û£¬¡°0¡±ÎªÕı³££¬ ¡°1¡±Îª·â½û  
-	private Integer follow;	//ÓÃ»§¹Ø×¢Êı
-	private Integer fans;	//ÓÃ»§·ÛË¿Êı
+	private int vip;	//æ˜¯å¦ä¸ºvipï¼Œâ€œ1â€å±äºVIPï¼Œâ€œ0â€ä¸å±äº
+	private int state;	//æ˜¯å¦å°ç¦ï¼Œâ€œ0â€ä¸ºæ­£å¸¸ï¼Œ â€œ1â€ä¸ºå°ç¦  
+	private Integer follow;	//ç”¨æˆ·å…³æ³¨æ•°
+	private Integer fans;	//ç”¨æˆ·ç²‰ä¸æ•°
 	
 	public User(){
 		

@@ -1,11 +1,16 @@
 package org.bigjava.action;
 
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.activation.MailcapCommandMap;
+
 
 import org.apache.commons.mail.EmailException;
 import org.bigjava.biz.UserBiz;
@@ -16,8 +21,8 @@ import org.bigjava.entity.User;
 import org.bigjava.util.Mail;
 import org.bigjava.util.Page;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -27,9 +32,11 @@ public class UserAction extends ActionSupport{
 	private User user;
 	private String result;
 	private List<Picture> pic;
-	private int pageNow=1;		//µ±Ç°Ò³
-	private int pageSize = 5;	//Ã¿Ò³ÏÔÊ¾¶àÉÙÌõ
-	private int type_id;	//ÀàĞÍid
+
+	private int pageNow=1;		//å½“å‰é¡µ
+	private int pageSize = 5;	//æ¯é¡µæ˜¾ç¤ºå¤šå°‘æ¡
+	private int type_id;	//ç±»å‹id
+
 	private String username;
 	private String password;
 	private String email;
@@ -119,7 +126,8 @@ public class UserAction extends ActionSupport{
 	public void setUserbiz(UserBiz userbiz) {
 		this.userbiz = userbiz;
 	}
-	//µÃµ½type
+
+	//å¾—åˆ°type
 	public String index() {
 	List types = userbiz.ck_type();
 	ActionContext.getContext().getSession().put("types", types);
@@ -143,31 +151,39 @@ public class UserAction extends ActionSupport{
 	return "index";
 	}
 	
-	//ÅĞ¶ÏÓÃ»§Ãû»òÃÜÂëÊÇ·ñÎª¿Õ
+	//åˆ¤æ–­ç”¨æˆ·åæˆ–å¯†ç æ˜¯å¦ä¸ºç©º
+
 	public boolean isEmty(String isemty){
 		if(isemty.trim().equals("") || isemty == null){
 			return true;
 		}
 		return false;
 	}
-	
-	//ÓÃ»§µÇÂ½
+	public String removeSession(){
+	    ActionContext.getContext().getSession().remove("user");
+	    System.out.println("é’çŠ»æ«é¢ã„¦åŸ›éšå³´ession");
+	    return "remove_success";
+    }
+	//é¢ã„¦åŸ›é§å©šæª°
 	public String login() {
 		System.out.println("12"+user.getEmail());
 		User ur = userbiz.login(user.getEmail(),user.getPassword());
 		ActionContext.getContext().getSession().put("user",ur);
 		if(isEmty(user.getEmail())|| isEmty(user.getPassword())){
-			result = "ÕËºÅ»òÃÜÂë²»ÄÜÎª¿Õ£¡";
+
+			result = "è´¦å·æˆ–å¯†ç ä¸èƒ½ä¸ºç©ºï¼";
+
 			ActionContext.getContext().getSession().put("rt",result);
 			return "login";
 		}else if(ur == null){
-			result = "ÕËºÅ»òÃÜÂë´íÎó£¡";
+			result = "ç’ï¹€å½¿é´æ §ç˜‘é®ä¾€æ•Šç’‡îˆ¤ç´’";
 			ActionContext.getContext().getSession().put("rt",result);
 			return "login";
 		} else {
-			if(ur.getState()==0) {	//ÅĞ¶ÏÓÃ»§×´Ì¬ÊÇ·ñÕı³£
+			if(ur.getState()==0) {	//é’ã‚†æŸ‡é¢ã„¦åŸ›é˜èˆµï¿½ä½¹æ§¸éšï¸½î„œç”¯ï¿½
 				ActionContext.getContext().getSession().put("user",ur);
 				ActionContext.getContext().getSession().remove("rt");
+				System.out.println("é¢ã„¦åŸ›éšå¶†å£˜é’é¢ç°¡é”›ï¿½"+ur.toString());
 				return "index";
 			}else {
 				return "login";
@@ -175,30 +191,36 @@ public class UserAction extends ActionSupport{
 		}
 	}
 	
-	//»ñÈ¡×¢²áÂë
+
+	//è·å–æ³¨å†Œç 
+
 	public String code() throws EmailException{
 		String code_a = ml.getcode();
 		ActionContext.getContext().getSession().put("code",code_a);
 		ml.sendEmail(email,code_a);
-		result = "ÒÑ·¢ËÍ£¡";
+
+		result = "å·²å‘é€ï¼";
 		return "add";
 	}
-	//ÓÃ»§×¢²á
+	//ç”¨æˆ·æ³¨å†Œ
+
 	public String add() {
 		String code_a = (String) ActionContext.getContext().getSession().get("code");
 		System.out.println("user"+username+"2"+email+"3"+password);
 		if(isEmty(username)|| isEmty(password) || isEmty(email)){
-			result = "ÕËºÅ»òÃÜÂë»òÓÊÏä²»ÄÜÎª¿Õ£¡";
+
+			result = "è´¦å·æˆ–å¯†ç æˆ–é‚®ç®±ä¸èƒ½ä¸ºç©ºï¼";
 			return "add";
 		}else {
-			boolean ck = userbiz.checkemail(email);	//Ğ£ÑéÓÊÏä
+			boolean ck = userbiz.checkemail(email);	//æ ¡éªŒé‚®ç®±
 			boolean ck_username = userbiz.checkusername(username);
 			if(ck == true) {
-				result = "¸ÃÓÊÏäÒÑ×¢²á£¡";
+				result = "è¯¥é‚®ç®±å·²æ³¨å†Œï¼";
 				return "add";
 			}
 			if(ck_username == true) {
-				result = "ÓÃ»§ÃûÒÑ´æÔÚ£¡";
+				result = "ç”¨æˆ·åå·²å­˜åœ¨ï¼";
+
 				return "add";
 			}
 			if(code.equals(code_a)) {
@@ -207,16 +229,18 @@ public class UserAction extends ActionSupport{
 				user.setEmail(email);
 				user.setPassword(password);
 				userbiz.save(user);
-				result = "×¢²á³É¹¦£¡";
+
+				result = "æ³¨å†ŒæˆåŠŸï¼";
 				return "add";
 			}else {
-				result = "ÑéÖ¤Âë´íÎó£¡£¡";
+				result = "éªŒè¯ç é”™è¯¯ï¼ï¼";
+
 				return "add";
 			}
 		}
 	}
 	
-	//ĞŞ¸ÄÓÃ»§ĞÅÏ¢
+	//æ·‡î†½æ•¼é¢ã„¦åŸ›æ·‡â„ƒä¼…
 	public String update() {
 		User ur = (User) ActionContext.getContext().getSession().get("user");
 		System.out.println(ur.getUsername()+"po");
@@ -224,17 +248,21 @@ public class UserAction extends ActionSupport{
 		if(user.getUsername() != ur.getUsername()) {
 			boolean ck_username = userbiz.checkusername(username);
 			if(ck_username == true) {
-				ActionContext.getContext().getSession().put("ck_username","¸ÃÓÃ»§ÃûÒÑ´æÔÚ£¡");
+
+				ActionContext.getContext().getSession().put("ck_username","è¯¥ç”¨æˆ·åå·²å­˜åœ¨ï¼");
+
 				return "update";
 			}
 		}
 		userbiz.update(user);
-		result ="ĞŞ¸Ä³É¹¦£¡";
+
+		result ="ä¿®æ”¹æˆåŠŸï¼";
+
 		ActionContext.getContext().getSession().put("rt",result);
 		return "login";
 	}
 	
-	//²éÑ¯Ä¬ÈÏÍ¼Æ¬
+	//éŒãƒ¨î‡—æ¦›æ¨¿î…»é¥å‰§å¢–
 	public String findPicture() {
 		System.out.println("find"+type_id);
 		

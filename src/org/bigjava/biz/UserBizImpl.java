@@ -1,15 +1,14 @@
 package org.bigjava.biz;
 
-import org.bigjava.dao.UserDao;
-
-import java.util.List;
-
 import org.bigjava.dao.PictureDao;
+import org.bigjava.dao.UserDao;
 import org.bigjava.entity.Picture;
 import org.bigjava.entity.Type;
 import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
 import org.hibernate.Query;
+
+import java.util.List;
 
 public class UserBizImpl implements UserBiz {
 	
@@ -25,72 +24,78 @@ public class UserBizImpl implements UserBiz {
 	}
 
 	
-	//ÓÃ»§µÇÂ¼
+	//é¢ã„¦åŸ›é§è¯²ç¶
 	public User login(String username, String password) {
 		return userdao.login(username, password);
 	}
 
-	//ÓÃ»§×¢²á
+	//é¢ã„¦åŸ›å¨‰ã„¥å”½
 	public void save(User user) {
 		userdao.save(user);
 	}
 
-	//ÓÃ»§¸öÈËĞÅÏ¢
+	//é¢ã„¦åŸ›æ¶“îƒæ±‰æ·‡â„ƒä¼…
 	public User find(int userid) {
 		return userdao.find(userid);
 	}
 
-	//ĞŞ¸Ä¸öÈËĞÅÏ¢
+	//æ·‡î†½æ•¼æ¶“îƒæ±‰æ·‡â„ƒä¼…
 	public void update(User user) {
 		userdao.update(user);
 	}
 
-	//Ğ£ÑéÓÊÏäÊÇ·ñ´æÔÚ
+
+	//æ ¡éªŒé‚®ç®±æ˜¯å¦å­˜åœ¨
+
 	public boolean checkemail(String email) {
 		return userdao.checkemail(email);
 	}
 	
-	//Ğ£ÑéÓÃ»§ÊÇ·ñ´æÔÚ
+
+	//æ ¡éªŒç”¨æˆ·æ˜¯å¦å­˜åœ¨
+
 	public boolean checkusername(String username) {
 		return userdao.checkusername(username);
 	}
 	
-	//ÉÏ´«ÓÃ»§Í¼Æ¬
+	//æ¶“å©ç´¶é¢ã„¦åŸ›é¥å‰§å¢–
 	public void userupload(UploadPicture uploadpicture) {
 		picturedao.userupload(uploadpicture);
 	}
 	
-	//É¾³ıÓÃ»§ÉÏ´«Í¼Æ¬
+	//é’çŠ»æ«é¢ã„¦åŸ›æ¶“å©ç´¶é¥å‰§å¢–
 	public void userdelete(int id) {
 		picturedao.userdelete(id);
 	}
 	
-	//ÓÃ»§ÊÕ²ØÍ¼Æ¬
+	//é¢ã„¦åŸ›é€æƒ°æ£Œé¥å‰§å¢–
 	public void collect(int id) {
 		picturedao.collect(id);
 	}
 	
-	//ÓÃ»§È¡ÏûÊÕ²ØÍ¼Æ¬
+	//é¢ã„¦åŸ›é™æ ¨ç§·é€æƒ°æ£Œé¥å‰§å¢–
 	public void decollect(int userid,int pictureid) {
 		picturedao.decollect(userid, pictureid);
 	}
 	
-	//²éÑ¯Í¼Æ¬ÊÇ·ñÒÑÊÕ²Ø
+	//éŒãƒ¨î‡—é¥å‰§å¢–é„îˆšæƒå®¸å‰æ•¹é’˜ï¿½
 	public boolean ckcollect(int userid,int pictureid) {
 		return picturedao.ckcollect(userid, pictureid);
 	}
 	
-	//²éÑ¯Ä¬ÈÏÍ¼Æ¬
+	//éŒãƒ¨î‡—æ¦›æ¨¿î…»é¥å‰§å¢–
 	public List<Picture> findall_picture(int pageNow,int pageSize,int type_id) {
 		return picturedao.findall_picture(pageNow, pageSize, type_id);
 	}
 	
-	//²éÑ¯×ÜÌõÊı
+	//éŒãƒ¨î‡—é¬ç»˜æ½¯éï¿½
 	public int tiaoshu(int type_id) {
 		return picturedao.tiaoshu(type_id);
 	}
 	
-	//²éÑ¯Í¼Æ¬ÀàĞÍ
+
+	//æŸ¥è¯¢å›¾ç‰‡ç±»å‹
+
 	public List ck_type() {
 		return picturedao.ck_type();
 	}

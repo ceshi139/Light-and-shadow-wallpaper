@@ -618,7 +618,9 @@ a cite {
 .layui-select {
     padding: 0 10px
 }
+
 .layui-form select {
+
     display: none
 }
 

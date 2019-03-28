@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -10,6 +12,7 @@
 
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js" type="text/javascript" ></script>
     <%@ taglib prefix="s" uri="/struts-tags" %>
+
     <script type="text/javascript">
         $(document).ready(function(){
             $(".mima").hide();
@@ -33,11 +36,13 @@
             $("input[type=text],input[type=password],textarea[name=desc]").focusout(function(){
                 $(this).css({"outline":""});
             });
+
             
             $("#update").click(function(){
             	var id = $("input['name=id']").val();
             	alert(id);
             });
+
         });
     </script>
 </head>
@@ -80,6 +85,7 @@
                     <label class="layui-form-label">个性签名：</label>
                     <div class="layui-input-block">
                         <textarea name="user.gexing" placeholder="请输入内容" class="layui-textarea">${user.gexing}</textarea>
+
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -91,17 +97,21 @@
         </div>
 
         <div class="mima">
+
             <form class="layui-form" style="width: 90%;padding-top: 20px;">
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名：</label>
                     <div class="layui-input-block">
                         <input type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" value="${user.username}">
+
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">旧密码：</label>
                     <div class="layui-input-block">
+
                         <input type="password" name="password1" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" >
+
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -118,7 +128,9 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
+
                         <button class="layui-btn layui-btn-normal"  lay-filter="adminPassword" id="update">立即提交</button>
+
                     </div>
                 </div>
             </form>

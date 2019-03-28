@@ -1,13 +1,13 @@
 package org.bigjava.dao;
 
-import java.util.List;
-
 import org.bigjava.entity.Picture;
 import org.bigjava.entity.UploadPicture;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import java.util.List;
 
 public class PictureDaoImpl implements PictureDao {
 	
@@ -16,22 +16,21 @@ public class PictureDaoImpl implements PictureDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	//µÃµ½session
+	//å¯°æ¥€åŸŒsession
 	public Session getSession(){
 		return sessionFactory.getCurrentSession();
 	}
 	
-	//ÉÏ´«ÓÃ»§Í¼Æ¬
+	//æ¶“å©ç´¶é¢ã„¦åŸ›é¥å‰§å¢–
 	public void userupload(UploadPicture uploadpicture) {
 		getSession().save(uploadpicture);
 	}
 	
-	//É¾³ıÓÃ»§ÉÏ´«Í¼Æ¬
+	//é’çŠ»æ«é¢ã„¦åŸ›æ¶“å©ç´¶é¥å‰§å¢–
 	public void userdelete(int id) {
 		getSession().delete(id);
 	}
 	
-	//ÓÃ»§ÊÕ²ØÍ¼Æ¬
 	public void collect(int id) {
 		String hql = "insert into collect select * from picture where id=:id";
 		SQLQuery qy = getSession().createSQLQuery(hql);
@@ -39,7 +38,7 @@ public class PictureDaoImpl implements PictureDao {
 		qy.executeUpdate();
 	}
 	
-	//ÓÃ»§È¡ÏûÊÕ²ØÍ¼
+	//é¢ã„¦åŸ›é™æ ¨ç§·é€æƒ°æ£Œé¥ï¿½
 	public void decollect(int userid,int pictureid) {
 		String hql = "delete from collect where id=:pictureid and userid=:userid";
 		SQLQuery qy = getSession().createSQLQuery(hql);
@@ -49,7 +48,7 @@ public class PictureDaoImpl implements PictureDao {
 		
 	}
 	
-	//²éÑ¯Í¼Æ¬ÊÇ·ñÒÑÊÕ²Ø
+	//éŒãƒ¨î‡—é¥å‰§å¢–é„îˆšæƒå®¸å‰æ•¹é’˜ï¿½
 	public boolean ckcollect(int userid,int pictureid) {
 		String hql = "select from collect where id=:pictureid and userid=:userid";
 		Query qy = getSession().createSQLQuery(hql);
@@ -63,10 +62,10 @@ public class PictureDaoImpl implements PictureDao {
 	}
 	
 	
-	//²éÑ¯×ÜÌõÊı
+	//éŒãƒ¨î‡—é¬ç»˜æ½¯éï¿½
 	public int tiaoshu(int type_id){
 		int totalSize;
-			if(type_id == 0) {	//µÈÓÚ0È«²é
+			if(type_id == 0) {	//ç»›å¤‰ç°¬0éã„¦ç…¡
 				totalSize = getSession().createQuery("from Picture").list().size();
 			}else {
 				totalSize = getSession().createQuery("from Picture where id='"+type_id+"'").list().size();
@@ -74,10 +73,10 @@ public class PictureDaoImpl implements PictureDao {
 		return totalSize;
 	}
 	
-	//²éÑ¯Ä¬ÈÏÍ¼Æ¬
+	//éŒãƒ¨î‡—æ¦›æ¨¿î…»é¥å‰§å¢–
 	public List<Picture> findall_picture(int pageNow,int pageSize,int type_id) {
 		Query qy;
-			if(type_id == 0) {  //µÈÓÚ0È«²é
+			if(type_id == 0) {  //ç»›å¤‰ç°¬0éã„¦ç…¡
 				 qy =	getSession().createQuery("from Picture");
 			}else {
 				 qy =	getSession().createQuery("from Picture where id=:type_id");
@@ -90,7 +89,6 @@ public class PictureDaoImpl implements PictureDao {
 		return qy.list();
 	}
 	
-	//²éÑ¯Í¼Æ¬ÀàĞÍ
 	public List ck_type() {;
 		Query qy = getSession().createQuery("from Type");
 		List list = qy.list();
