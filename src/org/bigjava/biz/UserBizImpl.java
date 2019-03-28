@@ -3,8 +3,10 @@ package org.bigjava.biz;
 import org.bigjava.dao.PictureDao;
 import org.bigjava.dao.UserDao;
 import org.bigjava.entity.Picture;
+import org.bigjava.entity.Type;
 import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
+import org.hibernate.Query;
 
 import java.util.List;
 
@@ -22,72 +24,78 @@ public class UserBizImpl implements UserBiz {
 	}
 
 	
-	//用户登录
+	//鐢ㄦ埛鐧诲綍
 	public User login(String username, String password) {
 		return userdao.login(username, password);
 	}
 
-	//用户注册
+	//鐢ㄦ埛娉ㄥ唽
 	public void save(User user) {
 		userdao.save(user);
 	}
 
-	//用户个人信息
+	//鐢ㄦ埛涓汉淇℃伅
 	public User find(int userid) {
 		return userdao.find(userid);
 	}
 
-	//修改个人信息
+	//淇敼涓汉淇℃伅
 	public void update(User user) {
 		userdao.update(user);
 	}
 
+
 	//校验邮箱是否存在
+
 	public boolean checkemail(String email) {
 		return userdao.checkemail(email);
 	}
 	
+
 	//校验用户是否存在
+
 	public boolean checkusername(String username) {
 		return userdao.checkusername(username);
 	}
 	
-	//上传用户图片
+	//涓婁紶鐢ㄦ埛鍥剧墖
 	public void userupload(UploadPicture uploadpicture) {
 		picturedao.userupload(uploadpicture);
 	}
 	
-	//删除用户上传图片
+	//鍒犻櫎鐢ㄦ埛涓婁紶鍥剧墖
 	public void userdelete(int id) {
 		picturedao.userdelete(id);
 	}
 	
-	//用户收藏图片
+	//鐢ㄦ埛鏀惰棌鍥剧墖
 	public void collect(int id) {
 		picturedao.collect(id);
 	}
 	
-	//用户取消收藏图片
+	//鐢ㄦ埛鍙栨秷鏀惰棌鍥剧墖
 	public void decollect(int userid,int pictureid) {
 		picturedao.decollect(userid, pictureid);
 	}
 	
-	//查询图片是否已收藏
+	//鏌ヨ鍥剧墖鏄惁宸叉敹钘�
 	public boolean ckcollect(int userid,int pictureid) {
 		return picturedao.ckcollect(userid, pictureid);
 	}
 	
-	//查询默认图片
+	//鏌ヨ榛樿鍥剧墖
 	public List<Picture> findall_picture(int pageNow,int pageSize,int type_id) {
 		return picturedao.findall_picture(pageNow, pageSize, type_id);
 	}
 	
-	//查询总条数
+	//鏌ヨ鎬绘潯鏁�
 	public int tiaoshu(int type_id) {
 		return picturedao.tiaoshu(type_id);
 	}
 	
+
 	//查询图片类型
+
 	public List ck_type() {
 		return picturedao.ck_type();
 	}

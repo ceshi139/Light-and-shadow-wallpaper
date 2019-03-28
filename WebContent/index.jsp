@@ -44,6 +44,7 @@
 </head>
 <body>
 <s:action name="User_index" namespace="/"></s:action>
+
 <div class="header">
     <div class="container">
         <div class="rowFluid">
@@ -65,6 +66,7 @@
                         <s:else>
                             <li><a href="login_regiest.jsp">登录/注册</a></li>
                         </s:else>
+
 
                         <div class="info">
                             <div>
@@ -117,6 +119,7 @@
                                          <input type="text" />
                                       </div>
                                   </div> -->
+
                             </div>
 
 
@@ -137,19 +140,21 @@
                     </div>
                     <div id="container" class="mpage">
                         <div id="anitOut" class="anitOut"></div>
-                    </div>
-                </div>
+                    </div>/                </div>
 
                 <div class="kzf-mod-product">
+
                     <s:iterator value="#session.types">
                         <input type="button" value="<s:property value="picturetype"/>" onclick="type2(<s:property value="id"/>)" />
                     </s:iterator>
+
                 </div>
 
                 <hr style="width: 80%;margin: 0 auto;">
                 <div class="platform_advantage">
                     <div class="bigbig">
                         <div class="big" style="margin-left:4%;">
+
                             <s:iterator value="#session.pc1">
                                 <div class="a"><img src='<s:property value="url"/>' style="width:100%;"/>
                                     <div class="b">
@@ -197,6 +202,7 @@
                                     </div>
                                 </div>
                             </s:iterator>
+
                         </div>
                     </div>
                 </div>

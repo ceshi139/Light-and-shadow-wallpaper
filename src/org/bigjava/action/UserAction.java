@@ -1,10 +1,22 @@
 package org.bigjava.action;
 
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.activation.MailcapCommandMap;
+
+
 import org.apache.commons.mail.EmailException;
 import org.bigjava.biz.UserBiz;
+import org.bigjava.biz.UserBizImpl;
 import org.bigjava.entity.Picture;
+import org.bigjava.entity.Type;
 import org.bigjava.entity.User;
 import org.bigjava.util.Mail;
 import org.bigjava.util.Page;
@@ -20,9 +32,11 @@ public class UserAction extends ActionSupport{
 	private User user;
 	private String result;
 	private List<Picture> pic;
+
 	private int pageNow=1;		//当前页
 	private int pageSize = 5;	//每页显示多少条
 	private int type_id;	//类型id
+
 	private String username;
 	private String password;
 	private String email;
@@ -112,30 +126,33 @@ public class UserAction extends ActionSupport{
 	public void setUserbiz(UserBiz userbiz) {
 		this.userbiz = userbiz;
 	}
+
 	//得到type
 	public String index() {
-		List types = userbiz.ck_type();
-		ActionContext.getContext().getSession().put("types", types);
-		List<Picture> picList = userbiz.findall_picture(1, 100, 0);
-		List<Picture> pc1_List = new ArrayList<Picture>();
-		List<Picture> pc2_List = new ArrayList<Picture>();
-		List<Picture> pc3_List = new ArrayList<Picture>();
-		for(Picture pc : picList) {
-			if(pc.getId()%3 == 1) {
-				pc1_List.add(pc);
-			}else if(pc.getId()%3 == 2) {
-				pc2_List.add(pc);
-			}else {
-				pc3_List.add(pc);
-			}
+	List types = userbiz.ck_type();
+	ActionContext.getContext().getSession().put("types", types);
+	List<Picture> picList = userbiz.findall_picture(1, 100, 0);
+	List pc1_List = new ArrayList();
+	List pc2_List = new ArrayList();
+	List pc3_List = new ArrayList();
+	for(Picture pc : picList) {
+		if(pc.getId()%3 == 1) {
+			pc1_List.add(pc.getUrl());
+		}else if(pc.getId()%3 == 2) {
+			pc2_List.add(pc.getUrl());
+		}else {
+			pc3_List.add(pc.getUrl());
 		}
-		ActionContext.getContext().getSession().put("pc1", pc1_List);
-		ActionContext.getContext().getSession().put("pc2", pc2_List);
-		ActionContext.getContext().getSession().put("pc3", pc3_List);
-		return "index";
 	}
-
+	ActionContext.getContext().getSession().put("pc1", pc1_List);
+	ActionContext.getContext().getSession().put("pc2", pc2_List);
+	ActionContext.getContext().getSession().put("pc3", pc3_List);
+	System.out.println("qqq"+pc1_List);
+	return "index";
+	}
+	
 	//判断用户名或密码是否为空
+
 	public boolean isEmty(String isemty){
 		if(isemty.trim().equals("") || isemty == null){
 			return true;
@@ -144,27 +161,29 @@ public class UserAction extends ActionSupport{
 	}
 	public String removeSession(){
 	    ActionContext.getContext().getSession().remove("user");
-	    System.out.println("删除用户名session");
+	    System.out.println("鍒犻櫎鐢ㄦ埛鍚峴ession");
 	    return "remove_success";
     }
-	//用户登陆
+	//鐢ㄦ埛鐧婚檰
 	public String login() {
 		System.out.println("12"+user.getEmail());
 		User ur = userbiz.login(user.getEmail(),user.getPassword());
 		ActionContext.getContext().getSession().put("user",ur);
 		if(isEmty(user.getEmail())|| isEmty(user.getPassword())){
+
 			result = "账号或密码不能为空！";
+
 			ActionContext.getContext().getSession().put("rt",result);
 			return "login";
 		}else if(ur == null){
-			result = "账号或密码错误！";
+			result = "璐﹀彿鎴栧瘑鐮侀敊璇紒";
 			ActionContext.getContext().getSession().put("rt",result);
 			return "login";
 		} else {
-			if(ur.getState()==0) {	//判断用户状态是否正常
+			if(ur.getState()==0) {	//鍒ゆ柇鐢ㄦ埛鐘舵�佹槸鍚︽甯�
 				ActionContext.getContext().getSession().put("user",ur);
 				ActionContext.getContext().getSession().remove("rt");
-				System.out.println("用户名找到了？"+ur.toString());
+				System.out.println("鐢ㄦ埛鍚嶆壘鍒颁簡锛�"+ur.toString());
 				return "index";
 			}else {
 				return "login";
@@ -172,19 +191,24 @@ public class UserAction extends ActionSupport{
 		}
 	}
 	
+
 	//获取注册码
+
 	public String code() throws EmailException{
 		String code_a = ml.getcode();
 		ActionContext.getContext().getSession().put("code",code_a);
 		ml.sendEmail(email,code_a);
+
 		result = "已发送！";
 		return "add";
 	}
 	//用户注册
+
 	public String add() {
 		String code_a = (String) ActionContext.getContext().getSession().get("code");
 		System.out.println("user"+username+"2"+email+"3"+password);
 		if(isEmty(username)|| isEmty(password) || isEmty(email)){
+
 			result = "账号或密码或邮箱不能为空！";
 			return "add";
 		}else {
@@ -196,6 +220,7 @@ public class UserAction extends ActionSupport{
 			}
 			if(ck_username == true) {
 				result = "用户名已存在！";
+
 				return "add";
 			}
 			if(code.equals(code_a)) {
@@ -204,16 +229,18 @@ public class UserAction extends ActionSupport{
 				user.setEmail(email);
 				user.setPassword(password);
 				userbiz.save(user);
+
 				result = "注册成功！";
 				return "add";
 			}else {
 				result = "验证码错误！！";
+
 				return "add";
 			}
 		}
 	}
 	
-	//修改用户信息
+	//淇敼鐢ㄦ埛淇℃伅
 	public String update() {
 		User ur = (User) ActionContext.getContext().getSession().get("user");
 		System.out.println(ur.getUsername()+"po");
@@ -221,17 +248,21 @@ public class UserAction extends ActionSupport{
 		if(user.getUsername() != ur.getUsername()) {
 			boolean ck_username = userbiz.checkusername(username);
 			if(ck_username == true) {
+
 				ActionContext.getContext().getSession().put("ck_username","该用户名已存在！");
+
 				return "update";
 			}
 		}
 		userbiz.update(user);
+
 		result ="修改成功！";
+
 		ActionContext.getContext().getSession().put("rt",result);
 		return "login";
 	}
 	
-	//查询默认图片
+	//鏌ヨ榛樿鍥剧墖
 	public String findPicture() {
 		System.out.println("find"+type_id);
 		

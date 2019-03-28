@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -9,6 +10,7 @@
 </head>
 <body>
 <div>
+
   <div>
       <div style="width:100%;height:120px;border: 0px solid red;">
           <img src="images/22.jpg" style="width: 100px;height: 100px;border-radius:50%;margin-left: 47%;"/>
@@ -104,5 +106,6 @@
       </div>
   </div>
 </div>
+
 </body>
 </html>
