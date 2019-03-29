@@ -53,7 +53,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">ID：</label>
                     <div class="layui-input-block">
-                        <input type="text" name="user.id" readonly="readonly" class="layui-input" value="${user.id}">
+                        <input type="text" name="user.id" readonly="readonly" class="layui-input" value='<s:property value="#session.user.id" />'>
                     </div>
                 </div>
                 <div class="layui-form-item">

@@ -127,35 +127,9 @@
                 </div>
 
                 <hr style="width: 80%;margin: 0 auto;">
-                <div class="platform_advantage">
-                    <div class="bigbig">
-                        <div class="big" style="margin-left:4%;">
-                         <s:iterator value="#session.pc1">            
-                         	<div class="a"><img src='<s:property />' style="width:100%;"/><div class="b">
-                                <button>添加收藏</button>
-                                <button>图片信息</button>
-                            </div></div>             	
-                   		</s:iterator>
-                        </div>
-                        <div class="big">
-                        <s:iterator value="#session.pc2">          
-                         	  <div class="a"><img src='<s:property />' style="width:100%;"/><div class="b">
-                                <button>添加收藏</button>
-                                <button>图片信息</button>
-                            </div></div>            	
-                   		</s:iterator>
-                        </div>
-                        <div class="big">
-  						<s:iterator value="#session.pc3">          
-                         	 <div class="a"><img src='<s:property />' style="width:100%;"/><div class="b">
-                                <button>添加收藏</button>
-                                <button>图片信息</button>
-                            </div></div>            	
-                   		</s:iterator>
-                  
-                        </div>
-                    </div>
-                </div>
+               <iframe frameborder="no" scrolling="auto" class="iframe_c" src="indesx.jsp" name="text" style="padding-top: 20px;width: 100%;height: 1800px;">
+					
+   				</iframe>
 
 
 

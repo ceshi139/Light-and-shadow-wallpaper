@@ -100,9 +100,9 @@
 <div class="daohang">
     <ul id="test_ul">
         <li><a  href="Personal_center.jsp" target="text">个人中心</a></li>
-        <li><a href="my_collection.jsp" target="text">我的收藏</a></li>
+        <li><a  href="User_ckshoucang?user_id=${user.id}"  target="text">我的收藏</a></li>
         <li><a href="my_collection.jsp" target="text">我的作品</a></li>
-        <li><a href="index.jsp" target="text">上传图片</a></li>
+        <li><a href="upload.jsp" target="text">上传图片</a></li>
         <li><a href="my_collection.jsp" target="text">我的余额</a></li>
         <li><a href="my_collection.jsp" target="text">VIP中心</a></li>
     </ul>

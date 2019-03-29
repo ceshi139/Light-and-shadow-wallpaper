@@ -66,13 +66,18 @@ public class UserBizImpl implements UserBiz {
 	}
 	
 	//用户收藏图片
-	public void collect(int id) {
-		picturedao.collect(id);
+	public void collect(int user_id,int picture_id) {
+		picturedao.collect(user_id, picture_id);
 	}
 	
 	//用户取消收藏图片
 	public void decollect(int userid,int pictureid) {
 		picturedao.decollect(userid, pictureid);
+	}
+	
+	//查询收藏
+	public List<Picture> find_collect(int pageNow,int pageSize,int user_id){
+		return picturedao.find_collect(pageNow, pageSize, user_id);
 	}
 	
 	//查询图片是否已收藏

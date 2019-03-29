@@ -1,26 +1,38 @@
 package org.bigjava.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Picture {
-	private Integer id;	//图片id
+	private int id;	//图片id
 	private String url;	//图片
 	private String size;	//图片尺寸
 	private int state;	//收费状态，0表示不收，1收费
 	private Type type;
+	private Set<User> set_user = new HashSet<User>(); 
 	
 	public Picture() {}
-	public Picture(Integer id,String url, String size, int state) {
+	public Picture(int id,String url, String size, int state) {
 		this.id = id;
 		this.url = url;
 		this.size = size;
 		this.state = state;
-		
 	}
-	public Integer getId() {
+	
+	
+	public Set<User> getSet_user() {
+		return set_user;
+	}
+	public void setSet_user(Set<User> set_user) {
+		this.set_user = set_user;
+	}
+	public int getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getUrl() {
 		return url;
 	}

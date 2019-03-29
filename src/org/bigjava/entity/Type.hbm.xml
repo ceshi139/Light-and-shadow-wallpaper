@@ -6,7 +6,7 @@
 -->
 <hibernate-mapping package="org.bigjava.entity">
     <class name="Type" table="type" catalog="wallpaper">
-        <id name="id" type="java.lang.Integer">
+        <id name="id">
             <column name="id" />
             <generator class="identity" />
         </id>
