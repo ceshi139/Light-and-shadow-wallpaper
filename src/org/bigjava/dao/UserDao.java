@@ -3,16 +3,16 @@ package org.bigjava.dao;
 import org.bigjava.entity.User;
 
 public interface UserDao {
-	//鐢ㄦ埛鐧诲綍
+	//用户登录
 	public User login(String username, String password);
 	
-	//鐢ㄦ埛娉ㄥ唽
+	//用户注册
 	public void save(User user);
 	
-	//鐢ㄦ埛涓汉淇℃伅
+	//用户个人信息
 	public User find(int id);
 	
-	//淇敼涓汉淇℃伅
+	//修改个人信息
 	public void update(User user);
 	
 	//校验邮箱是否存在

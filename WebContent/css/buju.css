@@ -78,7 +78,6 @@ a{
     color: #333;
     -webkit-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
-
 }
 
 /*按钮背景hover*/
@@ -131,5 +130,4 @@ a{
     width: 18px;
     height: 18px;
     margin-left: 8px;
-
 }

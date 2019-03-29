@@ -6,10 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html>
 <head>
     <title>Title</title>
@@ -58,14 +56,12 @@
                             <input type="text" style="border: 0px solid yellow;border-radius:4px;width: 600px;height:40px;padding-left: 12px;"/>
                             <button class="button button-glow button-border button-rounded button-primary" style="height: 42px;width: 80px;border-radius: 4px;padding: 0px;">搜索</button>
                         </li>
-
                         <s:if test="#session.user.username!='www'">
                             <li><img title="<s:property value="#session.user.username"/>" class="Avatar" src="http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=<s:property value="#session.user.email" />&src_uin=qq.zy7.com&fid=blog&spec=640" /> </li>
                         </s:if>
                         <s:else>
                             <li><a href="login_regiest.jsp">登录/注册</a></li>
                         </s:else>
-
                         <div class="info">
                             <div>
                                 <i class="fa fa-address-card-o" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="navigation.jsp" target="_self ">个人信息</a>
@@ -86,12 +82,10 @@
                             <div>
                                 <i class="fa fa-dollar" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="#">我的余额</a>
                             </div>
-
                             <hr>
                             <div>
                                 <i class="fa fa-sign-out" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a target="_self" href="User_removeSession">退出登录</a>
                             </div>
-
                         </div>
                     </ul>
                 </div>
@@ -118,14 +112,11 @@
         <li><a  href="Personal_center.jsp" target="text">个人中心</a></li>
         <li><a href="my_collection.jsp" target="text">我的收藏</a></li>
         <li><a href="my_collection.jsp" target="text">我的作品</a></li>
-
         <li><a href="upload_picture.jsp" target="text">上传图片</a></li>
         <li><a href="my_collection.jsp" target="text">我的余额</a></li>
         <li><a href="member.jsp" target="text">VIP中心</a></li>
-
     </ul>
 </div>
-
 
 
    <iframe class="iframe_c" id="m_iframe"  src="upload_picture.jsp" name="text" frameborder="0" >
@@ -144,7 +135,6 @@
         });
 
     </script>--%>
-
 
 
 <div class="footer ">

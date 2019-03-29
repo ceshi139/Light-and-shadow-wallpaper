@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title>登陆/注册</title>
 
-
     <!--图标样式-->
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css'>
 

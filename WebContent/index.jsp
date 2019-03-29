@@ -44,7 +44,6 @@
 </head>
 <body>
 <s:action name="User_index" namespace="/"></s:action>
-
 <div class="header">
     <div class="container">
         <div class="rowFluid">
@@ -60,13 +59,12 @@
                         <li> <input type="text" style="border: 0px solid yellow;border-radius:4px;width: 600px;height:40px;padding-left: 12px;"/></li>
                         <li><button class="button button-glow button-border button-rounded button-primary" style="height: 42px;width: 80px;border-radius: 4px;padding: 0px;">搜索</button></li>
 
-                        <s:if test="#session.user.username!='www'">
+                        <s:if test="#session.user.username!=''">
                             <li><img title="<s:property value="#session.user.username"/>" class="Avatar" src="http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=<s:property value="#session.user.email" />&src_uin=qq.zy7.com&fid=blog&spec=640" /> </li>
                         </s:if>
                         <s:else>
                             <li><a href="login_regiest.jsp">登录/注册</a></li>
                         </s:else>
-
 
                         <div class="info">
                             <div>
@@ -119,7 +117,6 @@
                                          <input type="text" />
                                       </div>
                                   </div> -->
-
                             </div>
 
 
@@ -140,21 +137,19 @@
                     </div>
                     <div id="container" class="mpage">
                         <div id="anitOut" class="anitOut"></div>
-                    </div>/                </div>
+                    </div>
+                </div>
 
                 <div class="kzf-mod-product">
-
                     <s:iterator value="#session.types">
                         <input type="button" value="<s:property value="picturetype"/>" onclick="type2(<s:property value="id"/>)" />
                     </s:iterator>
-
                 </div>
 
                 <hr style="width: 80%;margin: 0 auto;">
                 <div class="platform_advantage">
                     <div class="bigbig">
                         <div class="big" style="margin-left:4%;">
-
                             <s:iterator value="#session.pc1">
                                 <div class="a"><img src='<s:property value="url"/>' style="width:100%;"/>
                                     <div class="b">
@@ -202,7 +197,6 @@
                                     </div>
                                 </div>
                             </s:iterator>
-
                         </div>
                     </div>
                 </div>
