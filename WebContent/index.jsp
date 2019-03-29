@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,7 +9,6 @@
     <meta http-equiv="Cache-Control" content="no-transform"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <title>光影壁纸</title>
-
     <meta name="renderer" content="webkit">
     <!--ico-->
     <link rel="stylesheet" type="text/css" href="css/base.css"/>
@@ -25,20 +25,25 @@
     <script src="js/wow.min_1.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/page.js"></script>
-    <%@ taglib prefix="s" uri="/struts-tags" %>
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <base target="_blank">
-     <script >
-  
-    function type2(id) {
-    	window.location.href = "User_findPicture?type_id="+id;
-	}
+
+
+    <script >
+
+        function type2(id) {
+            window.location.href = "User_findPicture?type_id="+id;
+        }
 
     </script >
+
+
+    <%--//点击爱心--%>
+    <script language="JavaScript">
+
+    </script>
 </head>
 <body>
-
-	<s:action name="User_index" namespace="/"></s:action>	
+<s:action name="User_index" namespace="/"></s:action>
 <div class="header">
     <div class="container">
         <div class="rowFluid">
@@ -61,7 +66,6 @@
                             <li><a href="login_regiest.jsp">登录/注册</a></li>
                         </s:else>
 
-
                         <div class="info">
                             <div>
                                 <i class="fa fa-address-card-o" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="navigation.jsp" target="_self ">个人信息</a>
@@ -82,8 +86,12 @@
                             <div>
                                 <i class="fa fa-dollar" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="#">我的余额</a>
                             </div>
+                            <hr>
+                            <div>
+                                <i class="fa fa-sign-out" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a target="_self" href="User_removeSession">退出登录</a>
+                            </div>
                         </div>
-                   </ul>
+                    </ul>
                 </div>
             </div>
             <div class="span2"></div>
@@ -102,16 +110,19 @@
                     <div class="rowFluid">
                         <div class="span12">
                             <div class="owl-demo  wow fadeInUp">
+                                <!--   <div class="item">
+                                      <h3 class="banner_title">光影壁纸</h3>
 
-                              <!--   <div class="item">
-                                    <h3 class="banner_title">光影壁纸</h3>
-
-                                    <div class="banner_jianjie">
-                                       <input type="text" />
-                                    </div>
-                                </div> -->
+                                      <div class="banner_jianjie">
+                                         <input type="text" />
+                                      </div>
+                                  </div> -->
                             </div>
+
+
                             <ul class="platform_advantage_bg">
+                                <%--方块特效--%>
+                                <%--<li></li>
                                 <li></li>
                                 <li></li>
                                 <li></li>
@@ -120,8 +131,7 @@
                                 <li></li>
                                 <li></li>
                                 <li></li>
-                                <li></li>
-                                <li></li>
+                                <li></li>--%>
                             </ul>
                         </div>
                     </div>
@@ -196,7 +206,6 @@
 
 
 
-
                 <div class="footer ">
                     <div class="rowFluid">
                         <div class="span12">
@@ -251,19 +260,19 @@
                             <div class="copyright">某某财务版权所有 抄袭必究</div>
                             <div class="jiqiren">
                                 <div class="copyright">友情链接：
-                  <span class="STYLE3">
+                                    <span class="STYLE3">
                      <a href='index.jsp#'>合肥网站建设</a>
                   </span>
-                  <span class="STYLE3">
+                                    <span class="STYLE3">
                      <a href='index.jsp#'>网站建设</a>
                   </span>
-                  <span class="STYLE3">
+                                    <span class="STYLE3">
                      <a href='index.jsp#'>欧乐美网站建设</a>
                   </span>
-                  <span class="STYLE3">
+                                    <span class="STYLE3">
                      <a href='index.jsp#'>某某注册公司</a>
                   </span>
-                  <span class="STYLE3">
+                                    <span class="STYLE3">
                      <a href='index.jsp#'>公司注册</a>
                   </span>
                                 </div>
