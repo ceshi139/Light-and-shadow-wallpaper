@@ -37,6 +37,7 @@
     </script >
 </head>
 <body>
+
 	<s:action name="User_index" namespace="/"></s:action>	
 <div class="header">
     <div class="container">
@@ -52,8 +53,15 @@
                     <ul id="menu">
                         <li> <input type="text" style="border: 0px solid yellow;border-radius:4px;width: 600px;height:40px;padding-left: 12px;"/></li>
                         <li><button class="button button-glow button-border button-rounded button-primary" style="height: 42px;width: 80px;border-radius: 4px;padding: 0px;">搜索</button></li>
-                        <li><a href="login_regiest.jsp">登录/注册</a></li>
-                        <li><img class="Avatar" src="images/22.jpg" /> </li>
+
+                        <s:if test="#session.user.username!=''">
+                            <li><img title="<s:property value="#session.user.username"/>" class="Avatar" src="http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=<s:property value="#session.user.email" />&src_uin=qq.zy7.com&fid=blog&spec=640" /> </li>
+                        </s:if>
+                        <s:else>
+                            <li><a href="login_regiest.jsp">登录/注册</a></li>
+                        </s:else>
+
+
                         <div class="info">
                             <div>
                                 <i class="fa fa-address-card-o" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="navigation.jsp" target="_self ">个人信息</a>
@@ -94,6 +102,7 @@
                     <div class="rowFluid">
                         <div class="span12">
                             <div class="owl-demo  wow fadeInUp">
+
                               <!--   <div class="item">
                                     <h3 class="banner_title">光影壁纸</h3>
 
@@ -118,18 +127,70 @@
                     </div>
                     <div id="container" class="mpage">
                         <div id="anitOut" class="anitOut"></div>
-                    </div>/                </div>
+                    </div>
+                </div>
 
                 <div class="kzf-mod-product">
-                   	<s:iterator value="#session.types">                 	
-                   		<input type="button" value="<s:property value="picturetype"/>" onclick="type2(<s:property value="id"/>)" />
-                   	</s:iterator>
+                    <s:iterator value="#session.types">
+                        <input type="button" value="<s:property value="picturetype"/>" onclick="type2(<s:property value="id"/>)" />
+                    </s:iterator>
                 </div>
 
                 <hr style="width: 80%;margin: 0 auto;">
-               <iframe frameborder="no" scrolling="auto" class="iframe_c" src="indesx.jsp" name="text" style="padding-top: 20px;width: 100%;height: 1800px;">
-					
-   				</iframe>
+                <div class="platform_advantage">
+                    <div class="bigbig">
+                        <div class="big" style="margin-left:4%;">
+                            <s:iterator value="#session.pc1">
+                                <div class="a"><img src='<s:property value="url"/>' style="width:100%;"/>
+                                    <div class="b">
+                                        <div class="my_like_div" title="点击爱心收藏">
+                                            <img class="my_like_img" title="添加收藏"  src="img/nolike.png" id="my_like" />
+                                            <span class="my_like_div_nobr"><s:property value="CollectionNumber"/></span>
+                                        </div>
+                                        <div class="my_like_div2"  title="下载此图片">
+                                            <img class="my_like_img2"  src="img/downloadimg.png" />
+                                            <span>下载图片</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </s:iterator>
+                        </div>
+                        <div class="big">
+                            <s:iterator value="#session.pc2">
+                                <div class="a">
+                                    <img src='<s:property value="url"/>' style="width:100%;"/>
+                                    <div class="b">
+                                        <div class="my_like_div" title="点击爱心收藏">
+                                            <img class="my_like_img" title="添加收藏"  src="img/nolike.png" id="my_like" />
+                                            <span><s:property value="CollectionNumber" /></span>
+                                        </div>
+                                        <div class="my_like_div2"  title="下载此图片">
+                                            <img class="my_like_img2"  src="img/downloadimg.png" />
+                                            <span>下载图片</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </s:iterator>
+                        </div>
+                        <div class="big">
+                            <s:iterator value="#session.pc3">
+                                <div class="a"><img src='<s:property value="url"/>' style="width:100%;"/>
+                                    <div class="b">
+                                        <div class="my_like_div" title="点击爱心收藏">
+                                            <img class="my_like_img" title="添加收藏"  src="img/nolike.png" id="my_like" />
+                                            <span><s:property value="CollectionNumber" /> </span>
+                                        </div>
+                                        <div class="my_like_div2"  title="下载此图片">
+                                            <img class="my_like_img2"  src="img/downloadimg.png" />
+                                            <span>下载图片</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </s:iterator>
+                        </div>
+                    </div>
+                </div>
+
 
 
 

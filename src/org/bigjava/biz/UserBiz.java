@@ -3,54 +3,52 @@ package org.bigjava.biz;
 import java.util.List;
 
 import org.bigjava.entity.Picture;
-import org.bigjava.entity.Type;
 import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
-import org.hibernate.Query;
 
 public interface UserBiz {
-	//ÓÃ»§µÇÂ¼
+	//ç”¨æˆ·ç™»å½•
 	public User login(String username, String password);
 	
-	//ÓÃ»§×¢²á
+	//ç”¨æˆ·æ³¨å†Œ
 	public void save(User user);
 	
-	//ÓÃ»§¸öÈËĞÅÏ¢
+	//ç”¨æˆ·ä¸ªäººä¿¡æ¯
 	public User find(int id);
 	
-	//ĞŞ¸Ä¸öÈËĞÅÏ¢
+	//ä¿®æ”¹ä¸ªäººä¿¡æ¯
 	public void update(User user);	
 	
-	//Ğ£ÑéÓÊÏäÊÇ·ñ´æÔÚ
+	//æ ¡éªŒé‚®ç®±æ˜¯å¦å­˜åœ¨
 	public boolean checkemail(String email);
 	
-	//Ğ£ÑéÓÃ»§ÃûÊÇ·ñ´æÔÚ
+	//æ ¡éªŒç”¨æˆ·åæ˜¯å¦å­˜åœ¨
 	public boolean checkusername(String username);
 	
-	//ÓÃ»§ÉÏ´«Í¼Æ¬
+	//ç”¨æˆ·ä¸Šä¼ å›¾ç‰‡
 	public void userupload(UploadPicture uploadPicture);
 	
-	//ÓÃ»§É¾³ıÉÏ´«Í¼Æ¬
+	//ç”¨æˆ·åˆ é™¤ä¸Šä¼ å›¾ç‰‡
 	public void userdelete(int id);
 
-	//ÓÃ»§ÊÕ²ØÍ¼Æ¬
+	//ç”¨æˆ·æ”¶è—å›¾ç‰‡
 	public void collect(int user_id,int picture_id);
 	
-	//ÓÃ»§È¡ÏûÊÕ²ØÍ¼Æ¬
+	//ç”¨æˆ·å–æ¶ˆæ”¶è—å›¾ç‰‡
 	public void decollect(int userid,int pictureid);
 	
-	//²éÑ¯ÊÕ²Ø
+	//æŸ¥è¯¢æ”¶è—
 	public List<Picture> find_collect(int pageNow,int pageSize,int user_id);
 	
-	//²éÑ¯Í¼Æ¬ÊÇ·ñÒÑÊÕ²Ø
+	//æŸ¥è¯¢å›¾ç‰‡æ˜¯å¦å·²æ”¶è—
 	public boolean ckcollect(int userid,int pictureid);
 	
-	//²éÑ¯Ä¬ÈÏÍ¼Æ¬
+	//æŸ¥è¯¢é»˜è®¤å›¾ç‰‡
 	public List<Picture> findall_picture(int pageNow,int pageSize,int type_id);
 	
-	//²éÑ¯×ÜÌõÊı
+	//æŸ¥è¯¢æ€»æ¡æ•°
 	public int tiaoshu(int type_id);
 	
-	//²éÑ¯Í¼Æ¬ÀàĞÍ
+	//æŸ¥è¯¢å›¾ç‰‡ç±»å‹
 	public List ck_type();
 }

@@ -9,6 +9,8 @@
     <%@ taglib prefix="s" uri="/struts-tags" %>
 </head>
 <body>
+<div>
+
   <div>
       <div style="width:100%;height:120px;border: 0px solid red;">
           <img src="images/22.jpg" style="width: 100px;height: 100px;border-radius:50%;margin-left: 47%;"/>
@@ -50,5 +52,7 @@
                         </div>
                     </div>
   </div>
+</div>
+
 </body>
 </html>

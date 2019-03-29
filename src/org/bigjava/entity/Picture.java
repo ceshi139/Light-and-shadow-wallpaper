@@ -1,13 +1,15 @@
 package org.bigjava.entity;
 
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class Picture {
-	private int id;	//ͼƬid
-	private String url;	//ͼƬ
-	private String size;	//ͼƬ�ߴ�
-	private int state;	//�շ�״̬��0��ʾ���գ�1�շ�
+	private int id;	//图片id
+	private String url;	//图片
+	private String size;	//图片尺寸
+	private int state;	//收费状态，0表示不收，1收费
+  private int CollectionNumber;//用户收藏数
 	private Type type;
 	private Set<User> set_user = new HashSet<User>(); 
 	
@@ -57,6 +59,13 @@ public class Picture {
 	public void setType(Type type) {
 		this.type = type;
 	}
+   public int getCollectionNumber() {
+        return CollectionNumber;
+    }
+
+    public void setCollectionNumber(int collectionNumber) {
+        CollectionNumber = collectionNumber;
+    }
 	@Override
 	public String toString() {
 		return "Picture [id=" + id + ", url=" + url + ", size=" + size + ", state=" + state + ", type=" + type + "]";

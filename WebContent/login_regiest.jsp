@@ -2,8 +2,24 @@
 <html lang="en" >
 
 <head>
-<meta charset="UTF-8">
-<title>登陆/注册</title>
+    <meta charset="UTF-8">
+    <title>登陆/注册</title>
+
+    <!--图标样式-->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css'>
+
+    <link rel="stylesheet" href="css/loginstyle.css">
+    <link type="text/css" href="css/button.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <style type="text/css">
+        body{
+            background:url("images/login_bg.jpg");
+            -webkit-background-size: cover;
+            background-size: cover;
+        }
+
+    </style>
 
 <!--图标样式-->
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css'>
