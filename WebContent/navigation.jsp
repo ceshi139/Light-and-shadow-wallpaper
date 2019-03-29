@@ -86,6 +86,7 @@
                             <div>
                                 <i class="fa fa-sign-out" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a target="_self" href="User_removeSession">退出登录</a>
                             </div>
+
                         </div>
                     </ul>
                 </div>
@@ -110,32 +111,20 @@
 <div class="daohang">
     <ul id="test_ul">
         <li><a  href="Personal_center.jsp" target="text">个人中心</a></li>
-        <li><a href="my_collection.jsp" target="text">我的收藏</a></li>
+        <li><a  href="User_ckshoucang?user_id=${user.id}"  target="text">我的收藏</a></li>
         <li><a href="my_collection.jsp" target="text">我的作品</a></li>
         <li><a href="upload_picture.jsp" target="text">上传图片</a></li>
         <li><a href="my_collection.jsp" target="text">我的余额</a></li>
         <li><a href="member.jsp" target="text">VIP中心</a></li>
+
     </ul>
 </div>
 
 
    <iframe class="iframe_c" id="m_iframe"  src="upload_picture.jsp" name="text" frameborder="0" >
 
+
    </iframe>
-    <%--框架无边框架构--%>
-    <%--<script language="JavaScript">
-        $(function(){
-            $("#test_ul > li").click(function(){
-
-                var heighta = $("#m_iframe").contents().find("body").height()+40;
-               // alert(heighta);
-                $("#m_iframe").height(heighta);
-            });
-
-        });
-
-    </script>--%>
-
 
 <div class="footer ">
     <div class="rowFluid">

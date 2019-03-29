@@ -22,7 +22,8 @@ body{
     position:relative;
     width:100%;
     color:#fff;
-    background-color:rgba(10,10,10,0.3);
+    opacity:0.8;
+    background-color:#000000;
     display:none;
 
 }
@@ -46,15 +47,14 @@ body{
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin-left: 30px;
 }
 .info {
     opacity: 0.8;
-    width: 320px;
-    height: 300px;
+    width: 280px;
+    height: 250px;
     background-color: rgb(242, 242, 242);
     position: absolute;
-    left: 73.5%;
+    left: 71.5%;
     border-width: 0px;
     border-style: solid;
     border-color: initial;

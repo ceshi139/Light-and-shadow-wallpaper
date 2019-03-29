@@ -1,12 +1,13 @@
 package org.bigjava.biz;
 
-import org.bigjava.dao.PictureDao;
 import org.bigjava.dao.UserDao;
+
+import java.util.List;
+
+import org.bigjava.dao.PictureDao;
 import org.bigjava.entity.Picture;
 import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
-
-import java.util.List;
 
 public class UserBizImpl implements UserBiz {
 	
@@ -58,18 +59,26 @@ public class UserBizImpl implements UserBiz {
 	}
 	
 	//删除用户上传图片
+
 	public void userdelete(int id) {
 		picturedao.userdelete(id);
 	}
 	
 	//用户收藏图片
-	public void collect(int id) {
-		picturedao.collect(id);
+	public void collect(int user_id,int picture_id) {
+		picturedao.collect(user_id, picture_id);
 	}
 	
 	//用户取消收藏图片
+
 	public void decollect(int userid,int pictureid) {
 		picturedao.decollect(userid, pictureid);
+	}
+	
+
+	//查询收藏
+	public List<Picture> find_collect(int pageNow,int pageSize,int user_id){
+		return picturedao.find_collect(pageNow, pageSize, user_id);
 	}
 	
 	//查询图片是否已收藏
@@ -77,17 +86,19 @@ public class UserBizImpl implements UserBiz {
 		return picturedao.ckcollect(userid, pictureid);
 	}
 	
-	//查询默认图片
 	public List<Picture> findall_picture(int pageNow,int pageSize,int type_id) {
 		return picturedao.findall_picture(pageNow, pageSize, type_id);
 	}
 	
+
 	//查询总条数
+
 	public int tiaoshu(int type_id) {
 		return picturedao.tiaoshu(type_id);
 	}
 	
 	//查询图片类型
+
 	public List ck_type() {
 		return picturedao.ck_type();
 	}

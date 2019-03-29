@@ -1,17 +1,23 @@
 package org.bigjava.entity;
 
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class User {
 	private Integer id;		//用户
 	private String username; 	//用户姓名
-	private String email;		//用户邮箱
+	private String email;
 	private String password;	//用户密码
 	private Integer age;	//用户年龄
+
 	private char sex;
 	private String gexing;
 	private int vip;	//是否为vip，“1”属于VIP，“0”不属于
 	private int state;	//是否封禁，“0”为正常， “1”为封禁  
 	private Integer follow;	//用户关注数
 	private Integer fans;	//用户粉丝数
+	private Set<Picture> set_picture = new HashSet<Picture>();
 	
 	public User(){
 		
@@ -30,6 +36,13 @@ public class User {
 		this.state = state;
 		this.follow = follow;
 		this.fans = fans;
+	}
+	
+	public Set<Picture> getSet_picture() {
+		return set_picture;
+	}
+	public void setSet_picture(Set<Picture> set_picture) {
+		this.set_picture = set_picture;
 	}
 	public Integer getId() {
 		return id;

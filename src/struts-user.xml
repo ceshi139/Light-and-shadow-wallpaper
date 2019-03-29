@@ -8,8 +8,13 @@
 			<result name="index">/index.jsp</result>
 			<result name="login">/login_regiest.jsp</result>
 			<result name="update">/Personal_center.jsp</result>
+			<result name="shoucang">/my_collection.jsp</result>
+			<result name="success">/upload.jsp</result>
+			<result name="flase">/upload.jsp</result>
+			
 			<result name="add" type="json">/login_regiest.jsp</result>
 			<result name="remove_success">/index.jsp</result>
+
 		</action>
 	</package>
 </struts>   
