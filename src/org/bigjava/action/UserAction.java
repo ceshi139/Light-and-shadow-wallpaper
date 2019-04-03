@@ -1,5 +1,9 @@
 package org.bigjava.action;
 
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ActionSupport;
+
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
@@ -10,11 +14,14 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
+
 import org.apache.commons.mail.EmailException;
 import org.apache.struts2.ServletActionContext;
 import org.bigjava.biz.UserBiz;
 import org.bigjava.entity.Picture;
+
 import org.bigjava.entity.UploadPicture;
+
 import org.bigjava.entity.User;
 import org.bigjava.util.Mail;
 import org.bigjava.util.Page;
@@ -28,9 +35,11 @@ public class UserAction extends ActionSupport {
 	private User user;
 	private String result;
 	private List<Picture> pic;
-	private int pageNow = 1; // µ±Ç°Ò³
-	private int pageSize = 5; // Ã¿Ò³ÏÔÊ¾¶àÉÙÌõ
-	private int type_id; // ÀàĞÍid
+
+	private int pageNow = 1; // å½“å‰é¡µ
+	private int pageSize = 5; // æ¯é¡µæ˜¾ç¤ºå¤šå°‘æ¡
+	private int type_id; // ç±»å‹id
+
 	private String username;
 	private String password;
 	private String email;
@@ -167,7 +176,9 @@ public class UserAction extends ActionSupport {
 		this.userbiz = userbiz;
 	}
 
-	// µÃµ½type
+
+	// å¾—åˆ°type
+
 	public String index() {
 		List types = userbiz.ck_type();
 		ActionContext.getContext().getSession().put("types", types);
@@ -175,6 +186,7 @@ public class UserAction extends ActionSupport {
 		List<Picture> pc1_List = new ArrayList<Picture>();
 		List<Picture> pc2_List = new ArrayList<Picture>();
 		List<Picture> pc3_List = new ArrayList<Picture>();
+
 		for (Picture pc : picList) {
 			if (pc.getId() % 3 == 1) {
 				pc1_List.add(pc);
@@ -190,29 +202,34 @@ public class UserAction extends ActionSupport {
 		return "index";
 	}
 
-	// ÅĞ¶ÏÓÃ»§Ãû»òÃÜÂëÊÇ·ñÎª¿Õ
+	// åˆ¤æ–­ç”¨æˆ·åæˆ–å¯†ç æ˜¯å¦ä¸ºç©º
 	public boolean isEmty(String isemty) {
 		if (isemty.trim().equals("") || isemty == null) {
 			return true;
 		}
 		return false;
 	}
+  public String removeSession(){
+	  	ServletActionContext.getRequest().getSession().invalidate();
+	    System.out.println("åˆ é™¤session");
+	    return "remove_success";
+    }
 
-	// ÓÃ»§µÇÂ½
+	//ç”¨æˆ·ç™»é™†
 	public String login() {
 		System.out.println("12" + user.getEmail());
 		User ur = userbiz.login(user.getEmail(), user.getPassword());
 		ActionContext.getContext().getSession().put("user", ur);
 		if (isEmty(user.getEmail()) || isEmty(user.getPassword())) {
-			result = "ÕËºÅ»òÃÜÂë²»ÄÜÎª¿Õ£¡";
+			result = "è´¦å·æˆ–å¯†ç ä¸èƒ½ä¸ºç©ºï¼";
 			ActionContext.getContext().getSession().put("rt", result);
 			return "login";
 		} else if (ur == null) {
-			result = "ÕËºÅ»òÃÜÂë´íÎó£¡";
+			result = "è´¦å·æˆ–å¯†ç é”™è¯¯ï¼";
 			ActionContext.getContext().getSession().put("rt", result);
 			return "login";
 		} else {
-			if (ur.getState() == 0) { // ÅĞ¶ÏÓÃ»§×´Ì¬ÊÇ·ñÕı³£
+			if (ur.getState() == 0) { // åˆ¤æ–­ç”¨æˆ·çŠ¶æ€æ˜¯å¦æ­£å¸¸
 				ActionContext.getContext().getSession().put("user", ur);
 				ActionContext.getContext().getSession().remove("rt");
 				return "index";
@@ -222,31 +239,33 @@ public class UserAction extends ActionSupport {
 		}
 	}
 
-	// »ñÈ¡×¢²áÂë
+	//è·å–æ³¨å†Œç 
 	public String code() throws EmailException {
 		String code_a = ml.getcode();
 		ActionContext.getContext().getSession().put("code", code_a);
 		ml.sendEmail(email, code_a);
-		result = "ÒÑ·¢ËÍ£¡";
+		result = "å·²å‘é€ï¼";
 		return "add";
 	}
 
-	// ÓÃ»§×¢²á
+	// æ³¨å†Œ
 	public String add() {
 		String code_a = (String) ActionContext.getContext().getSession().get("code");
 		System.out.println("user" + username + "2" + email + "3" + password);
 		if (isEmty(username) || isEmty(password) || isEmty(email)) {
-			result = "ÕËºÅ»òÃÜÂë»òÓÊÏä²»ÄÜÎª¿Õ£¡";
+			result = "è´¦å·æˆ–å¯†ç æˆ–é‚®ç®±ä¸èƒ½ä¸ºç©ºï¼";
 			return "add";
 		} else {
-			boolean ck = userbiz.checkemail(email); // Ğ£ÑéÓÊÏä
+			boolean ck = userbiz.checkemail(email); // æ ¡éªŒç”¨æˆ·î†ˆ
 			boolean ck_username = userbiz.checkusername(username);
 			if (ck == true) {
-				result = "¸ÃÓÊÏäÒÑ×¢²á£¡";
+				result = "è¯¥é‚®ç®±å·²æ³¨å†Œï¼";
 				return "add";
 			}
+
 			if (ck_username == true) {
-				result = "ÓÃ»§ÃûÒÑ´æÔÚ£¡";
+				result = "ç”¨æˆ·åå·²å­˜åœ¨ï¼";
+
 				return "add";
 			}
 			if (code.equals(code_a)) {
@@ -255,16 +274,20 @@ public class UserAction extends ActionSupport {
 				user.setEmail(email);
 				user.setPassword(password);
 				userbiz.save(user);
-				result = "×¢²á³É¹¦£¡";
+
+				result = "æ³¨å†ŒæˆåŠŸï¼";
 				return "add";
 			} else {
-				result = "ÑéÖ¤Âë´íÎó£¡£¡";
+				result = "éªŒè¯ç é”™è¯¯ï¼ï¼";
+
 				return "add";
 			}
 		}
 	}
 
-	// ĞŞ¸ÄÓÃ»§ĞÅÏ¢
+
+	// ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯
+
 	public String update() {
 		User ur = (User) ActionContext.getContext().getSession().get("user");
 		System.out.println(ur.getUsername() + "po");
@@ -272,17 +295,17 @@ public class UserAction extends ActionSupport {
 		if (user.getUsername() != ur.getUsername()) {
 			boolean ck_username = userbiz.checkusername(username);
 			if (ck_username == true) {
-				ActionContext.getContext().getSession().put("ck_username", "¸ÃÓÃ»§ÃûÒÑ´æÔÚ£¡");
+				ActionContext.getContext().getSession().put("ck_username", "è¯¥ç”¨æˆ·åå·²å­˜åœ¨ï¼");
 				return "update";
 			}
 		}
 		userbiz.update(user);
-		result = "ĞŞ¸Ä³É¹¦£¡";
+		result = "ä¿®æ”¹æˆåŠŸï¼";
 		ActionContext.getContext().getSession().put("rt", result);
 		return "login";
 	}
 
-	// ²éÑ¯Ä¬ÈÏÍ¼Æ¬
+	// æŸ¥è¯¢é»˜è®¤å›¾ç‰‡
 	public String findPicture() {
 		System.out.println("find" + type_id);
 
@@ -292,66 +315,126 @@ public class UserAction extends ActionSupport {
 		System.out.println("pic" + pic);
 		System.out.println("yy" + totalSize);
 		Page page = new Page(pageNow, pageSize, totalSize);
-		ActionContext.getContext().getSession().remove("pc1");
-		ActionContext.getContext().getSession().put("pc1", pic);
+		List<Picture> pc1_List = new ArrayList<Picture>();
+		List<Picture> pc2_List = new ArrayList<Picture>();
+		List<Picture> pc3_List = new ArrayList<Picture>();
+		int i=1;
+		for (Picture pc : pic) {
+			if (i % 3 == 1) {
+				pc1_List.add(pc);
+				i++;
+			} else if (i % 3 == 2) {
+				pc2_List.add(pc);
+				i++;
+			} else {
+				pc3_List.add(pc);
+				i++;
+			}
+		}
+		ActionContext.getContext().getSession().put("pc1", pc1_List);
+		ActionContext.getContext().getSession().put("pc2", pc2_List);
+		ActionContext.getContext().getSession().put("pc3", pc3_List);
 		ActionContext.getContext().getSession().put("page", page);
 
 		return "index";
 	}
 
-	// ÊÕ²Ø
+	// æ”¶è—&å–æ¶ˆæ”¶è—
 	public String collect() {
 		System.out.println("user_id" + user_id + "pic_id" + pic_id);
-		userbiz.collect(user_id, pic_id);
-		return "index";
+		boolean ck_collect = userbiz.ckcollect(user_id, pic_id);	//æ ¡éªŒæ˜¯å¦å·²æ”¶è—
+		System.out.println(ck_collect);
+		if(ck_collect == true) {
+			userbiz.collect(user_id, pic_id);
+			result = "1";
+			return "collect";
+		}else {
+			userbiz.decollect(user_id, pic_id);
+			result = "0";
+			return "collect";
+		}
+	}
+	//åˆ¤æ–­æ˜¯å¦è¢«æ”¶è—
+	public String collectpic() {
+		boolean ck_collect = userbiz.ckcollect(user_id, pic_id);
+		System.out.println(ck_collect+"pp"+pic_id);
+		if(ck_collect == true) {
+			result = "1";
+		}else {
+			result = "0";
+		}
+		return "collect";
 	}
 
-	// ²é¿´ÊÕ²Ø
+	//æŸ¥çœ‹æ”¶è—
 	public String ckshoucang() {
 		System.out.println("user_id" + user_id);
+		
+		int totalSize = userbiz.shoucang_shu(user_id);
+		Page page = new Page(pageNow, pageSize, totalSize);
 		pic = userbiz.find_collect(pageNow, pageSize, user_id);
 		System.out.println("pic" + pic);
-
+		List<Picture> pc1_List = new ArrayList<Picture>();
+		List<Picture> pc2_List = new ArrayList<Picture>();
+		List<Picture> pc3_List = new ArrayList<Picture>();
+		int i=1;
+		for (Picture pc : pic) {
+			if (i % 3 == 1) {
+				pc1_List.add(pc);
+				i++;
+			} else if (i % 3 == 2) {
+				pc2_List.add(pc);
+				i++;
+			} else {
+				pc3_List.add(pc);
+				i++;
+			}
+		}
+		ActionContext.getContext().getSession().put("pc4", pc1_List);
+		ActionContext.getContext().getSession().put("pc5", pc2_List);
+		ActionContext.getContext().getSession().put("pc6", pc3_List);
+		ActionContext.getContext().getSession().put("page", page);
+		
 		return "shoucang";
 	}
 	
-	//È¡ÏûÊÕ²Ø
+	//å–æ¶ˆæ”¶è—
 	public String deletecollect() {
 		System.out.println("user_id" + user_id + "pic_id" + pic_id);
 		userbiz.decollect(user_id, pic_id);
+		
 		return  "index";
 	}
 
-	// Í¼Æ¬ÉÏ´«
+	// å›¾ç‰‡ä¸Šä¼ 
 	public String pic() throws Exception {
 
 		System.out.println(file);
 		System.out.println(fileFileName);
-		System.out.println(uploadPicture);
 		if (file != null) {
 
-			Random rand = new Random(); // Éú³ÉËæ»úÊı
+			Random rand = new Random(); // ç”Ÿæˆéšæœºæ•°
 			int random = rand.nextInt();
-			random = random > 0 ? random : (-1) * random; // Ëæ»ú¸ºÊı×ªÎªÕıÊı
+			random = random > 0 ? random : (-1) * random; //  éšæœºè´Ÿæ•°è½¬ä¸ºæ­£æ•°
 
-			// »ñµÃµ±Ç°Ê±¼ä
+			// è·å¾—å½“å‰æ—¶é—´
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
-			// ½«µ±Ç°Ê±¼ä×°×ª»»ÎªyyyyMMddHHmmss¸ñÊ½
+			// å°†å½“å‰æ—¶é—´è£…è½¬æ¢ä¸ºyyyyMMddHHmmssæ ¼å¼
 			String currentTime = sdf.format(date);
 
-			// ÉèÖÃÎÄ¼şÃû£¨ĞÂÎÄ¼şÃû + Ëæ»úÊı+ÉÏ´«ÎÄ¼şµÄºó×ºÃû£©
+			// è®¾ç½®æ–‡ä»¶åï¼ˆæ–°æ–‡ä»¶å + éšæœºæ•°+ä¸Šä¼ æ–‡ä»¶çš„åç¼€åï¼‰
 			String imageFileName = currentTime + random;
 			String newName = imageFileName + fileFileName.substring(fileFileName.lastIndexOf("."));
 
-			/**/
-			// »ñµÃweb·şÎñÆ÷¹¤×÷Â·¾¶
+			
+			// è·å¾—webæœåŠ¡å™¨å·¥ä½œè·¯å¾„
 		//	String realPath = ServletActionContext.getServletContext().getRealPath("/");
-			String realPath = "C:\\Users\\°²\\Desktop\\Tomcat\\temp";
-			// ÎÄ¼şµÄ´æ·ÅÎ»ÖÃ = web·şÎñÆ÷ÖĞµÄÏîÄ¿µÄimageÂ·¾¶ + ĞÂÎÄ¼şÃû
+			String realPath = "E:\\image";
+			// æ–‡ä»¶çš„å­˜æ”¾ä½ç½® = webæœåŠ¡å™¨ä¸­çš„é¡¹ç›®çš„imageè·¯å¾„ + æ–°æ–‡ä»¶å
 			System.out.println("file"+username);
-			File destinationFile = new File(realPath + "/image/"+"/"+username+"/" + newName);
+			File destinationFile = new File(realPath +"/"+username+"/" + newName);
 
 			System.out.println(realPath);
 			System.out.println(destinationFile);
@@ -364,19 +447,47 @@ public class UserAction extends ActionSupport {
 				e.printStackTrace();
 			}
 
-			// Í¼Æ¬µÄurl
-			String pt = "image/" + "/"+username+"/" + imageFileName + fileFileName.substring(fileFileName.lastIndexOf("."));
+			// å›¾ç‰‡çš„url
+			String pt = "image/" +username+"/" + imageFileName + fileFileName.substring(fileFileName.lastIndexOf("."));
 			System.out.println(pt);
-			UploadPicture u_p = new UploadPicture();
-			u_p.setSize(uploadPicture.getSize());
-			u_p.setUrl(pt);
-			u_p.setPicturename(uploadPicture.getPicturename());
-			u_p.setType(1);
-			u_p.setUserid(2);
+			
+			uploadPicture.setUrl(pt);
+			
 			System.out.println("111" + uploadPicture);
-			 userbiz.userupload(u_p);
+			 userbiz.userupload(uploadPicture);
 			return "success";
 		}
 		return "flase";
+	}
+	//æŸ¥çœ‹ä¸Šä¼ 
+	public String ckupload() {
+		System.out.println("user_id"+user_id);
+		
+		int totalSize = userbiz.upload_shu(user_id);
+		Page page = new Page(pageNow, pageSize, totalSize);
+		List<UploadPicture> pic  = userbiz.ck_upload(user_id);
+		
+		List<UploadPicture> pc1_List = new ArrayList<UploadPicture>();
+		List<UploadPicture> pc2_List = new ArrayList<UploadPicture>();
+		List<UploadPicture> pc3_List = new ArrayList<UploadPicture>();
+		int i=1;
+		for (UploadPicture pc : pic) {
+			if (i % 3 == 1) {
+				pc1_List.add(pc);
+				i++;
+			} else if (i % 3 == 2) {
+				pc2_List.add(pc);
+				i++;
+			} else {
+				pc3_List.add(pc);
+				i++;
+			}
+		}
+		ActionContext.getContext().getSession().put("pc7", pc1_List);
+		ActionContext.getContext().getSession().put("pc8", pc2_List);
+		ActionContext.getContext().getSession().put("pc9", pc3_List);
+		ActionContext.getContext().getSession().put("page", page);
+
+		return "upload";
 	}
 }

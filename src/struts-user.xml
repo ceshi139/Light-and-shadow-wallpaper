@@ -11,8 +11,10 @@
 			<result name="shoucang">/my_collection.jsp</result>
 			<result name="success">/upload.jsp</result>
 			<result name="flase">/upload.jsp</result>
-			
+			<result name="upload">/my_upload.jsp</result>
 			<result name="add" type="json">/login_regiest.jsp</result>
+			<result name="remove_success">/index.jsp</result>
+			<result name="collect" type="json">/index.jsp</result>
 		</action>
 	</package>
 </struts>   

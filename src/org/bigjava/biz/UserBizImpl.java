@@ -6,10 +6,8 @@ import java.util.List;
 
 import org.bigjava.dao.PictureDao;
 import org.bigjava.entity.Picture;
-import org.bigjava.entity.Type;
 import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
-import org.hibernate.Query;
 
 public class UserBizImpl implements UserBiz {
 	
@@ -25,77 +23,97 @@ public class UserBizImpl implements UserBiz {
 	}
 
 	
-	//ÓÃ»§µÇÂ¼
+	//ç”¨æˆ·ç™»å½•
 	public User login(String username, String password) {
 		return userdao.login(username, password);
 	}
 
-	//ÓÃ»§×¢²á
+	//ç”¨æˆ·æ³¨å†Œ
 	public void save(User user) {
 		userdao.save(user);
 	}
 
-	//ÓÃ»§¸öÈËĞÅÏ¢
+	//ç”¨æˆ·ä¸ªäººä¿¡æ¯
 	public User find(int userid) {
 		return userdao.find(userid);
 	}
 
-	//ĞŞ¸Ä¸öÈËĞÅÏ¢
+	//ä¿®æ”¹ä¸ªäººä¿¡æ¯
 	public void update(User user) {
 		userdao.update(user);
 	}
 
-	//Ğ£ÑéÓÊÏäÊÇ·ñ´æÔÚ
+	//æ ¡éªŒé‚®ç®±æ˜¯å¦å­˜åœ¨
 	public boolean checkemail(String email) {
 		return userdao.checkemail(email);
 	}
 	
-	//Ğ£ÑéÓÃ»§ÊÇ·ñ´æÔÚ
+	//æ ¡éªŒç”¨æˆ·æ˜¯å¦å­˜åœ¨
 	public boolean checkusername(String username) {
 		return userdao.checkusername(username);
 	}
 	
-	//ÉÏ´«ÓÃ»§Í¼Æ¬
+	//ä¸Šä¼ ç”¨æˆ·å›¾ç‰‡
 	public void userupload(UploadPicture uploadpicture) {
 		picturedao.userupload(uploadpicture);
 	}
 	
-	//É¾³ıÓÃ»§ÉÏ´«Í¼Æ¬
+	//æŸ¥çœ‹ä¸Šä¼ å›¾ç‰‡
+	public List<UploadPicture> ck_upload(int user_id){
+		return picturedao.ck_upload(user_id);
+	}
+	
+	
+	//åˆ é™¤ç”¨æˆ·ä¸Šä¼ å›¾ç‰‡
 	public void userdelete(int id) {
 		picturedao.userdelete(id);
 	}
 	
-	//ÓÃ»§ÊÕ²ØÍ¼Æ¬
+	//ç”¨æˆ·æ”¶è—å›¾ç‰‡
 	public void collect(int user_id,int picture_id) {
 		picturedao.collect(user_id, picture_id);
 	}
 	
-	//ÓÃ»§È¡ÏûÊÕ²ØÍ¼Æ¬
+	//ç”¨æˆ·å–æ¶ˆæ”¶è—å›¾ç‰‡
+
 	public void decollect(int userid,int pictureid) {
 		picturedao.decollect(userid, pictureid);
 	}
 	
-	//²éÑ¯ÊÕ²Ø
+
+	//æŸ¥è¯¢æ”¶è—
 	public List<Picture> find_collect(int pageNow,int pageSize,int user_id){
 		return picturedao.find_collect(pageNow, pageSize, user_id);
 	}
 	
-	//²éÑ¯Í¼Æ¬ÊÇ·ñÒÑÊÕ²Ø
+	//æŸ¥è¯¢å›¾ç‰‡æ˜¯å¦å·²æ”¶è—
 	public boolean ckcollect(int userid,int pictureid) {
 		return picturedao.ckcollect(userid, pictureid);
 	}
 	
-	//²éÑ¯Ä¬ÈÏÍ¼Æ¬
 	public List<Picture> findall_picture(int pageNow,int pageSize,int type_id) {
 		return picturedao.findall_picture(pageNow, pageSize, type_id);
 	}
 	
-	//²éÑ¯×ÜÌõÊı
+
+	//æŸ¥è¯¢æ€»æ¡æ•°
+
 	public int tiaoshu(int type_id) {
 		return picturedao.tiaoshu(type_id);
 	}
 	
-	//²éÑ¯Í¼Æ¬ÀàĞÍ
+	//æŸ¥è¯¢æ”¶è—è¡¨æ€»æ¡æ•°
+	public int shoucang_shu(int user_id) {
+		return picturedao.shoucang_shu(user_id);
+	}
+	
+	//æŸ¥è¯¢ä¸Šä¼ è¡¨æ€»æ¡æ•°
+	public int upload_shu(int user_id) {
+		return picturedao.upload_shu(user_id);
+	}
+	
+	//æŸ¥è¯¢å›¾ç‰‡ç±»å‹
+
 	public List ck_type() {
 		return picturedao.ck_type();
 	}

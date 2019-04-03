@@ -8,7 +8,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
 	<bean id="dataSource"
@@ -37,6 +38,7 @@
 				<value>org/bigjava/entity/User.hbm.xml</value>
 				<value>org/bigjava/entity/Type.hbm.xml</value>
 				<value>org/bigjava/entity/Picture.hbm.xml</value>
+				<value>org/bigjava/entity/UploadPicture.hbm.xml</value>
 				</list>
 		</property>
 	</bean>

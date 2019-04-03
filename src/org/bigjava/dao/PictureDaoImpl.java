@@ -17,31 +17,44 @@ public class PictureDaoImpl implements PictureDao {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	//�õ�session
+
+	//得到session
 	public Session getSession(){
 		return sessionFactory.getCurrentSession();
 	}
 	
-	//�ϴ��û�ͼƬ
+	//上传用户图片
 	public void userupload(UploadPicture uploadpicture) {
 		getSession().save(uploadpicture);
 	}
-	
-	//ɾ���û��ϴ�ͼƬ
+
+	//查看上传图片
+	public List<UploadPicture> ck_upload(int user_id) {
+		String hql = "from UploadPicture where =:user_id";
+		Query qy = getSession().createQuery(hql);
+			qy.setParameter(user_id, "user_id");
+			System.out.println("shang"+qy.list());
+		return qy.list();
+	}
+	//删除用户上传图片
 	public void userdelete(int id) {
 		getSession().delete(id);
 	}
 	
-	//�û��ղ�ͼƬ
+	//用户收藏图片
 	public void collect(int user_id,int picture_id) {
 		String hql = "insert into user_picture (user_id,picture_id) value('"+user_id+"','"+picture_id+"')";
+		Picture picture = (Picture) getSession().get(Picture.class,picture_id);
+	
+		picture.setCollectionNumber(picture.getCollectionNumber()+1);	//图片收藏数加1
+		
 		System.out.println("daodao"+user_id);
 		SQLQuery qy = getSession().createSQLQuery(hql);
 		qy.executeUpdate();
 	}
 	
 	
-	//�û�ȡ���ղ�ͼ
+	//用户取消收藏图
 	public void decollect(int userid,int pictureid) {
 		String hql = "delete from user_picture where user_id='"+userid+"'and picture_id="+pictureid;
 		SQLQuery qy = getSession().createSQLQuery(hql);
@@ -49,35 +62,32 @@ public class PictureDaoImpl implements PictureDao {
 		qy.executeUpdate();	
 	}
 	
-	//��ѯ�ղ�
+	//查询收藏
 	public List<Picture> find_collect(int pageNow,int pageSize,int user_id) {
 			User ur = (User) getSession().get(User.class,user_id);
 			Query qy;
-			qy = getSession().createFilter(ur.getSet_picture(), "order by this.id asc");
+			qy = getSession().createFilter(ur.getSet_picture(), "order by CollectionNumber asc");
 			qy.setFirstResult((pageNow-1)*pageSize);
 			qy.setMaxResults(pageSize);
 			System.out.println("dao"+qy.list());
 			return qy.list();
 		}
 	
-	//��ѯͼƬ�Ƿ����ղ�
+	//查询图片是否已收藏
 	public boolean ckcollect(int userid,int pictureid) {
-		String hql = "select from collect where id=:pictureid and userid=:userid";
-		Query qy = getSession().createSQLQuery(hql);
-		qy.setParameter("userid", userid);
-		qy.setParameter("pictureid", pictureid);
-		qy.executeUpdate();
-		if(qy.uniqueResult()==null) {
-			return true;
+		String hql = "select * from user_picture where user_id='"+userid+"'and picture_id="+pictureid;
+		List list = getSession().createSQLQuery(hql).list();
+		if(list.size()<=0) {
+		return true;
 		}
 		return false;
 	}
 	
 	
-	//��ѯ������
+	//查询总条数
 	public int tiaoshu(int type_id){
 		int totalSize;
-			if(type_id == 0) {	//����0ȫ��
+			if(type_id == 0) {	//等于0全查
 				totalSize = getSession().createQuery("from Picture").list().size();
 			}else {
 				totalSize = getSession().createQuery("from Picture where id='"+type_id+"'").list().size();
@@ -85,11 +95,28 @@ public class PictureDaoImpl implements PictureDao {
 		return totalSize;
 	}
 	
-	//��ѯĬ��ͼƬ
+	//查询收藏表总条数
+	public int shoucang_shu(int user_id) {
+		User ur = (User) getSession().get(User.class,user_id);
+		Query qy;
+		qy = getSession().createFilter(ur.getSet_picture(),"");
+		System.out.println("dao9999"+qy.list());
+		return qy.list().size();
+	}
+	
+	//查询上传表总条数
+	public int upload_shu(int user_id) {
+		Query qy = getSession().createQuery("from UploadPicture");
+		System.out.println("dao9999"+qy.list());
+		return qy.list().size();
+	}
+	
+	//查询默认图片
 	public List<Picture> findall_picture(int pageNow,int pageSize,int type_id) {
 		
 		Query qy;
-			if(type_id == 0) {  //����0ȫ��
+
+			if(type_id == 0) {  //等于0全查
 				 qy =	getSession().createQuery("from Picture");
 			}else {
 				 qy =	getSession().createQuery("from Picture where type="+type_id);
@@ -101,7 +128,8 @@ public class PictureDaoImpl implements PictureDao {
 		return qy.list();
 	}
 	
-	//��ѯͼƬ����
+
+	//查询图片类型
 	public List ck_type() {;
 		Query qy = getSession().createQuery("from Type");
 		List list = qy.list();

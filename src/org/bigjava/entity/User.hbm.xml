@@ -30,5 +30,9 @@
 			<key column="user_id"></key>
 			<many-to-many column="picture_id" class="Picture"></many-to-many>
 		</set>
+		<set name="set_upload">
+			<key column="userid"></key>
+			<one-to-many class="UploadPicture" />
+		</set> 
     </class>
 </hibernate-mapping>

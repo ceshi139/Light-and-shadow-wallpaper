@@ -14,12 +14,13 @@ public class UserDaoImpl implements UserDao{
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	//µÃµ½session
+
+	//å¾—åˆ°session
 	public Session getSession(){
 		return sessionFactory.getCurrentSession();
 	}
 	
-	//ÓÃ»§µÇÂ½
+	//ç”¨æˆ·ç™»é™†
 	public User login(String username, String password) {
 		System.out.println("username:"+username+",password:"+password);
 		User user = null;
@@ -27,17 +28,20 @@ public class UserDaoImpl implements UserDao{
 		qy.setParameter("username", username);
 		qy.setParameter("password", password);
 		if(qy.uniqueResult() != null){
+
 			user = (User) qy.uniqueResult();	
 		}
 		return user;
 	}
 	 
-	//ÓÃ»§×¢²á
+
+	//ç”¨æˆ·æ³¨å†Œ
+
 	public void save(User user) {
 		getSession().save(user);
 	}	
-	
-	//ÓÃ»§¸öÈËĞÅÏ¢
+
+	//ç”¨æˆ·ä¸ªäººä¿¡æ¯
 	public User find(int id) {
 		User user = null;
 		Query qy = getSession().createQuery("from User where id=:id");
@@ -48,12 +52,14 @@ public class UserDaoImpl implements UserDao{
 		return user;
 	}
 	
-	//ĞŞ¸Ä¸öÈËĞÅÏ¢
+
+	//ä¿®æ”¹ä¸ªäººä¿¡æ¯
 	public void update(User user){
 		getSession().update(user);
 	}
 	
-	//Ğ£ÑéÓÊÏäÊÇ·ñ´æÔÚ
+
+	//æ ¡éªŒé‚®ç®±æ˜¯å¦å­˜åœ¨
 	public boolean checkemail(String email) {
 		Query qy = getSession().createQuery("from User where email=:email");
 		qy.setParameter("email", email);
@@ -63,7 +69,7 @@ public class UserDaoImpl implements UserDao{
 		return true;
 	}
 	
-	//Ğ£ÑéÓÃ»§ÃûÊÇ·ñ´æÔÚ
+	//æ ¡éªŒç”¨æˆ·åæ˜¯å¦å­˜åœ¨
 	public boolean checkusername(String username) {
 		Query qy = getSession().createQuery("from User where username=:username");
 		qy.setParameter("username", username);
@@ -75,7 +81,8 @@ public class UserDaoImpl implements UserDao{
 	
 	
 	/*
-	 * //·ÖÒ³²éÑ¯ public List<Student> fenye(int pageNow,int pageSize,String shu) {
+
+	 * //åˆ†é¡µæŸ¥è¯¢ public List<Student> fenye(int pageNow,int pageSize,String shu) {
 	 * Query qy =
 	 * getSession().createQuery("from Student where name like '"+shu+"%'");
 	 * qy.setFirstResult((pageNow-1)*pageSize); qy.setMaxResults(pageSize);

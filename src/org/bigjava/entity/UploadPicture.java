@@ -2,11 +2,12 @@ package org.bigjava.entity;
 
 public class UploadPicture {
 	private Integer id;	//Í¼Æ¬id
-	private String picturename;	//Í¼Æ¬Ãû³Æ
+	private String picturename;	//Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
 	private String url;	//Í¼Æ¬
-	private String size;	//Í¼Æ¬³ß´ç
-	private int type;	// ÊôÓÚÀàĞÍ±íÖ÷¼ü
-	private int userid;	//ÊôÓÚÓÃ»§±íÖ÷¼ü
+	private String size;	//Í¼Æ¬ï¿½ß´ï¿½
+	private int type;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½
+	private int userid;	//ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private User user;
 	
 	public UploadPicture() {}
 	public UploadPicture(Integer id, String picturename, String url, String size, int type, int userid) {
@@ -17,6 +18,13 @@ public class UploadPicture {
 		this.size = size;
 		this.type = type;
 		this.userid = userid;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public Integer getId() {
 		return id;

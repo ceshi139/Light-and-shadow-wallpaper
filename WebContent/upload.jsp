@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 <form action="User_pic" method="post" enctype = "multipart/form-data">
         选择图片：<input type="file" name="file" multiple="multiple" />
-          <select name="UploadPicture.size">
+          <select name="uploadPicture.size">
               <option value="全部尺寸">全部尺寸</option>
               <option value="1920*1080" >1920*1080</option>
               <option value="1920*1200">1920*1200</option>
@@ -38,6 +38,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <option value="1680*1050">1680*1050</option>
           </select>
           <input type="hidden" name="username" value="${user.username}" />
+          <input type="hidden" name="uploadPicture.picturename" value="天真" />
+          <input type="hidden" name="uploadPicture.type" value="4" />
+          <input type="hidden" name="uploadPicture.userid" value="${user.id}" />
           <input type="submit" value="上传"/>
 </form>
       
