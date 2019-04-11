@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<constant name="struts.devMode" value="true"></constant>
+	<package name="default" extends="struts-default,json-default" namespace="/">
+		<action name="*_*" class="org.bigjava.action.{1}Action" method="{2}">
+			<result name="index">/index.jsp</result>
+			<result name="login">/login_regiest.jsp</result>
+			<result name="update">/Personal_center.jsp</result>
+			<result name="shoucang">/my_collection.jsp</result>
+			<result name="success">/upload.jsp</result>
+			<result name="flase">/upload.jsp</result>
+			<result name="upload">/my_upload.jsp</result>
+			<result name="add" type="json">/login_regiest.jsp</result>
+			<result name="remove_success">/index.jsp</result>
+			<result name="collect" type="json">/index.jsp</result>
+			<result name="addsuccess" type="json">/demo.jsp</result>
+		</action>
+
+		<action name="downloadimg" class="org.bigjava.action.DownLoadAction" method="execute">
+			<result type="stream" >
+				<param name="contentDisposition">attactment;filename=${fileName}</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+
+		<action name="getmoney" class="org.bigjava.action.RechargeAction" method="GetMoney">
+			<result type="redirect">
+				http://codepay.fateqq.com:52888/creat_order?id=${codepay_id}&amp;pay_id=${pay_id}&amp;price=${price}&amp;type=${type}&amp;token=${token}&amp;param=${param}&amp;notify_url=${notify_url}&amp;return_url=${return_url}
+			</result>
+		</action>
+	</package>
+</struts>   
