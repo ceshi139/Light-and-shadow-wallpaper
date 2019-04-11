@@ -25,14 +25,16 @@
 		<property name="state"></property>
 		<property name="follow"></property>
 		<property name="fans"></property>
+
 		<property name="moneyover"></property>
-		<set name="set_picture" table="user_picture" lazy="true">
+		<set name="set_picture" table="user_picture">
 			<key column="user_id"></key>
 			<many-to-many column="picture_id" class="Picture"></many-to-many>
 		</set>
 		<set name="set_upload">
 			<key column="userid"></key>
-			<one-to-many class="UploadPicture" />
+
+			<one-to-many class="Picture" />
 		</set> 
     </class>
 </hibernate-mapping>

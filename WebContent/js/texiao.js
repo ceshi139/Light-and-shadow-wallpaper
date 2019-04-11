@@ -29,13 +29,14 @@ $(document).ready(function(){
     $(".my_like_div").click(function () {
     	var pic_id = $(this).parent().find(".my_like_img").attr("name");
     	var user_id = $("#user_id").val();
+    	var CollectionNumber = $(this).parent().find(".my_like_div_nobr").text();
     	var z=$(this);
     	var params = {
            pic_id: pic_id,
-           user_id: user_id
+           user_id: user_id,
         }
-    	if(user_id == null||user_id==""||user_id=="undefined"){
-            alert("请登录");
+    	if(user_id == null || user_id == ""){
+    		alert("请先登陆！再收藏！");
     	}else{
     		 $.ajax({
                  url: "User_collect",
@@ -46,10 +47,16 @@ $(document).ready(function(){
                 	var flag = data.result;
                 	if(flag==1){
                         z.parent().find(".my_like_img").attr({src:"img/like.png",title:"取消收藏"});
+                       var a =  Number(CollectionNumber)+1;
+                        z.parent().find(".my_like_div_nobr").text(a);
+                        alert("收藏成功！");
                     }else if (flag==0) {
                         z.parent().find(".my_like_img").attr({src:"img/nolike.png",title:"添加收藏"});
+                        var a = CollectionNumber-1;
+                        z.parent().find(".my_like_div_nobr").text(a);
+                        alert("取消收藏成功！");
                     }else {
-                	    alert("好像出错啦...")
+                    	alert("请先登陆！再收藏！");
                     }
                  }
              });

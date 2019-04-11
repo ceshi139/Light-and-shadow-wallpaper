@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
 <body>
   
-<form action="User_pic" method="post" enctype = "multipart/form-data">
+<form action="User_up" method="post" enctype = "multipart/form-data">
         选择图片：<input type="file" name="file" multiple="multiple" />
           <select name="uploadPicture.size">
               <option value="全部尺寸">全部尺寸</option>

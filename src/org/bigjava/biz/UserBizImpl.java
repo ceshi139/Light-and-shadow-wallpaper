@@ -3,7 +3,6 @@ package org.bigjava.biz;
 import org.bigjava.dao.PictureDao;
 import org.bigjava.dao.UserDao;
 import org.bigjava.entity.Picture;
-import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
 
 import java.util.List;
@@ -53,12 +52,13 @@ public class UserBizImpl implements UserBiz {
 	}
 	
 	//上传用户图片
-	public void userupload(UploadPicture uploadpicture) {
-		picturedao.userupload(uploadpicture);
+	public void userupload(Picture picture) {
+		picturedao.userupload(picture);
 	}
 	
 	//查看上传图片
-	public List<UploadPicture> ck_upload(int user_id){
+
+	public List<Picture> ck_upload(int user_id){
 		return picturedao.ck_upload(user_id);
 	}
 	

@@ -98,6 +98,7 @@
                             <hr>
                             <div>
                                 <i class="fa fa-jsfiddle" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i> <a href="my_collection.jsp" target="text">我的收藏</a>
+
                             </div>
                             <hr>
                             <div>
@@ -110,6 +111,10 @@
                             <hr>
                             <div>
                                 <i class="fa fa-dollar" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="demo.jsp" target="_self">充值中心</a>
+                            </div>
+                            <hr>
+                            <div>
+                                <i class="fa fa-sign-out" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a target="_self" href="User_removeSession">退出登录</a>
                             </div>
                             <hr>
                             <div>
@@ -155,8 +160,7 @@
                                 <li></li>
                                 <li></li>
                                 <li></li>
-                                <li></li>
-                                <li></li>
+                                <li></li>--%>
                             </ul>
                         </div>
                     </div>
@@ -171,6 +175,7 @@
                     </s:iterator>--%>
                         <ul class="f-nav" id='f-nav'>
                             <li style="margin-left: 200px;" title="0">首页</li>
+
 
                             <s:iterator value="#session.types">
                                 <li title="<s:property value="id"/> "><s:property value="picturetype" /> </li>
@@ -195,13 +200,14 @@
 
                 <%--<hr style="width: 80%;margin: 0 auto;">--%>
                 <div>
-
                 <iframe frameborder="no" scrolling="no" class="iframe_c" src="indesx.jsp" name="text" onload="this.height=text.document.body.scrollHeight" style="padding-top: 20px;width: 100%;background:#253242;">
 					
    				</iframe>
    				</div>
              
+
 <%--//底部模块--%>
+
                 <div class="footer ">
                     <div class="rowFluid">
                         <div class="span12">
@@ -264,6 +270,7 @@
                   </span>
                                     <span class="STYLE3">
                      <a href='http://logo.xwzn.cn/index/index?login=open'>LOGO设计</a>
+
                   </span>
 
                                 </div>

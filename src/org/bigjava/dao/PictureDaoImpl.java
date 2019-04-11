@@ -1,7 +1,6 @@
 package org.bigjava.dao;
 
 import org.bigjava.entity.Picture;
-import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -24,15 +23,17 @@ public class PictureDaoImpl implements PictureDao {
 	}
 	
 	//上传用户图片
-	public void userupload(UploadPicture uploadpicture) {
-		getSession().save(uploadpicture);
+	public void userupload(Picture picture) {
+		getSession().save(picture);
 	}
 
 	//查看上传图片
-	public List<UploadPicture> ck_upload(int user_id) {
-		String hql = "from UploadPicture where=:user_id";
-		Query qy = getSession().createQuery(hql);
-			qy.setParameter(user_id, "user_id");
+
+	public List<Picture> ck_upload(int user_id) {
+		User ur = (User) getSession().get(User.class,user_id);
+		Query qy;
+		qy = getSession().createFilter(ur.getSet_upload(), "order by id asc");
+
 			System.out.println("shang"+qy.list());
 		return qy.list();
 	}
@@ -57,6 +58,8 @@ public class PictureDaoImpl implements PictureDao {
 	//用户取消收藏图
 	public void decollect(int userid,int pictureid) {
 		String hql = "delete from user_picture where user_id='"+userid+"'and picture_id="+pictureid;
+		Picture picture = (Picture) getSession().get(Picture.class,pictureid);
+		picture.setCollectionNumber(picture.getCollectionNumber()-1);	//图片收藏数减1
 		SQLQuery qy = getSession().createSQLQuery(hql);
 		System.out.println("daodao2"+userid);
 		qy.executeUpdate();	
@@ -95,7 +98,8 @@ public class PictureDaoImpl implements PictureDao {
 		return totalSize;
 	}
 	
-	//查询收藏表总条数
+
+	//查询收藏总条数
 	public int shoucang_shu(int user_id) {
 		User ur = (User) getSession().get(User.class,user_id);
 		Query qy;
@@ -125,6 +129,7 @@ public class PictureDaoImpl implements PictureDao {
 		qy.setMaxResults(pageSize);
 		System.out.println("qy.list()的内容是?>>"+qy.list());
 		return qy.list();
+
 	}
 	
 

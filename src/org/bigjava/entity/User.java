@@ -24,7 +24,8 @@ public class User {
 	private Integer follow;	//用户关注数
 	private Integer fans;	//用户粉丝数
 	private Set<Picture> set_picture = new HashSet<Picture>();
-	private Set<UploadPicture> set_upload = new HashSet<UploadPicture>();
+
+	private Set<Picture> set_upload = new HashSet<Picture>();
 	
 	public User(){
 		
@@ -44,19 +45,21 @@ public class User {
 		this.follow = follow;
 		this.fans = fans;
 	}
-
-
 	public Double getMoneyover() {
 		return moneyover;
 	}
-
 	public void setMoneyover(Double moneyover) {
 		this.moneyover = moneyover;
 	}
-	public Set<UploadPicture> getSet_upload() {
+
+	
+	
+	
+	
+	public Set<Picture> getSet_upload() {
 		return set_upload;
 	}
-	public void setSet_upload(Set<UploadPicture> set_upload) {
+	public void setSet_upload(Set<Picture> set_upload) {
 		this.set_upload = set_upload;
 	}
 	public Set<Picture> getSet_picture() {

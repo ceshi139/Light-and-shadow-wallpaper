@@ -99,7 +99,6 @@
                             showClose:false,
                             autoClose:true,
                         });
-
                         return false;
                     }
                 });
@@ -112,6 +111,7 @@
                 var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
                 $.cookie("key", 1);
                 if (m_v == "") {
+
                     $.message({
                         message:'邮箱不能为空',
                         time:'2000',
@@ -149,7 +149,6 @@
                                 showClose:false,
                                 autoClose:true,
                             });
-
                         }
                     });
 

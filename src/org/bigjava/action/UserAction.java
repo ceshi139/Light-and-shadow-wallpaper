@@ -3,11 +3,21 @@ package org.bigjava.action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.mail.EmailException;
 import org.bigjava.biz.UserBiz;
 import org.bigjava.entity.Picture;
-import org.bigjava.entity.UploadPicture;
+import org.bigjava.entity.Type;
 import org.bigjava.entity.User;
 import org.bigjava.util.Mail;
 import org.bigjava.util.Page;
@@ -25,6 +35,7 @@ public class UserAction extends ActionSupport {
 	private UserBiz userbiz;
 	private User user;
 	private String result;
+	
 	private List<Picture> pic;
 	private double money;//用户充值实际金额
 	private String addmoneyuser; //充值用户名
@@ -35,7 +46,7 @@ public class UserAction extends ActionSupport {
 
 
 	private int pageNow = 1; // 当前页
-	private int pageSize = 5; // 每页显示多少条
+	private int pageSize = 6; // 每页显示多少条
 	private int type_id; // 类型id
 
 	private String username;
@@ -44,9 +55,9 @@ public class UserAction extends ActionSupport {
 	private String code;
 	private int user_id;
 	private int pic_id;
-	private File file;
+	private File[] file;
 	private String fileFileName;
-	private UploadPicture uploadPicture;
+	private Picture picture;
 
 
 	public Double getUsernowmoney() {
@@ -79,20 +90,21 @@ public class UserAction extends ActionSupport {
 	}
 
 
-
-	public UploadPicture getUploadPicture() {
-		return uploadPicture;
+	public Picture getPicture() {
+		return picture;
 	}
 
-	public void setUploadPicture(UploadPicture uploadPicture) {
-		this.uploadPicture = uploadPicture;
+	public void setPicture(Picture picture) {
+		this.picture = picture;
 	}
 
-	public File getFile() {
+	
+
+	public File[] getFile() {
 		return file;
 	}
 
-	public void setFile(File file) {
+	public void setFile(File[] file) {
 		this.file = file;
 	}
 
@@ -200,9 +212,11 @@ public class UserAction extends ActionSupport {
 	// 得到type
 
 	public String index() {
+		System.out.println("111");
 		List types = userbiz.ck_type();
+		System.out.println("9999999999999999");
 		ActionContext.getContext().getSession().put("types", types);
-		List<Picture> picList = userbiz.findall_picture(1, 100, 0);
+		List<Picture> picList = userbiz.findall_picture(1, 100, 1);
 		List<Picture> pc1_List = new ArrayList<Picture>();
 		List<Picture> pc2_List = new ArrayList<Picture>();
 		List<Picture> pc3_List = new ArrayList<Picture>();
@@ -229,8 +243,10 @@ public class UserAction extends ActionSupport {
 		}
 		return false;
 	}
-  public String removeSession(){
-	  	ActionContext.getContext().getSession().remove("user");
+
+	
+     public String removeSession(){
+	  	ServletActionContext.getRequest().getSession().removeAttribute("user");
 	    System.out.println("删除session");
 	    return "remove_success";
     }
@@ -257,6 +273,7 @@ public class UserAction extends ActionSupport {
 				DecimalFormat df=new DecimalFormat("0.00");
 				df.format(ur.getMoneyover());
 				ActionContext.getContext().getSession().put("usernowmoney",df.format(ur.getMoneyover()));
+
 				ActionContext.getContext().getSession().remove("rt");
 				return "index";
 			} else {
@@ -283,6 +300,7 @@ public class UserAction extends ActionSupport {
 			return "add";
 		} else {
 			boolean ck = userbiz.checkemail(email); // 校验用户
+
 			boolean ck_username = userbiz.checkusername(username);
 			if (ck == true) {
 				result = "该邮箱已注册！";
@@ -339,12 +357,12 @@ public class UserAction extends ActionSupport {
 		}
 		pic = userbiz.findall_picture(pageNow, pageSize, type_id);
 
+
 		int totalSize = userbiz.tiaoshu(type_id);
 		Page page = new Page(pageNow, pageSize, totalSize);
 		List<Picture> pc1_List = new ArrayList<Picture>();
 		List<Picture> pc2_List = new ArrayList<Picture>();
 		List<Picture> pc3_List = new ArrayList<Picture>();
-
 		int i=1;
 		for (Picture pc : pic) {
 			if (i % 3 == 1) {
@@ -394,9 +412,20 @@ public class UserAction extends ActionSupport {
 
 	//查看收藏
 	public String ckshoucang() {
+		User ur = (User) ActionContext.getContext().getSession().get("user");
+		int user_id = ur.getId();
 		System.out.println("user_id" + user_id);
-		
+
 		int totalSize = userbiz.shoucang_shu(user_id);
+		ActionContext.getContext().getSession().put("totalSize", totalSize);
+		System.out.println("action"+pageNow);
+		if(pageNow<=0) {
+			pageNow = 1;
+		}
+		int zong = new Page(pageNow,pageSize,totalSize).getTotalPage();
+		if(pageNow>zong) {
+			pageNow = zong;
+		}
 		Page page = new Page(pageNow, pageSize, totalSize);
 		pic = userbiz.find_collect(pageNow, pageSize, user_id);
 		System.out.println("pic" + pic);
@@ -420,7 +449,6 @@ public class UserAction extends ActionSupport {
 		ActionContext.getContext().getSession().put("pc5", pc2_List);
 		ActionContext.getContext().getSession().put("pc6", pc3_List);
 		ActionContext.getContext().getSession().put("page", page);
-		
 		return "shoucang";
 	}
 	
@@ -433,12 +461,17 @@ public class UserAction extends ActionSupport {
 	}
 
 	// 图片上传
-	public String pic() throws Exception {
-
+	public String up() throws Exception {
+		User ur = (User) ActionContext.getContext().getSession().get("user");
+		username = ur.getUsername();
+		System.out.println(picture);
 		System.out.println(file);
 		System.out.println(fileFileName);
+		String[] filename = fileFileName.split(",");
 		if (file != null) {
-
+		for(int i = 0; i<filename.length;i++) {	
+			System.out.println(filename[i]);
+			System.out.println(filename.length);
 			Random rand = new Random(); // 生成随机数
 			int random = rand.nextInt();
 			random = random > 0 ? random : (-1) * random; //  随机负数转为正数
@@ -452,12 +485,13 @@ public class UserAction extends ActionSupport {
 
 			// 设置文件名（新文件名 + 随机数+上传文件的后缀名）
 			String imageFileName = currentTime + random;
-			String newName = imageFileName + fileFileName.substring(fileFileName.lastIndexOf("."));
+			String newName = imageFileName + filename[i].substring(filename[i].lastIndexOf("."));
 
 			
 			// 获得web服务器工作路径
 		//	String realPath = ServletActionContext.getServletContext().getRealPath("/");
-			String realPath = "E:\\image";
+
+			String realPath = "E:\\img\\image";
 			// 文件的存放位置 = web服务器中的项目的image路径 + 新文件名
 			System.out.println("file"+username);
 			File destinationFile = new File(realPath +"/"+username+"/" + newName);
@@ -466,38 +500,50 @@ public class UserAction extends ActionSupport {
 			System.out.println(destinationFile);
 			System.out.println("imageFileName" + imageFileName);
 			System.out.println();
-
-			try {
-				FileUtils.copyFile(this.file, destinationFile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			FileUtils.copyFile(this.file[i], destinationFile);
+				/*
+				 * try { FileUtils.copyFile(this.file[i], destinationFile); } catch (Exception
+				 * e) { e.printStackTrace(); }
+				 */
 
 			// 图片的url
-			String pt = "image/" +username+"/" + imageFileName + fileFileName.substring(fileFileName.lastIndexOf("."));
+			String pt = "image/" +username+"/" + imageFileName + filename[i].substring(filename[i].lastIndexOf("."));
 			System.out.println(pt);
-			
-			uploadPicture.setUrl(pt);
-			
-			System.out.println("111" + uploadPicture);
-			 userbiz.userupload(uploadPicture);
+			Type type = new Type();
+			type.setId(1);
+			System.out.println(type);
+			picture.setUser(ur);
+			picture.setUrl(pt);
+			picture.setType(type);
+			System.out.println("111" + picture);
+			 userbiz.userupload(picture);
+		}
 			return "success";
 		}
 		return "flase";
 	}
 	//查看上传
 	public String ckupload() {
+		
 		System.out.println("user_id"+user_id);
 		
 		int totalSize = userbiz.upload_shu(user_id);
+		ActionContext.getContext().getSession().put("totalSize", totalSize);
+		if(pageNow<=0) {
+			pageNow = 1;
+		}
+		int zong = new Page(pageNow,pageSize,totalSize).getTotalPage();
+		if(pageNow>zong) {
+			pageNow = zong;
+		}
 		Page page = new Page(pageNow, pageSize, totalSize);
-		List<UploadPicture> pic  = userbiz.ck_upload(user_id);
+		List<Picture> pic  = userbiz.ck_upload(user_id);
 		
-		List<UploadPicture> pc1_List = new ArrayList<UploadPicture>();
-		List<UploadPicture> pc2_List = new ArrayList<UploadPicture>();
-		List<UploadPicture> pc3_List = new ArrayList<UploadPicture>();
+		List<Picture> pc1_List = new ArrayList<Picture>();
+		List<Picture> pc2_List = new ArrayList<Picture>();
+		List<Picture> pc3_List = new ArrayList<Picture>();
 		int i=1;
-		for (UploadPicture pc : pic) {
+		for (Picture pc : pic) {
 			if (i % 3 == 1) {
 				pc1_List.add(pc);
 				i++;
@@ -527,4 +573,5 @@ public class UserAction extends ActionSupport {
 		ActionContext.getContext().getSession().put("usernowmoney",df.format(usernowmoney));
 		return "addsuccess";
 	}
+
 }

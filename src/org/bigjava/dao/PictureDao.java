@@ -1,19 +1,19 @@
 package org.bigjava.dao;
 
 import org.bigjava.entity.Picture;
-import org.bigjava.entity.UploadPicture;
-
-import java.util.List;
+import org.bigjava.entity.Type;
+import org.hibernate.Query;
 
 public interface PictureDao {
 	//上传用户图片
-	public void userupload(UploadPicture uploadpicture);
+	public void userupload(Picture picture);
 	
 	//删除用户上传图片
 	public void userdelete(int id);
 	
 	//查看上传图片
-	public List<UploadPicture> ck_upload(int user_id);
+
+	public List<Picture> ck_upload(int user_id);
 
 	//用户收藏图片
 	public void collect(int user_id, int picture_id);

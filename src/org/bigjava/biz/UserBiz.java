@@ -1,7 +1,6 @@
 package org.bigjava.biz;
 
 import org.bigjava.entity.Picture;
-import org.bigjava.entity.UploadPicture;
 import org.bigjava.entity.User;
 
 import java.util.List;
@@ -26,7 +25,10 @@ public interface UserBiz {
 	public boolean checkusername(String username);
 	
 	//用户上传图片
-	public void userupload(UploadPicture uploadPicture);
+	public void userupload(Picture Picture);
+	
+	//查看上传图片
+	public List<Picture> ck_upload(int user_id);
 	
 	//查看上传图片
 	public List<UploadPicture> ck_upload(int user_id);

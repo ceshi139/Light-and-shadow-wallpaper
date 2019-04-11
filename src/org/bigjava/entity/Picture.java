@@ -7,12 +7,14 @@ import java.util.Set;
 
 public class Picture implements Serializable {
 	private int id;	//图片id
+	private String picturename;
 	private String url;	//图片
 	private String size;	//图片尺寸
 	private int state;	//收费状态，0表示不收，1收费
 	private int CollectionNumber;//用户收藏数
 	private Type type;
-	private Set<User> set_user = new HashSet<User>(); 
+	private Set<User> set_user = new HashSet<User>();
+	private User user;
 	
 	public Picture() {}
 	public Picture(int id,String url, String size, int state) {
@@ -23,6 +25,18 @@ public class Picture implements Serializable {
 	}
 	
 	
+	public String getPicturename() {
+		return picturename;
+	}
+	public void setPicturename(String picturename) {
+		this.picturename = picturename;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public Set<User> getSet_user() {
 		return set_user;
 	}
@@ -69,8 +83,10 @@ public class Picture implements Serializable {
     }
 	@Override
 	public String toString() {
-		return "Picture [id=" + id + ", url=" + url + ", size=" + size + ", state=" + state + ", CollectionNumber="
-				+ CollectionNumber + ", type=" + type;
+
+		return "Picture [id=" + id + ", picturename=" + picturename + ", url=" + url + ", size=" + size + ", state="
+				+ state + ", CollectionNumber=" + CollectionNumber + ", type=" + type 
+				+ ", user=" + user + "]";
 	}
 	
 	

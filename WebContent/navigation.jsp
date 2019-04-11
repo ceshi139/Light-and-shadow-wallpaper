@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="css/buju.css"/>
     <link rel="stylesheet" type="text/css" href="css/navigation.css"/>
     <link rel="stylesheet" type="text/css" href="css/base.css"/>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="css/animate.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/owl.carousel.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -17,14 +16,15 @@
     <script src="js/texiao.js"></script>
     <script src="js/wow.min_1.js"></script>
     <script src="js/owl.carousel.min.js"></script>
-    <script src="js/page.js"></script>
-
     <script type="text/javascript">
-        $(function(){
-
-
-
-        });
+       function iframe(){
+    	   var iframe = document.getElementById("iframe"); 
+    	   var bHeight =iframe.contentWindow.document.body.scrollHeight;               
+           var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;              
+           var height = Math.max(bHeight, dHeight); 
+           iframe.height = height;           
+          /*  this.height=text.document.body.scrollHeight */
+       }
     </script>
 </head>
 <body>
@@ -102,22 +102,20 @@
 
 <div class="daohang">
     <ul id="test_ul">
+
         <li><a  href="Personal_center.jsp" target="text_nav">个人中心</a></li>
         <li><a  href="User_ckshoucang?user_id=${user.id}"  target="text_nav">我的收藏</a></li>
-        <li><a href="my_collection.jsp" target="text_nav">我的作品</a></li>
+        <li><a href="User_ckupload?user_id=${user.id}" target="text_nav">我的作品</a></li>
         <li><a href="upload_picture.jsp" target="text_nav">上传图片</a></li>
         <li><a href="member.jsp" target="text_nav">VIP中心</a></li>
         <li><a href="demo.jsp" target="text_nav">充值中心</a></li>
     </ul>
 </div>
 
-
-   <iframe class="iframe_c" id="m_iframe"  src="Personal_center.jsp" onload="this.height=text.document.body.scrollHeight" name="text_nav" frameborder="0" >
-
-
-   </iframe>
-
-<div class="footer ">
+    <iframe id="iframe" onload="iframe()"  frameborder="0" scrolling="yes" onload="this.height=text.document.body.scrollHeight" class="iframe_c" src="Personal_center.jsp" name="text_nav">
+					
+   	</iframe>
+<div class="footer">
     <div class="rowFluid">
         <div class="span12">
             <div class="container">
