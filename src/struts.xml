@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<constant name="struts.devMode" value="true"></constant>
+	
+	<package name="default" extends="struts-default,json-default" namespace="/">
+	
+	   <interceptors>
+	         <interceptor name="loginCheck" class="org.bigjava.interceptor.AdminCheckInterceptor"></interceptor>  
+	       
+	   </interceptors>
+	   <default-interceptor-ref name="myStack"></default-interceptor-ref>
+       
+	<global-results>
+          <result name="error">/404.jsp</result>
+    </global-results>
+    
+    <!-- <global-exception-mappings>
+          <exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+          <exception-mapping result="error" exception="java.sql.SQLException"></exception-mapping>
+    </global-exception-mappings> -->
+    
+		<action name="*" class="org.bigjava.action.AdminAction" method="{1}">
+		 
+	        <interceptor-ref name="defaultStack"></interceptor-ref>
+	        <interceptor-ref name="loginCheck"></interceptor-ref>
+	      
+			<result name="login">/adminIndex.jsp</result>
+			<result name="nologin">/login.jsp</result>
+			<result name="no">/login.jsp</result>
+			<result name="chaAllUser">/user.jsp</result>
+			<result name="fengjin">/user.jsp</result>
+			<result name="jiefeng">/user.jsp</result>	
+			<result name="false">/updatePwd.jsp</result>	
+			<!--  类型区-->
+			<result name="chaAllType">/type.jsp</result>
+			<result name="findById">/update.jsp</result>
+			<result name="update" type="redirect">/type.jsp</result>
+			<result name="addType">/type.jsp</result>
+			<result name="delete">/type.jsp</result>
+			<result name="upload">picture.jsp</result>
+			<!--  图片区 -->
+			<result name="chaAllPicture">/picture.jsp</result>
+			<result name="flase">/404.jsp</result>
+			<result name="findByIdPicture">/updatePicture.jsp</result>
+			<result name="updatePicture">/picture.jsp</result>
+			<result name="deletePicture">/picture.jsp</result>
+			<!-- 修改admin密码区 -->
+			<result type="json"></result>
+		</action> 
+	</package>
+
+</struts>   
+ 

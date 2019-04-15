@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">	</property>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/wallpaper"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>	
+		<property name="mappingResources">
+			<list>
+				<value>org/bigjava/entity/User.hbm.xml</value>
+				<value>org/bigjava/entity/Admin.hbm.xml</value>
+				<value>org/bigjava/entity/Picture.hbm.xml</value>
+				<value>org/bigjava/entity/Type.hbm.xml</value>
+				</list>
+		</property>
+	</bean>
+	<aop:config>
+	    <aop:pointcut expression="execution(* org.bigjava.dao.*.*(..))" id="txPointcut" />
+	    <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+	</aop:config>
+	
+	<!-- 注册事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	   <property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- 管理事务 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	   <tx:attributes>
+	        <tx:method name="get*" propagation="REQUIRED" />
+	       <tx:method name="*"/>
+	   </tx:attributes>
+	</tx:advice>
+	
+	<!-- 用户模块 -->
+	<bean id="userdao" class="org.bigjava.dao.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="userbiz" class="org.bigjava.biz.UserBizImpl">
+		<property name="userdao" ref="userdao"></property>
+	</bean>
+	
+	<bean id="userAction" class="org.bigjava.action.UserAction">
+		<property name="userbiz" ref="userbiz"></property>
+	</bean>
+	
+	<!--管理员模块 -->
+	<bean id="adminDao" class="org.bigjava.dao.AdminDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="adminbiz" class="org.bigjava.biz.AdminBizImpl">
+		<property name="adminDao" ref="adminDao"></property>
+	</bean>
+	
+	<bean id="adminAction" class="org.bigjava.action.AdminAction">
+		<property name="adminbiz" ref="adminbiz"></property>
+	</bean>
+	 	
+	</beans>

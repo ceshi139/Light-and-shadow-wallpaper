@@ -1,0 +1,18 @@
+package org.bigjava.biz;
+
+import org.bigjava.entity.User;
+
+public interface UserBiz {
+	//用户登录
+	public User login(String username, String password);
+	
+	//用户注册
+	public void save(User user);
+	
+	//用户个人信息
+	public User find(int id);
+	
+	//修改个人信息
+	public void update(User user);	
+	
+}
