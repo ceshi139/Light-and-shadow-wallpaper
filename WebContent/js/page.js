@@ -1,16 +1,5 @@
 
 $(document).ready(function() {
-    $('.banner .owl-demo').owlCarousel({
-        items: 1,
-        singleItem: true,
-        autoPlay: true,
-        navigation: true,
-        navigationText: ["", ""],
-        lazyLoad: true,
-        scrollPerPage: false,
-        slideSpeed: 800,
-    });
-
 	$(window).scroll(function() {
 		if (jQuery(this).scrollTop() > 1) {
 			$(".header").addClass("header_scroll");
@@ -74,20 +63,6 @@ $(document).ready(function() {
 	        $.getScript("/js/cpgwjs/line2.js");
 	    } else { }
 	});
-
-
-
-
-	$(window).scroll(function () {
-
-	    if (jQuery(this).scrollTop() < 100) {
-
-	    } else {
-
-	    }
-
-	});
-
 	var close = $("#close");
 	close.on("click", function () {
 	    $("#show").animate({

@@ -1,11 +1,15 @@
 package org.bigjava.dao;
 
 import org.bigjava.entity.Picture;
+import org.bigjava.entity.Type;
 import org.bigjava.entity.User;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+
+import com.sun.jndi.toolkit.url.Uri;
 
 import java.util.List;
 
@@ -33,6 +37,7 @@ public class PictureDaoImpl implements PictureDao {
 		User ur = (User) getSession().get(User.class,user_id);
 		Query qy;
 		qy = getSession().createFilter(ur.getSet_upload(), "order by id desc");
+
 
 			System.out.println("shang"+qy.list());
 		return qy.list();
@@ -67,6 +72,7 @@ public class PictureDaoImpl implements PictureDao {
 	
 	//查询收藏
 	public List<Picture> find_collect(int pageNow,int pageSize,int user_id) {
+		System.out.println("dao"+pageSize);
 			User ur = (User) getSession().get(User.class,user_id);
 			Query qy;
 			qy = getSession().createFilter(ur.getSet_picture(), "order by CollectionNumber desc");
@@ -110,16 +116,16 @@ public class PictureDaoImpl implements PictureDao {
 	
 	//查询上传表总条数
 	public int upload_shu(int user_id) {
-		Query qy = getSession().createQuery("from Picture");
-		System.out.println("dao9999"+qy.list());
+
+		User ur = (User) getSession().get(User.class,user_id);
+		Query qy;
+		qy = getSession().createFilter(ur.getSet_upload(),"");
 		return qy.list().size();
 	}
 	
 	//查询默认图片
 	public List<Picture> findall_picture(int pageNow,int pageSize,int type_id) {
-
 			Query qy;
-			System.out.println("type_id是不是等于零呢？》》"+type_id);
 			if(type_id ==0) {  //等于0全查
 				 qy =	getSession().createQuery("from Picture order by id desc ");
 				qy.setFirstResult(0);
@@ -130,19 +136,77 @@ public class PictureDaoImpl implements PictureDao {
 				qy.setMaxResults(pageSize);
 			}
 
-		int a=(pageNow-1)*pageSize;
-		int b=pageSize;
-		System.out.println("picdaoimpl开始值>>"+a+"picdaoimpl每页最大值>>"+b);
-		System.out.println("qy.list()的内容是?>>"+qy.list());
 		return qy.list();
 
 	}
 	
-
+	//搜索图片
+	public List<Picture> sou(int type,int sech_type ,String cha,int pageNow ,int pageSize) {
+		Query qy;
+		System.out.println("sou"+cha+type+sech_type);
+		if(sech_type == 0) {	//sech_type为类型
+			if(type == 1) {	// 全部
+				qy = getSession().createQuery("from Picture where picturename like '%"+cha+"%'");	
+				}else if(type == 2) {	//通过尺寸
+					qy = getSession().createQuery("from Picture where size like '"+cha+"%'");
+					System.out.println("soso"+qy.list().size());
+				}else {		//通过
+					qy = null;
+					System.out.println("错误！");
+				}
+		}else {
+			Type ty = (Type) getSession().get(Type.class,sech_type);
+			if(type == 1) {	// 全部
+				qy = getSession().createFilter(ty.getSet(),"where picturename like '%"+cha+"%' order by id desc");
+				
+			}else if(type == 2) {	//通过尺寸
+				qy = getSession().createFilter(ty.getSet(),"where size like '"+cha+"%' order by id desc");
+				System.out.println("soso"+qy.list().size());
+			}else {		//通过
+				qy = null;
+				System.out.println("错误！");
+			}
+		}
+		qy.setFirstResult((pageNow-1)*pageSize);
+		qy.setMaxResults(pageSize);
+		return qy.list();
+	}
+	
+	//搜索图片条数
+	public int sou_shu(int type,int sech_type ,String cha) {
+		System.out.println(sech_type+">>>>"+type);
+		Query qy;
+		if(sech_type == 0) {	//sech_type为类型
+			if(type == 1) {	// 全部
+				qy = getSession().createQuery("from Picture where picturename like '%"+cha+"%'");	
+				}else if(type == 2) {	//通过尺寸
+					qy = getSession().createQuery("from Picture where size like '"+cha+"%'");
+					System.out.println("soso"+qy.list().size());
+				}else {		//通过
+					qy = null;
+					System.out.println("错误！");
+				}
+		}else {
+			Type ty = (Type) getSession().get(Type.class,sech_type);
+			if(type == 1) {	// 全部
+				qy = getSession().createFilter(ty.getSet(),"where picturename like '%"+cha+"%' order by id desc");
+				
+			}else if(type == 2) {	//通过尺寸
+				qy = getSession().createFilter(ty.getSet(),"where size like '"+cha+"%' order by id desc");
+				System.out.println("soso"+qy.list().size());
+			}else {		//通过
+				qy = null;
+				System.out.println("错误！");
+			}
+		}
+		return qy.list().size();
+	}
+	
 	//查询图片类型
 	public List ck_type() {;
 		Query qy = getSession().createQuery("from Type");
 		List list = qy.list();
 		return list;
 	}
+	
 }

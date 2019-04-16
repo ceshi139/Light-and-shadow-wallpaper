@@ -115,19 +115,6 @@
                     return document.getElementById("iframe_index").contentDocument.body.scrollHeight;
                 }
 
-                /*window.onscroll=function() {
-                    // 窗口可视范围的高度
-                    var height = getClientHeight(),
-                        // 窗口滚动条高度
-                        theight = getScrollTop(),
-                        // 窗口可视范围的高度
-                        rheight = getScrollHeight(),
-                        hhh=getziyemian(),
-                        // 滚动条距离底部的高度
-                        bheight = rheight - theight - height;
-
-                    document.getElementById('show').innerHTML = '此时浏览器可见区域高度为：' + height + '<br />此时文档内容实际高度为：' + rheight + '<br />此时滚动条距离顶部的高度为：' + theight + '<br />此时滚动条距离底部的高度为：' + bheight+'<br/>子页面高度>>'+hhh;
-                }*/
                 //距离底部距离
                 function getbottom(){
                     return getScrollHeight()-getScrollTop()-getClientHeight();
@@ -139,7 +126,7 @@
 
                 /*去顶部点击触发事件*/
             $("#gototop").click(function () {
-                $("body,html").animate({scrollTop:0},1500);
+                $("body,html").animate({scrollTop:0},1000);
             });
 
             /*监听滚动条高度*/
@@ -160,21 +147,14 @@
                 }
             });
             $(window).scroll(function() {
-
-
                 if($(this).scrollTop()>460){
                     $("#biaoqian").css({"position":"fixed","left":"0px","top":"80px","z-index":"10"});
                 }else{
                     $("#biaoqian").css({"position":"","left":"0px","top":"","z-index":""});
                 }
-
-
-
-
             });
 
             $(".f-nav li").click(function () {
-
                 /*//初始化iframe高度*/
                 $("#iframe_index").attr({"height":0});
                 var thisid=$(this).attr("name");
@@ -190,9 +170,22 @@
                         $("iframe[name='text']").attr("src","indesx.jsp");
                     }
                 });
-            });
-
-
+            });         		
+            $(window).unload(function(){
+            	var thisid= 0;
+                var param={
+                    type_id : thisid,
+                }
+                $.ajax({
+                    url:"User_findPicture",
+                    type:"post",
+                    data:param,
+                    datatype:"json",
+                    success:function (data,textStatus) {
+                        $("iframe[name='text']").attr("src","indesx.jsp");
+                    }
+                });
+              });
 
                 $(".iframe_c").load(function() {
                     var a=getziyemian()+300;
@@ -201,34 +194,95 @@
                     $(this).height(iframeHeight < 500 ? 500 : iframeHeight+50);*/
                 });
 
+                $("#soso").click(function () {		//搜索
+                	 var aa = $("#iframe_index").contents().find("#more");
+                    var cha = $("input[name='cha']").val();
+                    var type = $("#type").val();
+                    var sech_type = $("#sech_type").val();
+                    alert(type);
+                    alert(sech_type);
+                    var param={
+                    	cha : cha,
+                    	type: type,
+                    	sech_type: sech_type
+                    }
+                    $.ajax({
+                        url:"User_cha",
+                        type:"post",
+                        data:param,
+                        datatype:"json",
+                        success:function (data,textStatus) {
+						   $("iframe[name='text']").attr("src","indesx.jsp"); 
+						    if(<%=session.getAttribute("totalSize") %>==0){
+							   alert("1");
+							   var aa=$("#iframe_index").contents().find("#more");
+		             		 	aa.html("<div id='no' style='margin-left:-12%;margin-top:-15%'><h1><b>暂无内容(ง •_•)ง</b></h1></div>");
+		             		}else{
+		             			alert("2");
+		             			$("iframe[name='text']").attr("src","indesx.jsp"); 
+		             		}
+                        }
+                    });
+                   
+                });
+                $("#sech_type").mouseover(function(){
+                	$("#type").slideDown("slow");
+                });
+            /*     $("#type").mouseout(function(){
+                	$("#type").slideUp("slow");
+                }); */
 
-
+                $('#f-nav').tooltip({ 
+               // default :b,     // 默认为空  --  选中默认值
+                width: '100',     // 限制宽度
+                height: '60',
+                textList: ['1','2','3','4'],
+                type: 'slideMove',  // 必填, 选择内容
+                success: function(ret){
+                	
+                }   //初始化回调
+          		});
+                
             });
-
-        /*function type2(id) {
-            window.location.href = "User_findPicture?type_id="+id;
-        }*/
     </script>
 </head>
 <body>
-
+ <s:if test="#session.types == null" >
      <s:action name="User_findPicture" namespace="/"></s:action>
+ </s:if>
 <%--//导航栏模块--%>
 <div class="header">
 
     <div class="container">
         <div class="rowFluid">
-            <div class="span3 col-md-12">
-                <div class="logo"><a href="index.jsp#" title="光影"> <img src="images/logo_me.png" style="width: 220px;height: 60px;margin-left: 10%;" alt="光影"/></a></div>
+            <div class="span3 col-md-12" >
+                <div class="logo"><a href="index.jsp#" title="光影"> <img src="images/logo_me.png" style="width: 220px;height: 60px;" alt="光影"/></a></div>
             </div>
             <div class="span9">
-                <div class="mobileMenuBtn"><span class="span1"></span><span class="span2"></span><span
-                        class="span3"></span></div>
+                <div class="mobileMenuBtn"><span class="span1"></span><span class="span2"></span><span class="span3"></span></div>
                 <div class="mobileMenuBtn_shad"></div>
-                <div class="header_menu">
+                <div class="header_menu" style="margin-left:-100px">
                     <ul id="menu">
-                        <li> <input type="text" style="border: 0px solid yellow;border-radius:4px;width: 600px;height:40px;padding-left: 12px;"/></li>
-                        <li><button class="button button-glow button-border button-rounded button-primary" style="height: 42px;width: 80px;border-radius: 4px;padding: 0px;">搜索</button></li>
+
+                    	<li> 
+              				<select id="sech_type" class="button button-glow button-border button-rounded button-primary" style="height: 42px;border-radius: 4px;padding: 0px;">
+              					<option value="1">全部类型</option>
+              					<s:iterator value="#session.types">
+              						<option value="<s:property value="id" />" ><s:property value="picturetype" /></option>
+              					</s:iterator>
+              				</select>
+              				<select id="type" class="button button-glow button-border button-rounded button-primary" style="height: 42px;border-radius: 4px;padding: 0px;display:none;">       							
+              					<option value="1">全部</option>
+              					<option value="1">图片名</option>
+              					<option value="2">尺寸</option>
+              				</select>        					
+              					<%-- <div id="type_a" value="1">全部</div>
+              					<div id="type_b" style="display: none;" value="2">类型<s:iterator value="#session.types"><div style=""><s:property value="picturetype"/></div></s:iterator></div>
+              					<div id="type_c" style="display: none;" value="3">尺寸</div>  --%>
+          				</li>
+          					
+                        <li> <input name="cha" type="text" style="border: 0px solid yellow;border-radius:4px;width: 600px;height:40px;padding-left: 12px;"/></li>	<!-- 搜索 -->
+                        <li><button id="soso" class="button button-glow button-border button-rounded button-primary" style="height: 42px;width: 80px;border-radius: 4px;padding: 0px;">搜索</button></li>
                         <s:if test="#session.user.username!=''">
                             <li><img title="<s:property value="#session.user.username"/>" class="Avatar" src="http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=<s:property value="#session.user.email" />&src_uin=qq.zy7.com&fid=blog&spec=640" /> </li>
                         </s:if>
@@ -271,8 +325,6 @@
     </div>
 </div>
 
-<%--<div id="show" style="width: 400px;height: 30px;position: fixed;top: 300px;left: 20px;color: red;">测试滚动条</div>
-<div id="test" style="width: 400px;height: 30px;position: fixed;top: 500px;left: 20px;color: red;">按钮</div>--%>
 <%--//头部模块--%>
 <div class="page">
     <div class="rowFluid">
@@ -292,7 +344,6 @@
                                       </div>
                                   </div>
                             </div>
-
 
                             <ul class="platform_advantage_bg">
                                 <%--方块特效--%>
@@ -325,25 +376,11 @@
                             <div class='sideline'></div>
                         </ul>
                 </div>
-
-                <script type="text/javascript">
-                    $('#f-nav').tooltip({
-                               // 默认为空  --  选中默认值
-                        width: '100',     // 限制宽度
-                        height: '50',
-                        textList: ['1','2','3','4'],
-                        type: 'slideMove',  // 必填, 选择内容
-                        success: function(ret){
-
-                        }   //初始化回调
-                    });
-                </script>
 <%--//内容模块--%>
 
                 <%--<hr style="width: 80%;margin: 0 auto;">--%>
                 <div id="index-iframe">
                 <iframe id="iframe_index" frameborder="no" scrolling="no" class="iframe_c" src="indesx.jsp" name="text"  style="padding-top: 20px;width: 100%;background:#253242;">
-
    				</iframe>
    				</div>
 

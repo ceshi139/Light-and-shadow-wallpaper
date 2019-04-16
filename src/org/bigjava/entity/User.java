@@ -1,22 +1,17 @@
 package org.bigjava.entity;
 
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class User {
+public class User implements Serializable {
 	private Integer id;		//用户
 	private String username; 	//用户姓名
 	private String email;
 	private String password;	//用户密码
 	private Integer age;	//用户年龄
-
-
-
-	private Double moneyover;
-
-
-
+	private Double moneyover;	//用户余额
 	private char sex;
 	private String gexing;
 	private int vip;	//是否为vip，“1”属于VIP，“0”不属于
@@ -26,6 +21,8 @@ public class User {
 	private Set<Picture> set_picture = new HashSet<Picture>();
 
 	private Set<Picture> set_upload = new HashSet<Picture>();
+	
+	private Set<User_fromuser> set = new HashSet<User_fromuser>();
 	
 	public User(){
 		
@@ -52,10 +49,13 @@ public class User {
 		this.moneyover = moneyover;
 	}
 
-	
-	
-	
-	
+
+	public Set<User_fromuser> getSet() {
+		return set;
+	}
+	public void setSet(Set<User_fromuser> set) {
+		this.set = set;
+	}
 	public Set<Picture> getSet_upload() {
 		return set_upload;
 	}

@@ -6,11 +6,15 @@
     /* transform:translateX(-50%); */
     padding-left:100px;
 	font-size:15px;
+
     height: 75px;
     line-height: 75px;
     background: #fff;
     min-width:200px;
+
 	width:220px;
+
+	width:300px;
     color:#13a92a;
     box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
     z-index:9999;

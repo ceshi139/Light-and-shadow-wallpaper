@@ -20,29 +20,36 @@
     <script type="text/javascript" src="js/biaoqian.js"></script>
     <script type="text/javascript" src="js/layer_upload.js"></script>
     <script type="text/javascript">
-        /*     function imgChange() {
-            //获取点击的文本框
-            var file =document.getElementById("file");
-            var imgUrl =window.URL.createObjectURL(file.files[0]);
-            var img =document.getElementById('imghead');
-            img.setAttribute('src',imgUrl); // 修改img标签src属性值
-         } */
-        $(function(){
-            $("#imghead").click(function(){
-                $("#file").click();
-                $("#file").on("change",function(){
-                    var file = (this).files;
-                    var dd = "";
-                    $.each(file,function(i,item){
-                        var img = URL.createObjectURL(file[i]);
-                        dd+="<img src='"+img+"' style='margin:10px 10px 10px;height:130px;float:left' width='130px' height='130px'/>";
-                    });
-                    $("#img").show();
-                    $("#img").empty().append(dd);
-                });
-            });
-        });
-    </script>
+/*     function imgChange() {
+    //获取点击的文本框
+    var file =document.getElementById("file");
+    var imgUrl =window.URL.createObjectURL(file.files[0]);
+    var img =document.getElementById('imghead');
+    img.setAttribute('src',imgUrl); // 修改img标签src属性值
+ } */
+ 	$(function(){
+ 		$("#imghead").click(function(){
+ 			$("#file").click();
+ 			$("#file").on("change",function(){
+ 				var file = (this).files;
+ 				var dd = "";
+ 				$.each(file,function(i,item){
+ 					var img = URL.createObjectURL(file[i]);
+ 					dd+="<div id='tu' style='position:relative;float:left;'><img src='"+img+"' style='margin:10px 10px 10px;height:130px;width:130px;z-index:-1'/>";
+ 					dd+="<img id='dele' src='images/close.png' style='width:25px;height:25px;position:absolute;left:80%;' /></div>";
+ 				});				
+ 				$("#img").show().empty();
+ 				$(dd).hide().appendTo("#img").fadeIn("slow");
+ 				//$("#img").empty().append(dd);
+ 				$("[id = dele]").on("click",function(){
+ 					$(this).parent("#tu").remove();
+ 	 		 	});
+ 			});
+ 		});
+
+ 		
+ 	});
+  </script>
 </head>
 <body>
 <section class="aui-content">
@@ -101,11 +108,11 @@
 
             <div class="aui-form-group clear">
                 <label class="aui-label-control">
-                    图片描述 <em>*</em>
+                    图片标题 <em>*</em>
                 </label>
                 <div class="aui-form-input">
-
                     <input type="text" class="aui-form-control-two" name="picture.picturename" id="3" placeholder="请输入图片相关描述" onBlur="checkpsd2()" />
+
                     <span class="tips" id="zizhi">提示...</span>
                 </div>
             </div>
@@ -124,6 +131,7 @@
                         <option value="1536*864">1536*864</option>
                         <option value="1680*1050">1680*1050</option>
                     </select>
+
                     <span class="tips" id="phone">提示...</span>
                 </div>
             </div>

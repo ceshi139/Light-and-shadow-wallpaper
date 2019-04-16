@@ -5,6 +5,9 @@ import org.bigjava.dao.UserDao;
 import org.bigjava.entity.Picture;
 import org.bigjava.entity.User;
 
+
+import com.sun.org.apache.bcel.internal.generic.RET;
+
 import java.util.List;
 
 public class UserBizImpl implements UserBiz {
@@ -90,11 +93,21 @@ public class UserBizImpl implements UserBiz {
 		return picturedao.ckcollect(userid, pictureid);
 	}
 	
+	//查询默认图片
 	public List<Picture> findall_picture(int pageNow,int pageSize,int type_id) {
 		return picturedao.findall_picture(pageNow, pageSize, type_id);
 	}
 	
-
+	//搜索图片
+	public List<Picture> sou(int type,int sech_type ,String cha,int pageNow ,int pageSize) {
+		return picturedao.sou(type,sech_type, cha, pageNow, pageSize);
+	}
+	
+	//搜索图片条数
+	public int sou_shu(int type,int sech_type ,String cha) {
+		return picturedao.sou_shu(type,sech_type, cha);
+	}
+	
 	//查询总条数
 
 	public int tiaoshu(int type_id) {
@@ -121,4 +134,21 @@ public class UserBizImpl implements UserBiz {
 	public Double addUserMoney(double money,String username){
 		return userdao.addUserMoney(money,username);
 	}
-}
+
+	
+	//关注
+	public void attention(int user_id,int fromuser_id) {
+		userdao.attention(user_id, fromuser_id);
+	}
+	
+	//取消关注
+	public void de_attention(int user_id,int fromuser_id) {
+		userdao.de_attention(user_id, fromuser_id);
+	}
+	
+	//判断是否关注
+	public boolean is_attention(int user_id,int fromuser_id) {
+		return userdao.is_attention(user_id, fromuser_id);
+	}
+	
+	}

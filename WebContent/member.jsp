@@ -6,6 +6,15 @@
     <title>VIP中心</title>
 
     <link href="css/member_top.css" rel="stylesheet" type="text/css"/>
+
+    <style>
+          .zhong2_1:hover{
+             filter:alpha(Opacity=80);-moz-opacity:0.9;opacity: 0.9;
+             background-color:#fff;
+          }
+          
+ 
+    </style>      
 </head>
 <body>
 
@@ -16,7 +25,9 @@
 </div>
 
 <div class="module-privilege">
-    <ul class="privilege-ul name-ul">
+
+   <div class="zhong2_1">
+     <ul class="privilege-ul name-ul">
         <li class="privilege-item first-item">
             <p class="title">
                 <span>功能特权</span>
@@ -50,7 +61,10 @@
             <a>优质素材优先推荐</a>
         </li>
 
-    </ul>
+     </ul>
+   </div> 
+   
+   <div class="zhong2_1">
     <ul class="privilege-ul svip-ul active recommend">
         <li class="privilege-item first-item">
             <div class="svip-type">
@@ -76,6 +90,11 @@
         <li class="privilege-item" style="background: #fbf4e4"><span class="icon right"></span></li>
 
     </ul>
+
+   </div>
+   
+    <div class="zhong2_1">
+
     <ul class="privilege-ul vip-ul ">
         <li class="privilege-item first-item">
             <div class="vip-type">
@@ -101,6 +120,10 @@
         <li class="privilege-item" style="background: #fbf9f8"><span class="icon right"></span></li>
 
     </ul>
+
+  </div> 
+  
+    <div class="zhong2_1">
     <ul class="privilege-ul no-vip-ul">
         <li class="privilege-item first-item">
             <div class="no-vip-type">
@@ -120,6 +143,15 @@
         <li class="privilege-item"><span class="icon error"></span></li>
         <li class="privilege-item" style="background: #fbf9f8"><span class="icon error"></span></li>
     </ul>
+
 </div>
+   
+   </div>
+     <div style="background:#000; height:528px; width:1095px;" class="div1">
+      
+   </div>
+</div>
+   
+
 </body>
 </html>

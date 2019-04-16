@@ -62,10 +62,9 @@ $(document).ready(function(){
                         z.parent().find(".my_like_img").attr({src:"img/nolike.png",title:"添加收藏"});
                         var a = CollectionNumber-1;
                         z.parent().find(".my_like_div_nobr").text(a);
-
                         //判断收藏页取消收藏立即刷新页面
                         if($(document).attr("title")=="我的收藏..."){
-                            window.location.reload()
+                            window.location.reload();
                         }
 
                         $.message({
@@ -86,10 +85,12 @@ $(document).ready(function(){
     $(".a").mouseover(function(){
         	var pic_id = $(this).find(".my_like_img").attr("name");
         	var user_id = $("#user_id").val();
+        	var fromuser_id = $(this).find(".my_like_div3").attr("name");
         	var z=$(this);
         	var params = {
                pic_id: pic_id,
-               user_id: user_id
+               user_id: user_id,
+               fromuser_id: fromuser_id
             }
         	$.ajax({
                      url: "User_collectpic",
@@ -98,12 +99,16 @@ $(document).ready(function(){
                      datatype: "json",
                      success: function (data, textStatus) {
                     	var flag = data.result;
+                    	var flag_a = data.result_a;
                     	if(flag==1){
                             z.parent().find(".my_like_img").attr({src:"img/nolike.png",title:"添加收藏"});
-                        }else if (flag==0) {
+                        }else{
                         	 z.parent().find(".my_like_img").attr({src:"img/like.png",title:"取消收藏"});
-                        }else {
-                        	z.parent().find(".my_like_img").attr({src:"img/nolike.png",title:"添加收藏"});
+                        }
+                    	if(flag_a == 2) {
+                        	z.parent().find(".my_like_div3 img").attr({src:"img/guanzhu.jpg",title:"添加关注"});;
+                        }else{
+                        	z.parent().find(".my_like_div3 img").attr({src:"img/no_guanzhu.png",title:"取消关注"});;
                         }
                      }
                  });
@@ -123,7 +128,6 @@ $(document).ready(function(){
         form.append($("<input></input>").attr("type", "hidden").attr("name", "ImgUrl").attr("value", ImgUrl));
         form.append($("<input></input>").attr("type", "hidden").attr("name", "ImgName").attr("value", ImgName));
         form.appendTo('body').submit().remove();
-
 
     });
 

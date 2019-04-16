@@ -1,6 +1,10 @@
 package org.bigjava.action;
+
 import java.io.File;
 import java.io.FileInputStream;
+
+import org.apache.struts2.ServletActionContext;
+
 import java.io.InputStream;
 import java.util.UUID;
 public class DownLoadAction {
@@ -53,6 +57,7 @@ public class DownLoadAction {
         System.out.println("图片最新路径"+ImgUrl);
         File file=new File(ImgUrl);
         inputStream=new FileInputStream(file);
+
         //设置下载文件名  别整中文哈 我这用的是UUID生成随机名字
         fileName = UUID.randomUUID()+".jpg";
         /*

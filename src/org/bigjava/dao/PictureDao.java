@@ -29,6 +29,14 @@ public interface PictureDao {
 	
 	//查询默认图片
 	public List<Picture> findall_picture(int pageNow, int pageSize, int type_id);
+
+	
+	//搜索图片
+	public List<Picture> sou(int type,int sech_type ,String cha,int pageNow ,int pageSize);
+	
+	//搜索图片条数
+	public int sou_shu(int type,int sech_type ,String cha) ;
+
 	
 	//查询总条数
 	public int tiaoshu(int type_id);
@@ -41,4 +49,6 @@ public interface PictureDao {
 	
 	//查询图片类型
 	public List ck_type();
+	
+
 }

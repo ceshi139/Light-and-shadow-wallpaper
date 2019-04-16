@@ -39,6 +39,7 @@
 				<value>org/bigjava/entity/Type.hbm.xml</value>
 				<value>org/bigjava/entity/Picture.hbm.xml</value>
 				<value>org/bigjava/entity/Admin.hbm.xml</value>
+				<value>org/bigjava/entity/User_fromuser.hbm.xml</value>
 				</list>
 		</property>
 	</bean>
@@ -78,6 +79,7 @@
 	<bean id="downloadAction" class="org.bigjava.action.DownLoadAction">
 
 	</bean>
+
 
     <!--管理员模块 -->
     <bean id="adminDao" class="org.bigjava.dao.AdminDaoImpl">

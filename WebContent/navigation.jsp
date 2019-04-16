@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>光影壁纸个人中心</title>
+
     <link rel="stylesheet" type="text/css" href="css/buju.css"/>
     <link rel="stylesheet" type="text/css" href="css/navigation.css"/>
     <link rel="stylesheet" type="text/css" href="css/base.css"/>
@@ -18,14 +19,11 @@
     <script src="js/owl.carousel.min.js"></script>
     <script type="text/javascript" src="js/page.js"></script>
     <script type="text/javascript">
-        $(function () {
-
-
-        });
     </script>
 </head>
-<body>
+<body id="iframe">
 <div class="header">
+	
     <div class="container">
         <div class="rowFluid">
             <div class="span3 col-md-12">
@@ -54,6 +52,7 @@
                         <div class="info">
                             <div>
                                 <i class="fa fa-address-card-o" style="font-size:18px;color:#1E98F4;margin-right: 8px;"></i><a href="Personal_center.jsp"  target="text_nav">个人信息</a>
+
                             </div>
                             <hr>
                             <div>
@@ -93,6 +92,7 @@
 </div>
 <%--背景图片设置区--%>
 <div style="width: 100%;height: 300px;border: 0px solid red;background-image: url(images/1.jpg);background-size:cover;background-position: 0px -200px;">
+
 
 </div>
 

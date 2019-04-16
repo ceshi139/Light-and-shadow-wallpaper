@@ -2,6 +2,7 @@ package org.bigjava.dao;
 
 import org.bigjava.entity.User;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -96,13 +97,45 @@ public class UserDaoImpl implements UserDao{
 		return endmoney;
 	}
 
-	/*
+	//关注
+	public void attention(int user_id,int fromuser_id) {
+		System.out.println("dao>>"+user_id+"<<"+fromuser_id);
+		String hql = "insert into user_fromuser (user_id,fromuser_id) value('"+user_id+"','"+fromuser_id+"')";
+		User ur = (User) getSession().get(User.class, user_id);	
+		System.out.println("dao"+ur.getFans());
+		ur.setFollow(ur.getFollow()+1);		//关注数+1
+		User ur_a = (User) getSession().get(User.class, fromuser_id);
+		ur_a.setFans(ur_a.getFans()+1);		//fromuser粉丝数+1
+			
+		System.out.println("关注"+user_id+"成功");
+		SQLQuery qy = getSession().createSQLQuery(hql);
+		qy.executeUpdate();
+	}
+	
+	//取消关注
+	public void de_attention(int user_id,int fromuser_id) {
+		String hql = "delete from user_fromuser where user_id='"+user_id+"'and fromuser_id="+fromuser_id;
+		User ur = (User) getSession().get(User.class, user_id);	
+		System.out.println("dao"+ur.getFans());
+		ur.setFollow(ur.getFollow()-1);		//关注数-1
+		User ur_a = (User) getSession().get(User.class, fromuser_id);
+		ur_a.setFans(ur_a.getFans()-1);		//fromuser粉丝数-1
+		
+		System.out.println("取消关注"+user_id+"成功");
+		SQLQuery qy = getSession().createSQLQuery(hql);
+		qy.executeUpdate();
+	}
+	
+	//判断是否关注
+	public boolean is_attention(int user_id,int fromuser_id) {
+		String hql = "select * from user_fromuser where user_id='"+user_id+"'and fromuser_id="+fromuser_id;
+		List list = getSession().createSQLQuery(hql).list();
+		if(list.size()<=0) {
+		return true;	//没有关注
+		}
+		return false;
+	}
 
-	 * //分页查询 public List<Student> fenye(int pageNow,int pageSize,String shu) {
-	 * Query qy =
-	 * getSession().createQuery("from Student where name like '"+shu+"%'");
-	 * qy.setFirstResult((pageNow-1)*pageSize); qy.setMaxResults(pageSize);
-	 * System.out.println("dao"+qy.list()); return qy.list(); }
-	 */
+	
 	
 }

@@ -1,7 +1,6 @@
 package org.bigjava.util;
 
 import com.opensymphony.xwork2.ActionContext;
-
 public class Page {
 	private boolean hasmore; //¸ü¶à
 	private int pageNow; //µ±Ç°Ò³
@@ -11,8 +10,7 @@ public class Page {
 	private boolean hasPre; //ÊÇ·ñÓÐÉÏÒ»Ò³½âÂë/
 	private boolean hasNext; //ÊÇ·ñÓÐÏÂÒ»Ò³
 	private boolean hasFirst; //ÊÇ·ñÓÐÊ×Ò³
-	private boolean hasLast; //ÊÇ·ñÓÐÎ²Ò³
-	 
+	private boolean hasLast; //ÊÇ·ñÓÐÎ²Ò³ 
 	public Page(){};
 	
 	public Page(int pageNow,int pageSize,int totalSize) {
@@ -37,7 +35,7 @@ public class Page {
 		this.totalSize = totalSize;
 	}
 	
-	//µÃµ½×ÜÒ³Êý
+	//ï¿½Ãµï¿½ï¿½ï¿½Ò³ï¿½ï¿½
 	public int getTotalPage() {
 		totalPage = this.getTotalSize()/this.getPageSize();
 		if(this.getTotalSize()%this.getPageSize() != 0){
@@ -57,7 +55,7 @@ public class Page {
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
-	//ÅÐ¶ÏÊÇ·ñÓÐÉÏÒ»Ò³
+	
 	public boolean isHasPre() {
 		if(this.isHasFirst()){
 			return true;
@@ -69,7 +67,7 @@ public class Page {
 		this.hasPre = hasPre;
 	}
 	
-	//ÅÐ¶ÏÊÇ·ñÓÐÏÂÒ»Ò³
+	//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ò³
 	public boolean isHasNext() {
 		if(this.isHasLast()){
 			return true; 
@@ -81,7 +79,7 @@ public class Page {
 		this.hasNext = hasNext;
 	}
 
-	//ÅÐ¶ÏÊÇ·ñÓÐÊ×Ò³	
+	//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ò³	
 	public boolean isHasFirst() {
 		if(this.pageNow == 1){
 			return false;
@@ -93,7 +91,7 @@ public class Page {
 		this.hasFirst = hasFirst;
 	}
 
-	//ÅÐ¶ÏÊÇ·ñÓÐÎ²Ò³
+	//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Î²Ò³
 	public boolean isHasLast() {
 		if(pageNow == this.getTotalPage()){
 			return false;
@@ -104,18 +102,16 @@ public class Page {
 	public void setHasLast(boolean hasLast) {
 		this.hasLast = hasLast;
 	}
-
 	public boolean isHasmore() {
 		int type_id = (int) ActionContext.getContext().getSession().get("type_id");
 		if(type_id == 0){
 			return false;
 		}
 		return true;
+
 	}
 
 	public void setHasmore(boolean hasmore) {
 		this.hasmore = hasmore;
 	}
-
-
 }

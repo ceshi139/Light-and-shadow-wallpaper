@@ -3,6 +3,9 @@ package org.bigjava.action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+
+import com.sun.mail.imap.protocol.ID;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.mail.EmailException;
 import org.apache.struts2.ServletActionContext;
@@ -26,7 +29,7 @@ public class UserAction extends ActionSupport {
 	private UserBiz userbiz;
 	private User user;
 	private String result;
-
+	private String result_a;
 	private List<Picture> pic;
 	private double money;//用户充值实际金额
 	private String addmoneyuser; //充值用户名
@@ -37,8 +40,10 @@ public class UserAction extends ActionSupport {
 
 
 	private int pageNow = 1; // 当前页
-	private int pageSize = 6;//页显示多少条
-	private int type_id; // 类型id
+
+	private int pageSize = 6; // 每页显示多少条
+	private int type_id = 0; // 类型id
+
 
 	private String username;
 	private String password;
@@ -49,6 +54,51 @@ public class UserAction extends ActionSupport {
 	private File[] file;
 	private String fileFileName;
 	private Picture picture;
+	private int type;
+	private String cha;
+	private int sech_type;
+	private int fromuser_id;
+	
+	
+	public String getResult_a() {
+		return result_a;
+	}
+
+	public void setResult_a(String result_a) {
+		this.result_a = result_a;
+	}
+
+	public int getFromuser_id() {
+		return fromuser_id;
+	}
+
+	public void setFromuser_id(int fromuser_id) {
+		this.fromuser_id = fromuser_id;
+	}
+
+	public int getSech_type() {
+		return sech_type;
+	}
+
+	public void setSech_type(int sech_type) {
+		this.sech_type = sech_type;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public String getCha() {
+		return cha;
+	}
+
+	public void setCha(String cha) {
+		this.cha = cha;
+	}
 
 
 	public Double getUsernowmoney() {
@@ -199,10 +249,6 @@ public class UserAction extends ActionSupport {
 		this.userbiz = userbiz;
 	}
 
-
-	// 得到type
-
-
 	// 判断用户名或密码是否为空
 	public boolean isEmty(String isemty) {
 		if (isemty.trim().equals("") || isemty == null) {
@@ -210,7 +256,6 @@ public class UserAction extends ActionSupport {
 		}
 		return false;
 	}
-
 
      public String removeSession(){
 	  	ServletActionContext.getRequest().getSession().removeAttribute("user");
@@ -222,7 +267,6 @@ public class UserAction extends ActionSupport {
 	public String login() {
 		System.out.println("12" + user.getEmail());
 		User ur = userbiz.login(user.getEmail(), user.getPassword());
-
 		if (isEmty(user.getEmail()) || isEmty(user.getPassword())) {
 			result = "账号或密码不能为空！";
 			ActionContext.getContext().getSession().put("rt", result);
@@ -238,6 +282,7 @@ public class UserAction extends ActionSupport {
 				DecimalFormat df=new DecimalFormat("0.00");
 				df.format(ur.getMoneyover());
 				ActionContext.getContext().getSession().put("usernowmoney",df.format(ur.getMoneyover()));
+				ActionContext.getContext().getSession().remove("rt");
 				return "index";
 			} else {
 				result = "此用户已被封禁";
@@ -332,9 +377,9 @@ public class UserAction extends ActionSupport {
 		int type_id = (int) ActionContext.getContext().getSession().get("type_id");
 		List types = userbiz.ck_type();
 		ActionContext.getContext().getSession().put("types", types);
-
 		int totalSize = userbiz.tiaoshu(type_id);
 		ActionContext.getContext().getSession().put("totalSize", totalSize);
+
 		if(pageNow<=0) {
 			pageNow = 1;
 		}
@@ -382,14 +427,22 @@ public class UserAction extends ActionSupport {
 			return "collect";
 		}
 	}
-	//判断是否被收藏
+	
+	//判断图片收藏和关注是被关注和收藏
 	public String collectpic() {
 		boolean ck_collect = userbiz.ckcollect(user_id, pic_id);
+		boolean ck_attention = userbiz.is_attention(user_id, fromuser_id);
+		
 		System.out.println(ck_collect+"pp"+pic_id);
 		if(ck_collect == true) {
 			result = "1";
-		}else {
+		}else if(ck_collect == false) {
 			result = "0";
+		}
+		if(ck_attention == true) {
+			result_a = "2";
+		}else if(ck_attention == false){
+			result_a = "3";
 		}
 		return "collect";
 	}
@@ -501,6 +554,8 @@ public class UserAction extends ActionSupport {
 	}
 	//查看上传
 	public String ckupload() {
+		User ur = (User) ActionContext.getContext().getSession().get("user");
+		int user_id = ur.getId();
 
 		System.out.println("user_id"+user_id);
 
@@ -550,5 +605,76 @@ public class UserAction extends ActionSupport {
 		ActionContext.getContext().getSession().put("usernowmoney",df.format(usernowmoney));
 		return "addsuccess";
 	}
-
+	
+	//图片搜索
+	public String cha() {
+		System.out.println("嗖嗖嗖"+sech_type+">>>"+type+">>"+cha);
+		
+		int totalSize = userbiz.sou_shu(type,sech_type, cha);
+		ActionContext.getContext().getSession().put("totalSize", totalSize);
+		if(pageNow<=0) {
+			pageNow = 1;
+		}
+		int zong = new Page(pageNow,pageSize,totalSize).getTotalPage();
+		if(pageNow>zong) {
+			pageNow = zong;
+		}
+		Page page = new Page(pageNow, pageSize, totalSize);
+		List<Picture> pic  = userbiz.sou(type,sech_type , cha, pageNow, pageSize);
+		
+		List<Picture> pc1_List = new ArrayList<Picture>();
+		List<Picture> pc2_List = new ArrayList<Picture>();
+		List<Picture> pc3_List = new ArrayList<Picture>();
+		int i=1;
+		for (Picture pc : pic) {
+			if (i % 3 == 1) {
+				pc1_List.add(pc);
+				i++;
+			} else if (i % 3 == 2) {
+				pc2_List.add(pc);
+				i++;
+			} else {
+				pc3_List.add(pc);
+				i++;
+			}
+		}
+		ActionContext.getContext().getSession().put("pc1", pc1_List);
+		ActionContext.getContext().getSession().put("pc2", pc2_List);
+		ActionContext.getContext().getSession().put("pc3", pc3_List);
+		ActionContext.getContext().getSession().put("page", page);
+		
+		return "index";
+	}
+	
+	//重定向首页
+	public String index() {
+		return "index";
+	}
+	
+	//关注
+	public String attention(){
+		User ur = (User) ActionContext.getContext().getSession().get("user");
+		int user_id = ur.getId();
+		System.out.println("attention"+user_id);
+		System.out.println(">>>>>>"+user_id+">>>>>>>"+fromuser_id);
+		boolean ck_att = userbiz.is_attention(user_id, fromuser_id);	//判断是否关注
+		if(user_id!=0 && fromuser_id!=0) {
+			if(ck_att == true) {
+				userbiz.attention(user_id, fromuser_id);	//关注
+				result = "1";	//成功
+			}else {
+				userbiz.de_attention(user_id, fromuser_id);
+				result="2";		//取消关注！
+			}
+		}else {
+			result ="3";		//请登陆
+		}
+		return "attention";
+	}
+	
+	//查询是否关注了
+	public String isattention(){
+		
+		return "";
+	}
 }
