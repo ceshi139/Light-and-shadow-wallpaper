@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+    <constant name="struts.multipart.maxSize" value="2097152000" />
+    <constant name="struts.devMode" value="true"></constant>
+    <package namespace="/admin" name="default" extends="struts-default,json-default" >
+
+
+        <action name="*" class="org.bigjava.action.AdminAction"  method="{1}">
+            <result name="adminlogin">../adminIndex.jsp</result>
+            <result name="nologin">../adminlogin.jsp</result>
+            <result name="no">../adminlogin.jsp</result>
+            <result name="chaAllUser">../admin/user.jsp</result>
+            <result name="fengjin">../admin/user.jsp</result>
+            <result name="jiefeng">../admin/user.jsp</result>
+            <result name="false">../admin/updatePwd.jsp</result>
+            <!--  类型区-->
+            <result name="chaAllType">/type.jsp</result>
+            <result name="findById">/update.jsp</result>
+            <result name="update" type="redirect">/type.jsp</result>
+            <result name="addType">/type.jsp</result>
+            <result name="delete">/type.jsp</result>
+            <result name="upload">/picture.jsp</result>
+            <!--  图片区 -->
+            <result name="chaAllPicture">../admin/picture.jsp</result>
+            <result name="ajaxchaAllPicture" type="json">../admin/picture.jsp</result>
+            <result name="flase">../admin/404.jsp</result>
+            <result name="findByIdPicture">../admin/updatePicture.jsp</result>
+            <result name="updatePicture">../admin/picture.jsp</result>
+            <result name="deletePicture">../admin/picture.jsp</result>
+            <!-- 修改admin密码区 -->
+            <result type="json"></result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,164 @@
+
+.lead {
+    max-width: 45rem;
+    font-size: 1.25rem
+}
+
+
+::-moz-selection, ::selection {
+    background: #e67e39;
+    color: #fff
+}
+
+.sub-point {
+    display: block;
+    font-size: 0.75rem
+}
+
+
+
+.container {
+    margin: 0 auto;
+    max-width: 40rem;
+    width: 90%
+}
+
+.row {
+    *zoom: 1
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both
+}
+
+
+
+.example-image-link {
+    background-color: #fff;
+}
+.how-to-use-section p, .how-to-use-section ol, .how-to-use-section ul, .how-to-use-section pre {
+    text-align: left
+}
+
+
+
+.donate-button {
+    width: 100%
+}
+
+
+.sharing-section {
+    position: fixed;
+    z-index: 10;
+    top: 20px;
+    right: 0
+}
+
+code {
+    color: #777;
+    background-color: #f2f2f2;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    border-radius: 6px;
+    font-family: Consolas, Courier, monospace;
+    font-size: 0.9rem;
+    padding: 0.1rem 0.3rem;
+    position: relative;
+    top: -1px
+}
+
+
+
+.column {
+    margin-bottom: 1.5rem
+}
+
+@media (min-width: 40rem) {
+    .column {
+        float: left;
+        margin: 0;
+        padding-left: 1rem;
+        padding-right: 1rem
+    }
+
+    .column.full {
+        width: 100%
+    }
+
+    .column.two-thirds {
+        width: 66.7%
+    }
+
+    .column.half {
+        width: 50%
+    }
+
+    .column.third {
+        width: 33.3%
+    }
+
+    .column.fourth {
+        width: 24.95%
+    }
+
+    .column.flow-opposite {
+        float: right
+    }
+}
+
+
+
+.button {
+    display: block;
+    padding: 0.7rem 2rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    color: #fff;
+    background-color: #4ae;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    border-radius: 6px;
+    vertical-align: middle;
+    white-space: nowrap
+}
+
+.button:hover {
+    background: #1595ea;
+    text-decoration: none
+}
+
+@media (min-width: 40rem) {
+    .button {
+        display: inline-block;
+        margin: 0 0.25rem
+    }
+}
+
+.button-minor {
+    padding: 0.35rem 1rem;
+    border: 2px solid #4ae;
+    color: #4ae;
+    background-color: transparent;
+    font-size: 0.8rem
+}
+
+.button-minor:hover {
+    color: #fff
+}
+
+
+
+@media (min-width: 40rem) {
+    hr {
+        margin: 2.5rem auto
+    }
+}

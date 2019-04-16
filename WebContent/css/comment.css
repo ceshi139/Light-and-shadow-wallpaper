@@ -1,0 +1,92 @@
+
+     .bigDiv{
+         width:70%;
+         height:200%;
+         border:1px solid #ddd;
+         margin-left:15%;
+         float:left;
+     }
+     
+     .div_left{
+         width:65%;
+         height:1000px;
+         border:1px solid #ddd;
+         float:left;
+     }
+     
+     .div_right{
+         width:33%;
+         height:1000px;
+         border:1px solid #ddd;
+         float:right;      
+     }
+     
+     .div_left_1{
+         width:100%;
+         border:1px solid #ddd;
+         
+     }
+     
+     .div_left_1_title{       /*  标题样式 */
+         width:97%;
+         height:40px;
+         border:1px;
+         margin-left:15px;
+       
+     }
+     
+     .div_left_1_tu{
+         width:250px;          /*  图片样式 */
+         height:200px;
+         border:1px solid #ddd;
+         margin-left:15px;
+         float:left;
+       
+     }
+     .div_left_1_jishao{
+         width:400px;            /*  图片介绍样式 */
+         height:200px;
+         border:1px solid #ddd;
+         margin-right:5px;
+         float:right;
+     
+     }
+     
+     .div_left_1_state{
+         width:97%;               /*  操作样式 */
+         height:35px;
+         border:1px solid #ddd;
+         float:left;
+         margin-left:15px;
+       
+     }
+     
+     .comment{                  
+         width:100%;
+         float:left;
+     }
+     
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+     
